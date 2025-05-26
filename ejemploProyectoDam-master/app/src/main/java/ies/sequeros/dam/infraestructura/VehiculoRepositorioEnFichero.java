@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementación del repositorio de vehículos utilizando un fichero.
+ * Esta clase maneja la persistencia de los vehículos en un archivo JSON.
+ */
+
 public class VehiculoRepositorioEnFichero implements IVehiculoRepositorio {
     private final ObjectMapper mapper;
     private final File archivo;

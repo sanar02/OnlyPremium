@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementación del repositorio de mecánicos utilizando un fichero.
+ * Esta clase maneja la persistencia de los mecánicos en un archivo JSON.
+ */
 public class MecanicoRepositorioEnFichero implements IMecanicoRepositorio {
     private final ObjectMapper mapper;
     private final File archivo;

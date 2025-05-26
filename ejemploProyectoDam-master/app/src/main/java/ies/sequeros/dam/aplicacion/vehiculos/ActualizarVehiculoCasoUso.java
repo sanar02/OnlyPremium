@@ -6,6 +6,11 @@ import ies.sequeros.dam.dominio.Vehiculo;
 
 import java.util.Optional;
 
+/**
+ * Caso de uso para actualizar un vehículo.
+ * Este caso de uso se encarga de actualizar la información de un vehículo en el repositorio.
+ */
+ 
 public class ActualizarVehiculoCasoUso {
     private IVehiculoRepositorio vehiculoRepositorio;
     private IAlmacenImagenVehiculo almacenImagenVehiculo;

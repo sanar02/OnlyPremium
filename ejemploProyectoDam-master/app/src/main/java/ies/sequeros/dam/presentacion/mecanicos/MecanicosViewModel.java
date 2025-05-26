@@ -15,6 +15,11 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 
+/**
+ * ViewModel para gestionar la lista de mecánicos.
+ * Este ViewModel se encarga de interactuar con los casos de uso para obtener, añadir, actualizar y eliminar mecánicos.
+ * Utiliza propiedades observables para notificar a la vista sobre cambios en la lista de mecánicos.
+ */
 public class MecanicosViewModel {
     //listado observable
     private ListProperty<Mecanico> mecanicos;
