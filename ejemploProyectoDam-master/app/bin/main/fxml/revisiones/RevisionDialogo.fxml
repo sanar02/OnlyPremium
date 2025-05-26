@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.geometry.Insets?>
+<DialogPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ies.sequeros.dam.presentacion.revisiones.RevisionDialogoController">
+
+    <content>
+        <StackPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <VBox alignment="CENTER" maxWidth="500">
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label minWidth="100" text="Fecha de revisión:"/>
+                        <DatePicker fx:id="campoFecha"  HBox.hgrow="ALWAYS" />
+                        <padding>
+                            <Insets bottom="20.0" />
+                        </padding>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT"  spacing="10">
+                        <Label minWidth="100" text="Kilómetros:"/>
+                        <TextField fx:id="kilometrosField"  HBox.hgrow="ALWAYS" />
+                        <padding>
+                            <Insets bottom="20.0" />
+                        </padding>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT"  spacing="10">
+                        <Label minWidth="100" text="Comentario:"/>
+                        <TextArea fx:id="comentarioArea" prefRowCount="3"  HBox.hgrow="ALWAYS" />
+                        <padding>
+                            <Insets bottom="20.0" />
+                        </padding>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT"  spacing="10">
+                        <Label minWidth="100" text="Mecánico:"/>
+                        <ComboBox fx:id="mecanicoComboBox"  HBox.hgrow="ALWAYS" />
+                        <padding>
+                            <Insets bottom="20.0" />
+                        </padding>
+                    </HBox>
+                </children>
+            </VBox>
+        </StackPane>
+    </content>
+
+    <buttonTypes>
+        <ButtonType fx:id="guardarButton" text="Guardar" buttonData="OK_DONE"/>
+        <ButtonType text="Cancelar" buttonData="CANCEL_CLOSE"/>
+    </buttonTypes>
+</DialogPane>
+

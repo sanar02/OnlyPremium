@@ -1,0 +1,95 @@
+
+@import '../fonts/Fonts.css';
+@import 'MFXColors.css';
+
+/**************************************************
+ * Root
+**************************************************/
+.rootPane {
+	-fx-background-color: -mfx-background;
+	-fx-background-radius: 10;
+	-fx-border-color: -mfx-primary;
+	-fx-border-radius: 0;
+}
+.mfx-text-field{
+	-fx-min-width: 300;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************
+ * Sidebar
+**************************************************/
+.rootPane .sidebar {
+	-fx-background-color: -mfx-primary;
+	-fx-background-insets: -1 -5 -1 -1;
+	-fx-background-radius: 0 20 20 0;
+}
+
+.rootPane .sidebar .header {
+	-fx-font-family: 'Open Sans ExtraBold';
+	-fx-font-size: 24;
+	-fx-text-fill: -mfx-background;
+}
+
+.rootPane .sidebar .header .mfx-font-icon {
+	-mfx-color: -mfx-sucess;
+}
+
+.rootPane .sidebar .mfx-scroll-pane {
+	-fx-background-color: transparent;
+
+	-track-color: rgba(255, 255, 255, 0.3);
+	-thumb-color: -mfx-background;
+	-thumb-hover-color: -mfx-background;
+}
+
+.rootPane .sidebar .menu-label {
+	-fx-font-family: 'Open Sans Bold';
+	-fx-font-size: 14;
+	-fx-text-fill: -mfx-background;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-color: transparent;
+	-fx-border-radius: 0;
+	-fx-pref-height: 40;
+
+	-fx-font-family: 'Open Sans SemiBold';
+	-fx-font-size: 13;
+	-fx-text-fill: -mfx-background;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-ripple-generator {
+	-mfx-paused: true;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-icon-wrapper .mfx-font-icon {
+	-mfx-color: -mfx-background;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected {
+	-fx-background-color: -mfx-background;
+	-fx-background-radius: 5;
+	-fx-text-fill: -mfx-primary;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .selection-rectangle {
+	-fx-stroke: transparent;
+	-fx-fill: -mfx-primary;
+}
+
+.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .mfx-icon-wrapper .mfx-font-icon {
+	-mfx-color: -mfx-primary;
+}

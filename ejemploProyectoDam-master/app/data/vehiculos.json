@@ -1,0 +1,32 @@
+{
+  "90890" : {
+    "marca" : "908098",
+    "modelo" : "98",
+    "matricula" : "90890",
+    "color" : "90890",
+    "proximaRevision" : 0,
+    "periodoRevision" : 0,
+    "revisiones" : [ ],
+    "pathimagen" : "imagenes/90890.png"
+  },
+  "iouoiu" : {
+    "marca" : "iouoiu",
+    "modelo" : "iuoiufgdfgfd",
+    "matricula" : "iouoiu",
+    "color" : "iouoiu",
+    "proximaRevision" : 0,
+    "periodoRevision" : 0,
+    "revisiones" : [ {
+      "fecha" : [ 2025, 5, 25 ],
+      "kilometros" : 89789,
+      "comentario" : "897897",
+      "mecanicoId" : 1
+    }, {
+      "fecha" : [ 2025, 5, 25 ],
+      "kilometros" : 908908,
+      "comentario" : "908908",
+      "mecanicoId" : 3
+    } ],
+    "pathimagen" : "imagenes/iouoiu.png"
+  }
+}
