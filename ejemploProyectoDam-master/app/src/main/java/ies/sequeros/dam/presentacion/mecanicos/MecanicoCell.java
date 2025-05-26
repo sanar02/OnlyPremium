@@ -15,7 +15,10 @@ import org.controlsfx.control.GridCell;
 
 import java.util.function.Consumer;
 
-
+/**
+ * Clase que representa una celda personalizada para mostrar información de un mecánico en un GridView.
+ * Esta celda incluye una imagen, título, descripción y botones para ver, editar y eliminar el mecánico.
+ */
 public class MecanicoCell extends GridCell<Mecanico> {
 
     private Label label;

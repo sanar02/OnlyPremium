@@ -2,6 +2,10 @@ package ies.sequeros.dam.aplicacion.vehiculos;
 
 import ies.sequeros.dam.dominio.*;
 
+/**
+ * Caso de uso para añadir un nuevo vehículo.
+ * Este caso de uso se encarga de añadir un nuevo vehículo al repositorio y almacenar su imagen.
+ */
 public class NuevoVehiculoCasoUso {
     private IVehiculoRepositorio repositorio;
     private IAlmacenImagenVehiculo almacen;

@@ -3,6 +3,10 @@ package ies.sequeros.dam.dominio;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interfaz del repositorio de vehículos.
+ * Define las operaciones básicas para gestionar vehículos en el sistema.
+ */
 public interface IVehiculoRepositorio {
     public void add(Vehiculo vehiculo);
     public Optional<Vehiculo> findById(String id);

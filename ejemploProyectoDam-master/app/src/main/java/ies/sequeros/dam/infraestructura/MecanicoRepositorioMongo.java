@@ -30,6 +30,19 @@ import java.util.Optional;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
+/**
+ * Implementación del repositorio de mecánicos utilizando MongoDB.
+ * Esta clase maneja la persistencia de los mecánicos en una base de datos MongoDB.
+ * Proporciona métodos para agregar, buscar, eliminar y actualizar mecánicos.
+ * Utiliza el patrón de repositorio para abstraer la lógica de acceso a datos.
+ * Se utiliza la biblioteca MongoDB Java Driver para interactuar con la base de datos.
+ * La clase también maneja la configuración de la conexión a la base de datos, incluyendo credenciales y dirección del servidor.
+ * Se define un codec personalizado para convertir entre objetos Java (POJOs) y documentos BSON de MongoDB.
+ * Esta implementación permite una fácil integración con la base de datos MongoDB y proporciona una interfaz clara para la gestión de mecánicos.
+ * Se espera que esta clase sea utilizada en el contexto de una aplicación que requiera la gestión de mecánicos, como un sistema de gestión de flotas o un taller mecánico.
+ * Esta implementación sigue el patrón de diseño de repositorio, que es una práctica común en aplicaciones que utilizan bases de datos NoSQL como MongoDB.
+ * La clase MecanicoRepositorioMongo es responsable de la interacción con la base de datos MongoDB para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los objetos Mecanico.*/
+
     public class MecanicoRepositorioMongo implements IMecanicoRepositorio {
         private MongoClient cliente;
         private MongoDatabase database;

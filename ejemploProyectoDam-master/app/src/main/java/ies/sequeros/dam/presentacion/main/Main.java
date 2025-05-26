@@ -18,6 +18,11 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Clase principal de la aplicación.
+ * Esta clase inicializa la aplicación JavaFX y carga la interfaz de usuario.
+ */
+
 public class Main extends Application {
 
 

@@ -3,7 +3,11 @@ package ies.sequeros.dam.dominio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * Clase que representa un vehículo.
+ * Contiene información sobre la marca, modelo, matrícula, color,
+ * revisiones y otros atributos relacionados con el vehículo.
+ */
 public class Vehiculo {
     private String marca;
     private String modelo;

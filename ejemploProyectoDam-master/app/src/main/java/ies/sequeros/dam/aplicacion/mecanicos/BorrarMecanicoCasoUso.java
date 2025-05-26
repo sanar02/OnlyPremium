@@ -5,6 +5,10 @@ import ies.sequeros.dam.dominio.Mecanico;
 
 import java.io.IOException;
 
+/**
+ * Caso de uso para actualizar un mecánico.
+ * Este caso de uso se encarga de actualizar la información de un mecánico en el repositorio.
+ */
 public class BorrarMecanicoCasoUso {
     private IMecanicoRepositorio mecanicoRepositorio;
     public BorrarMecanicoCasoUso(IMecanicoRepositorio mecanicoRepositorio) {

@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Implementación del almacenamiento de imágenes de vehículos en el sistema de archivos local.
+ * Esta clase se encarga de guardar, eliminar y reemplazar imágenes de vehículos en una ruta específica.
+ */
 public class AlmacenImagenVehiculoEnLocal implements IAlmacenImagenVehiculo {
     private String ruta;
     public AlmacenImagenVehiculoEnLocal(String path) {

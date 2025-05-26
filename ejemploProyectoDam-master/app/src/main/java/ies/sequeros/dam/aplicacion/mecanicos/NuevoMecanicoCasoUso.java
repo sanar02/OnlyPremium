@@ -5,6 +5,10 @@ package ies.sequeros.dam.aplicacion.mecanicos;
 
     import java.io.IOException;
 
+    /**
+     * Caso de uso para añadir un nuevo mecánico.
+     * Este caso de uso se encarga de añadir un nuevo mecánico al repositorio.
+     */
 public class NuevoMecanicoCasoUso {
         private IMecanicoRepositorio mecanicoRepositorio;
         public NuevoMecanicoCasoUso(IMecanicoRepositorio mecanicoRepositorio) {

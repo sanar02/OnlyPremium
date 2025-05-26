@@ -7,6 +7,10 @@ import java.util.Date;
  * no tiene id ya que se identifica por
  * el vehículo al que pertenece y la fecha
  */
+/**
+ * Clase que representa una revisión de un vehículo.
+ * Contiene información sobre la fecha, kilómetros, comentario y el ID del mecánico.
+ */
 public class Revision {
     private LocalDate fecha;
     private int kilometros;

@@ -3,6 +3,9 @@ package ies.sequeros.dam.dominio;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
+//// Clase que representa un mecánico en el sistema.
+// Esta clase contiene información básica sobre el mecánico, como su ID, nombre, email, estado activo y una descripción.
+// Se utiliza para almacenar y gestionar los datos de los mecánicos en la aplicación.
 public class Mecanico {
 
     private int id;
