@@ -1,65 +1,86 @@
 package es.burgueses.aplicacion.infraestructura;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import es.burgueses.aplicacion.dominio.Cancion;
 import es.burgueses.aplicacion.dominio.IListaReproduccionRepositorio;
 import es.burgueses.aplicacion.dominio.ListaReproduccion;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class ListaReproduccionRepositorioEnLocal implements IListaReproduccionRepositorio {
 
-    // Aquí iría la implementación del repositorio de listas de reproducción en local.
-    // Por ejemplo, podrías usar una base de datos SQLite o un archivo JSON para almacenar las listas de reproducción.
+    private final ObjectMapper mapper;
+    private final File archivo;
+    private final Map<String, ListaReproduccion> listas;
+
+    public ListaReproduccionRepositorioEnLocal() {
+        this.mapper = new ObjectMapper();
+        this.archivo = new File("listas_reproduccion.json");
+        this.listas = new HashMap<>();
+    }
+
+    private void cargar() {
+        if (archivo.exists()) {
+            try {
+                List<ListaReproduccion> lista = mapper.readValue(archivo, new TypeReference<List<ListaReproduccion>>() {
+                });
+                for (ListaReproduccion lr : lista) {
+                    listas.put(lr.getNombre(), lr);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Error al cargar listas de reproducción", e);
+            }
+        }
+    }
+
+    private void guardar() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(archivo, listas.values());
+        } catch (IOException e) {
+            throw new RuntimeException("Error al guardar listas de reproducción", e);
+        }
+    }
 
     @Override
     public void add(ListaReproduccion lista) {
-        // Implementación para añadir una lista de reproducción al repositorio
+        if (listas.containsKey(lista.getNombre())) {
+            throw new IllegalStateException("Ya existe una lista con ese nombre");
+        }
+        listas.put(lista.getNombre(), lista);
+        guardar();
     }
-
-    // Método eliminado porque no está declarado en la interfaz IListaReproduccionRepositorio
 
     @Override
     public void remove(ListaReproduccion lista) {
-        // Implementación para eliminar una lista de reproducción del repositorio
-    }
-
-    public List<ListaReproduccion> getAll() {
-        // Implementación para obtener todas las listas de reproducción
-        return new ArrayList<>(); // Placeholder
+        listas.remove(lista.getNombre());
+        guardar();
     }
 
     @Override
     public ListaReproduccion findByTitulo(String titulo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByTitulo'");
+        return listas.get(titulo);
     }
 
     @Override
     public List<ListaReproduccion> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return new ArrayList<>(listas.values());
     }
 
     @Override
     public void update(ListaReproduccion listaReproduccion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        listas.put(listaReproduccion.getNombre(), listaReproduccion);
+        guardar();
     }
 
     @Override
     public List<Cancion> getCanciones(String tituloLista) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCanciones'");
+        cargar();
+        ListaReproduccion lista = listas.get(tituloLista);
+        if (lista != null) {
+            return lista.getCanciones();
+        }
+        return Collections.emptyList();
     }
-
-    @Override
-    public void addCancion(String tituloLista, Cancion cancion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void removeCancion(String tituloLista, Cancion cancion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

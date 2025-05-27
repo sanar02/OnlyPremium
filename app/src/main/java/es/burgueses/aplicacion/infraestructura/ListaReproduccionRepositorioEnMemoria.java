@@ -17,16 +17,17 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
 
     @Override
     public void add(ListaReproduccion lista) {
+        boolean exists = listasReproduccion.stream()
+            .anyMatch(l -> l.getNombre().equals(lista.getNombre()));
+        if (exists) {
+            throw new IllegalStateException("Ya existe una lista con ese nombre");
+        }
         listasReproduccion.add(lista);
     }
 
     @Override
     public void remove(ListaReproduccion lista) {
         listasReproduccion.remove(lista);
-    }
-
-    public List<ListaReproduccion> getAll() {
-        return new ArrayList<>(listasReproduccion);
     }
 
     @Override
@@ -58,20 +59,5 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
             return lista.getCanciones();
         }
         return new ArrayList<>();
-    }
-
-    public Object getTitulo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTitulo'");
-    }
-
-    @Override
-    public void addCancion(String tituloLista, Cancion cancion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void removeCancion(String tituloLista, Cancion cancion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
