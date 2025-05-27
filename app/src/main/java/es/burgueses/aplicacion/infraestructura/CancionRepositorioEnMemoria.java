@@ -5,73 +5,78 @@ import es.burgueses.aplicacion.dominio.ICancionesRepositorio;
 import es.burgueses.aplicacion.dominio.Voto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
-public class CancionRepositorioEnLocal implements ICancionesRepositorio {
+public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
 
-    // Aquí iría la implementación del repositorio de canciones en local.
-    // Por ejemplo, podrías usar una base de datos SQLite o un archivo JSON para almacenar las canciones.
+    private final Map<String, Cancion> canciones = new HashMap<>();
 
     @Override
     public void add(Cancion cancion) {
-        // Implementación para añadir una canción al repositorio
-    }
-
-    // Método get(String id) eliminado porque no está declarado en la interfaz ICancionesRepositorio
-
-    // Método remove(Cancion cancion) implementado más abajo
-
-    public List<Cancion> getAll() {
-        // Implementación para obtener todas las canciones
-        return new ArrayList<>(); // Placeholder
+        canciones.put(cancion.getTitulo(), cancion);
     }
 
     @Override
     public void remove(Cancion cancion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        canciones.remove(cancion.getTitulo());
     }
 
     @Override
     public Cancion findByTitulo(String titulo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByTitulo'");
+        return canciones.get(titulo);
     }
 
     @Override
     public List<Cancion> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return new ArrayList<>(canciones.values());
     }
 
     @Override
     public void update(Cancion cancion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        canciones.put(cancion.getTitulo(), cancion);
     }
 
     @Override
     public void addVotoMeGusta(String titulo, Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addVotoMeGusta'");
+        Cancion c = canciones.get(titulo);
+        if (c != null) {
+            c.getMeGusta().add(voto);
+        } else {
+            throw new NoSuchElementException("Canción no encontrada");
+        }
     }
 
     @Override
     public void addVotoNoMeGusta(String titulo, Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addVotoNoMeGusta'");
+        Cancion c = canciones.get(titulo);
+        if (c != null) {
+            c.getNoMeGusta().add(voto);
+        } else {
+            throw new NoSuchElementException("Canción no encontrada");
+        }
     }
 
     @Override
     public List<Voto> getVotosMeGusta(String titulo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVotosMeGusta'");
+        Cancion c = canciones.get(titulo);
+        if (c != null) {
+            return c.getMeGusta();
+        } else {
+            throw new NoSuchElementException("Canción no encontrada");
+        }
     }
 
     @Override
     public List<Voto> getVotosNoMeGusta(String titulo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVotosNoMeGusta'");
+        Cancion c = canciones.get(titulo);
+        if (c != null) {
+            return c.getNoMeGusta();
+        } else {
+            throw new NoSuchElementException("Canción no encontrada");
+        }
     }
-    
+
 }
