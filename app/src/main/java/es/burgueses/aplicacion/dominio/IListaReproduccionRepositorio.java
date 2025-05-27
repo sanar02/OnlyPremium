@@ -9,8 +9,5 @@ public interface IListaReproduccionRepositorio {
     List<ListaReproduccion> findAll();
     void update(ListaReproduccion listaReproduccion);
     
-    // Métodos adicionales para manejar canciones en listas de reproducción
-    void addCancion(String tituloLista, Cancion cancion);
-    void removeCancion(String tituloLista, Cancion cancion);
     List<Cancion> getCanciones(String tituloLista);
 }

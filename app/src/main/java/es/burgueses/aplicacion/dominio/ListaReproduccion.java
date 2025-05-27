@@ -86,6 +86,10 @@ public class ListaReproduccion {
         this.noMeGusta = noMeGusta;
     }
 
+    public String getTitulo() {
+        return nombre;
+    }
+
     @Override
     public String toString() {
         return "ListaReproduccion{" +
@@ -98,10 +102,5 @@ public class ListaReproduccion {
                 ", noMeGusta=" + noMeGusta +
                 '}';
     }
-
-    public String getTitulo() {
-        return nombre;
-    }
-
     
 }

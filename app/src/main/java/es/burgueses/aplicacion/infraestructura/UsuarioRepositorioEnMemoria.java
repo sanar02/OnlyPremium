@@ -12,9 +12,6 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
 
     private final Map<String, Usuario> usuarios; // Mapa para almacenar usuarios por su apodo
 
-    /**
-     * Constructor que inicializa el repositorio de usuarios en memoria.
-     */
     public UsuarioRepositorioEnMemoria() {
         this.usuarios = new HashMap<>();
     }
@@ -41,26 +38,22 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
 
     @Override
     public void remove(Usuario usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        usuarios.remove(usuario.getApodo());
     }
 
     @Override
     public Usuario findByApodo(String apodo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByApodo'");
+        return usuarios.get(apodo);
     }
 
     @Override
     public List<Usuario> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return new ArrayList<>(usuarios.values());
     }
 
     @Override
     public void update(Usuario usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        usuarios.put(usuario.getApodo(), usuario);
     }
     
 }
