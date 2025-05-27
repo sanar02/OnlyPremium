@@ -12,7 +12,7 @@ public class Cancion {
     // Lista de géneros como objetos Genero
     private List<Genero> generos;
     private String path;
-    private Usuario propietario;
+    private String idPropietario;
     private String autor;
     private String descripcion;
     private LocalDate fechaAlta;
@@ -25,7 +25,7 @@ public class Cancion {
     public Cancion() {
         titulo = "";
         path = "";
-        propietario = new Usuario(); // Asignar un usuario por defecto
+        idPropietario = ""; // Asignar un usuario por defecto
         autor = "";
         descripcion = "";
         publica = false;
@@ -44,7 +44,7 @@ public class Cancion {
                 .map(Genero::valueOf)
                 .toList(); // Convertir de String a Genero
         this.path = path;
-        this.propietario = propietario;
+        this.idPropietario = idPropietario;
         this.autor = autor;
         this.descripcion = descripcion;
         this.fechaAlta = fechaAlta;
@@ -81,12 +81,11 @@ public class Cancion {
         this.path = path;
     }
 
-    public Usuario getPropietario() {
-        return propietario;
+    public String getIdPropietario() {
+        return idPropietario;
     }
-
-    public void setPropietario(Usuario propietario) {
-        this.propietario = propietario;
+    public void setIdPropietario(String idPropietario) {
+        this.idPropietario = idPropietario;
     }
 
     public String getAutor() {
@@ -148,7 +147,7 @@ public class Cancion {
                 "titulo='" + titulo + '\'' +
                 ", generos=" + generos +
                 ", path='" + path + '\'' +
-                ", propietario='" + propietario + '\'' +
+                ", propietario='" + idPropietario + '\'' +
                 ", autor='" + autor + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaAlta=" + fechaAlta +
