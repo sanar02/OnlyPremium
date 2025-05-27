@@ -1,4 +1,4 @@
-package es.burgueses.dominio;
+package es.burgueses.aplicacion.dominio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -98,4 +98,11 @@ public class ListaReproduccion {
                 ", noMeGusta=" + noMeGusta +
                 '}';
     }
+
+    @Override
+    public String getTitulo() {
+        return nombre;
+    }
+
+    
 }

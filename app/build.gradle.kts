@@ -8,6 +8,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("org.openjfx.javafxplugin") version "0.1.0"
+    id("java")
 }
 
 repositories {
@@ -21,6 +23,10 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    //serializacion json
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
