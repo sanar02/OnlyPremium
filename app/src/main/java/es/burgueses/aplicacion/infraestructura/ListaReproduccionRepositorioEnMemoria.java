@@ -64,4 +64,14 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTitulo'");
     }
+
+    @Override
+    public void addCancion(String tituloLista, Cancion cancion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeCancion(String tituloLista, Cancion cancion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

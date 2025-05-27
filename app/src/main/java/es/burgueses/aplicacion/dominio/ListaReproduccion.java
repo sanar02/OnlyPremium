@@ -99,7 +99,6 @@ public class ListaReproduccion {
                 '}';
     }
 
-    @Override
     public String getTitulo() {
         return nombre;
     }
