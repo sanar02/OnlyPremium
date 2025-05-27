@@ -7,7 +7,7 @@ import es.burgueses.aplicacion.dominio.Voto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CancionRepositorioEnLocal implements ICancionesRepositorio {
+public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
 
     // Aquí iría la implementación del repositorio de canciones en local.
     // Por ejemplo, podrías usar una base de datos SQLite o un archivo JSON para almacenar las canciones.
