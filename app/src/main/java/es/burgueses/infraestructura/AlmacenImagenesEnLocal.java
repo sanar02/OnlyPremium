@@ -1,12 +1,13 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
-import es.burgueses.aplicacion.infraestructura.IAlmacenImagenUsuario;
-import es.burgueses.aplicacion.infraestructura.SistemaArchivos;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import es.burgueses.dominio.IAlmacenImagenUsuario;
+import es.burgueses.infraestructura.utils.SistemaArchivos;
 
 public class AlmacenImagenesEnLocal implements IAlmacenImagenUsuario {
 

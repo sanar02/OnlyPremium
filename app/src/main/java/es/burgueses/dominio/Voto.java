@@ -1,6 +1,8 @@
-package es.burgueses.aplicacion.dominio;
+package es.burgueses.dominio;
 
 import java.time.LocalDate;
+
+import net.bytebuddy.asm.Advice.Local;
 
 public class Voto {
     private String usuario;
@@ -25,7 +27,7 @@ public class Voto {
         return fecha;
     }
     public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+        this.fecha = LocalDate.now();
     }
     public String getUsuario() {
         return usuario;

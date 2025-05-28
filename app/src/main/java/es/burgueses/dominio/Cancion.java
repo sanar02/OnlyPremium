@@ -15,6 +15,7 @@ public class Cancion {
     private List<Genero> generos;
     private String path;
     private String idPropietario;
+    private int idCancion;
     private String autor;
     private String descripcion;
     private LocalDate fechaAlta;
@@ -28,6 +29,7 @@ public class Cancion {
         titulo = "";
         path = "";
         idPropietario = ""; // Asignar un usuario por defecto
+        idCancion = -1;
         autor = "";
         descripcion = "";
         publica = false;
@@ -39,15 +41,21 @@ public class Cancion {
         fechaAlta = LocalDate.now();
     }
 
-    public Cancion(String titulo, List<String> generos, String path, Usuario propietario, String autor,
+    public Cancion(String titulo, List<String> generos, String path, Usuario propietario, int idCancion, String autor,
             String descripcion, LocalDate fechaAlta, boolean publica, int numeroReproducciones, List<Voto> meGusta,
             List<Voto> noMeGusta) {
-        this.titulo = titulo;
+        if (titulo == null || titulo.isEmpty() || titulo.trim().equals(" ")) {
+            throw new IllegalArgumentException("El título no puede ser nulo o vacío");
+        }
+        if(idCancion < 0) {
+            throw new IllegalArgumentException("El ID de la canción no puede ser negativo");
+        }
         this.generos = generos != null && !generos.isEmpty()
                 ? generos.stream().map(Genero::valueOf).toList()
                 : List.of(Genero.POP);
         this.path = path;
         this.idPropietario = propietario != null ? propietario.getApodo() : "";
+        this.idCancion = idCancion;
         this.autor = autor;
         this.descripcion = descripcion;
         this.fechaAlta = fechaAlta != null ? fechaAlta : LocalDate.now();
@@ -58,6 +66,17 @@ public class Cancion {
     }
 
     // Getters y Setters
+    public int getIdCancion() {
+        return idCancion;
+    }
+
+    public void setIdCancion(int idCancion) {
+        if (idCancion < 0) {
+            throw new IllegalArgumentException("El ID de la canción no puede ser negativo");
+        }
+        this.idCancion = idCancion;
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -127,10 +146,12 @@ public class Cancion {
     }
 
     public void setIdPropietario(String idPropietario) {
-        if(idPropietario == null) {
+        if (idPropietario == null) {
             throw new IllegalArgumentException("El ID del propietario no puede ser nulo");
+        } else {
+            this.idPropietario = idPropietario;
         }
-        this.idPropietario = idPropietario;
+
     }
 
     public String getAutor() {
@@ -138,10 +159,12 @@ public class Cancion {
     }
 
     public void setAutor(String autor) {
-        if(autor == null || autor.isEmpty() || autor.trim().equals(" ")) {
+        if (autor == null || autor.isEmpty() || autor.trim().equals(" ")) {
             throw new IllegalArgumentException("El autor no puede ser nulo, vacío o llevar espacios antes o después");
+        } else {
+            this.autor = autor;
         }
-        this.autor = autor;
+
     }
 
     public String getDescripcion() {
@@ -149,12 +172,15 @@ public class Cancion {
     }
 
     public void setDescripcion(String descripcion) {
-        if(descripcion == null || descripcion.isEmpty() || descripcion.trim().equals(" ")) {
-            throw new IllegalArgumentException("La descripción no puede ser nula, vacía o llevar espacios antes o después");
+        if (descripcion == null || descripcion.isEmpty() || descripcion.trim().equals(" ")) {
+            throw new IllegalArgumentException(
+                    "La descripción no puede ser nula, vacía o llevar espacios antes o después");
         } else if (descripcion.length() > 400) {
             throw new IllegalArgumentException("La descripción no puede tener más de 400 caracteres");
+        } else {
+            this.descripcion = descripcion;
         }
-        this.descripcion = descripcion;
+
     }
 
     public LocalDate getFechaAlta() {
@@ -164,10 +190,12 @@ public class Cancion {
     public void setFechaAlta(LocalDate fechaAlta) {
         if (fechaAlta == null) {
             throw new IllegalArgumentException("La fecha de alta no puede ser nula");
-        } else if (fechaAlta!=(LocalDate.now())) {
+        } else if (fechaAlta != (LocalDate.now())) {
             throw new IllegalArgumentException("La fecha de alta no puede ser futura");
+        } else {
+            this.fechaAlta = fechaAlta;
         }
-        this.fechaAlta = fechaAlta;
+
     }
 
     public boolean isPublica() {
@@ -175,7 +203,12 @@ public class Cancion {
     }
 
     public void setPublica(boolean publica) {
-        this.publica = publica;
+        if (publica != true && publica != false) {
+            throw new IllegalArgumentException("El estado de publicación debe ser verdadero o falso");
+        } else {
+            this.publica = publica;
+        }
+
     }
 
     public int getNumeroReproducciones() {
@@ -183,10 +216,12 @@ public class Cancion {
     }
 
     public void setNumeroReproducciones(int numeroReproducciones) {
-        if(numeroReproducciones < 0) {
+        if (numeroReproducciones < 0) {
             throw new IllegalArgumentException("El número de reproducciones no puede ser negativo");
+        } else {
+            this.numeroReproducciones = numeroReproducciones;
         }
-        this.numeroReproducciones = numeroReproducciones;
+
     }
 
     public List<Voto> getMeGusta() {
@@ -194,7 +229,12 @@ public class Cancion {
     }
 
     public void setMeGusta(List<Voto> meGusta) {
-        this.meGusta = meGusta;
+        if (meGusta == null) {
+            throw new IllegalArgumentException("La lista de 'me gusta' no puede ser nula");
+        } else {
+            this.meGusta = meGusta;
+        }
+
     }
 
     public List<Voto> getNoMeGusta() {
@@ -202,7 +242,12 @@ public class Cancion {
     }
 
     public void setNoMeGusta(List<Voto> noMeGusta) {
-        this.noMeGusta = noMeGusta;
+        if (noMeGusta == null) {
+            throw new IllegalArgumentException("La lista de 'no me gusta' no puede ser nula");
+        } else {
+            this.noMeGusta = noMeGusta;
+        }
+
     }
 
     @Override
