@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.dominio;
+package es.burgueses.dominio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,9 +26,26 @@ public class ListaReproduccion {
 
     public ListaReproduccion(String nombre, Usuario propietario, String descripcion, List<Cancion> canciones,
             LocalDate fechaCreacion, List<String> meGusta, List<String> noMeGusta) {
-        this.nombre = nombre;
-        this.propietario = propietario;
-        this.descripcion = descripcion;
+        if (nombre == null || nombre.isEmpty() || nombre.contains("  ") || nombre.length() > 35 || nombre.trim().equals("")) {
+            throw new IllegalArgumentException("El nombre no es correcto.");
+        } else {
+            this.nombre = nombre;
+        }
+        if (propietario == null) {
+            throw new IllegalArgumentException("El propietario no puede ser nulo.");
+        } else {
+            this.propietario = propietario;
+        }
+        if (fechaCreacion == null || !fechaCreacion.equals(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de creación debe ser la fecha actual.");
+        } else {
+            this.fechaCreacion = fechaCreacion;
+        }
+        if (canciones == null) {
+            canciones = new ArrayList<>();
+        } else {
+            this.canciones = canciones;
+        }
         this.canciones = canciones;
         this.fechaCreacion = fechaCreacion;
     }
@@ -39,6 +56,9 @@ public class ListaReproduccion {
     }
 
     public void setNombre(String nombre) {
+        if(nombre == null || nombre.isEmpty() || nombre.contains("  ") || nombre.length() > 35 || nombre.trim().equals("")) {
+            throw new IllegalArgumentException("El nombre no es correcto.");
+        }
         this.nombre = nombre;
     }
 
@@ -71,6 +91,9 @@ public class ListaReproduccion {
     }
 
     public void setFechaCreacion(LocalDate fechaCreacion) {
+        if(fechaCreacion == null || fechaCreacion!=LocalDate.now()) {
+            throw new IllegalArgumentException("La fecha incorrecta.");
+        }
         this.fechaCreacion = fechaCreacion;
     }
     public List<Voto> getMeGusta() {
@@ -88,6 +111,12 @@ public class ListaReproduccion {
 
     public String getTitulo() {
         return nombre;
+    }
+    public void setTitulo(String titulo) {
+        if(titulo == null || titulo.isEmpty() || titulo.contains("  ") || titulo.length() > 35 || titulo.trim().equals("")) {
+            throw new IllegalArgumentException("El título no es correcto.");
+        }
+        this.nombre = titulo;
     }
 
     @Override

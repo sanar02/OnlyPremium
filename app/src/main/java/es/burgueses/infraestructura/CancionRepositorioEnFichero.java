@@ -1,10 +1,11 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.ICancionesRepositorio;
-import es.burgueses.aplicacion.dominio.Voto;
+
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.Voto;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,6 +126,12 @@ public class CancionRepositorioEnFichero implements ICancionesRepositorio {
             }
         }
         return resultado;
+    }
+
+    @Override
+    public Cancion findById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 }
 

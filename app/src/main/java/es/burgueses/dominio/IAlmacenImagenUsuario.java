@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.dominio;
 
 public interface IAlmacenImagenUsuario {
 

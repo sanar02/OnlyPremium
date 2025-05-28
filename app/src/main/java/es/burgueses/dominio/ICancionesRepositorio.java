@@ -1,17 +1,18 @@
-package es.burgueses.aplicacion.dominio;
+package es.burgueses.dominio;
 
 import java.util.List;
 
 public interface ICancionesRepositorio {
-    void add(Cancion cancion);
-    void remove(Cancion cancion);
-    Cancion findByTitulo(String titulo);
-    List<Cancion> findAll();
-    void update(Cancion cancion);
+    public void add(Cancion cancion);
+    public void remove(Cancion cancion);
+    public Cancion findByTitulo(String titulo);
+    public Cancion findById(int id);
+    public List<Cancion> findAll();
+    public void update(Cancion cancion);
     
     // Métodos adicionales para manejar votos
-    void addVotoMeGusta(String titulo, Voto voto);
-    void addVotoNoMeGusta(String titulo, Voto voto);
-    List<Voto> getVotosMeGusta(String titulo);
-    List<Voto> getVotosNoMeGusta(String titulo);
+    public void addVotoMeGusta(String titulo, Voto voto);
+    public void addVotoNoMeGusta(String titulo, Voto voto);
+    public List<Voto> getVotosMeGusta(String titulo);
+    public List<Voto> getVotosNoMeGusta(String titulo);
 }
