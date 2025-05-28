@@ -1,8 +1,8 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.ICancionesRepositorio;
-import es.burgueses.aplicacion.dominio.Voto;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.Voto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +77,16 @@ public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
         } else {
             throw new NoSuchElementException("Canción no encontrada");
         }
+    }
+
+    @Override
+    public Cancion findById(int id) {
+        for (Cancion cancion : canciones.values()) {
+            if (cancion.getIdCancion() == id) {
+                return cancion;
+            }
+        }
+        throw new NoSuchElementException("Canción con ID " + id + " no encontrada");
     }
 
 }
