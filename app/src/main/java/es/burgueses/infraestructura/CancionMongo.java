@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -9,9 +9,9 @@ import com.mongodb.client.model.Updates;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.ICancionesRepositorio;
-import es.burgueses.aplicacion.dominio.Voto;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.Voto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +26,27 @@ public class CancionMongo implements ICancionesRepositorio {
     private final MongoCollection<Cancion> collection;
 
     public CancionMongo () {
-        ConnectionString connectionString = new ConnectionString("mongodb://10.2.1.191:27017");
+        String usuario = "app";
+        String contrasena = "1234568789Aa";
+        String baseDatos = "OnlyPremiun";
+        String host = "10.1.2.191";
+        int puerto = 27017;
 
-        CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
-        CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
+        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
+        ConnectionString connectionString = new ConnectionString(uri);
+
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build())
+        );
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
-                .codecRegistry(codecRegistry)
+                .codecRegistry(pojoCodecRegistry)
                 .build();
 
         this.mongoClient = MongoClients.create(settings);
-        this.database = mongoClient.getDatabase("burgueses");
+        this.database = mongoClient.getDatabase(baseDatos);
         this.collection = database.getCollection("canciones", Cancion.class);
     }
 
@@ -103,5 +112,11 @@ public class CancionMongo implements ICancionesRepositorio {
             return cancion.getNoMeGusta();
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public Cancion findById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 }

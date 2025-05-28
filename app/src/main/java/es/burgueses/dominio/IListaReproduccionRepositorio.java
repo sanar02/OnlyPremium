@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.dominio;
+package es.burgueses.dominio;
 
 import java.util.List;
 

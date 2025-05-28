@@ -1,12 +1,12 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import es.burgueses.aplicacion.dominio.Usuario;
-import es.burgueses.aplicacion.dominio.IUsuarioRepositorio;
+import es.burgueses.dominio.Usuario;
+import es.burgueses.dominio.IUsuarioRepositorio;
 
 public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
 

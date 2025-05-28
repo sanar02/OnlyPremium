@@ -1,10 +1,10 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.burgueses.aplicacion.dominio.IUsuarioRepositorio;
-import es.burgueses.aplicacion.dominio.Usuario;
+import es.burgueses.dominio.IUsuarioRepositorio;
+import es.burgueses.dominio.Usuario;
 
 import java.io.File;
 import java.io.IOException;
