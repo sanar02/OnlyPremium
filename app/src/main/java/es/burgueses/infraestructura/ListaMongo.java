@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -8,9 +8,9 @@ import com.mongodb.client.model.ReplaceOptions;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.IListaReproduccionRepositorio;
-import es.burgueses.aplicacion.dominio.ListaReproduccion;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.IListaReproduccionRepositorio;
+import es.burgueses.dominio.ListaReproduccion;
 
 import java.util.ArrayList;
 import java.util.List;

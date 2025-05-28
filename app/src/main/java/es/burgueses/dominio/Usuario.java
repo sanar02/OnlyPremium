@@ -32,14 +32,14 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apodo, ImageView imagen, boolean activo, LocalDate fechaAlta,
+    public Usuario(String nombre, String apodo, String pathImagen, boolean activo, LocalDate fechaAlta,
             TipoUsuario tipoUsuario) {
         if(nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         } else {
             this.nombre = nombre;
         }
-        if(apodo == null || apodo.isEmpty() || apodo.contains("")) {
+        if(apodo == null || apodo.isEmpty() || apodo.contains(" ")) {
             throw new IllegalArgumentException("El apodo no puede ser nulo o vacío, ni tener espacios en blanco");
         } else if (apodo.length() > 8) {
             throw new IllegalArgumentException("El apodo no puede tener más de 8 caracteres");

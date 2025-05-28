@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -9,9 +9,9 @@ import com.mongodb.client.model.Updates;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.ICancionesRepositorio;
-import es.burgueses.aplicacion.dominio.Voto;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.Voto;
 
 import java.util.ArrayList;
 import java.util.List;
