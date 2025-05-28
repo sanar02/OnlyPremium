@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -8,9 +8,9 @@ import com.mongodb.client.model.ReplaceOptions;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.IListaReproduccionRepositorio;
-import es.burgueses.aplicacion.dominio.ListaReproduccion;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.IListaReproduccionRepositorio;
+import es.burgueses.dominio.ListaReproduccion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     private final MongoCollection<ListaReproduccion> coleccion;
 
     public ListaMongo() {
-        String usuario = "admin";
-        String contrasena = "adminpassword";
+        String usuario = "app";
+        String contrasena = "1234568789Aa";
         String baseDatos = "OnlyPremiun";
         String host = "10.1.2.191";
         int puerto = 27017;
@@ -81,7 +81,7 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
         );
     }
 
-    @Override
+
     public void addCancion(String tituloLista, Cancion cancion) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
@@ -90,7 +90,7 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
         }
     }
 
-    @Override
+
     public void removeCancion(String tituloLista, Cancion cancion) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
