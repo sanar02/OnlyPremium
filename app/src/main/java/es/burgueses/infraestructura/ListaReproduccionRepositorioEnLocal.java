@@ -1,10 +1,10 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.IListaReproduccionRepositorio;
-import es.burgueses.aplicacion.dominio.ListaReproduccion;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.IListaReproduccionRepositorio;
+import es.burgueses.dominio.ListaReproduccion;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
