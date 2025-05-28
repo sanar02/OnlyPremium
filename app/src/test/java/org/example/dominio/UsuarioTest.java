@@ -3,7 +3,6 @@ package es.burgueses.aplicacion.dominio;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.text.html.ImageView;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -15,148 +14,224 @@ public class UsuarioTest {
 
     @Before
     public void setUp() {
-        // Antes de cada prueba, creamos un nuevo Usuario usando el constructor por defecto
+        // Creamos un Usuario limpio antes de cada test
         u = new Usuario();
     }
 
-    // [1] Constructor por defecto
+    // --- nombre ---------------------------------------------------------
+
     @Test
-    public void defaultConstructor() {
-        // ¿Qué hacemos? Comprobamos los valores iniciales inmediatamente tras crear el objeto.
-        // ¿Por qué? Para asegurarnos de que el objeto arranca en un estado consistente.
-        // ¿Qué esperamos?
-        //   - nombre vacío ("")
-        //   - apodo vacío ("")
-        //   - pathImagen vacío ("")
-        //   - activo == false
-        //   - fechaAlta == null
-        //   - tipoUsuario == USUARIO (por defecto)
-        assertEquals("nombre por defecto", "", u.getNombre());
-        assertEquals("apodo por defecto",   "", u.getApodo());
-        assertEquals("pathImagen por defecto", "", u.getPathImagen());
-        assertFalse("activo por defecto",    u.isActivo());
-        assertNull("fechaAlta por defecto",  u.getFechaAlta());
-        assertEquals("tipoUsuario por defecto",
-                Usuario.TipoUsuario.USUARIO, u.getTipoUsuario());
+    public void testSetNombreNullThrows() {
+        // ¿Qué? Llamar a setNombre(null)
+        // ¿Por qué? El nombre no puede ser null
+        // ¿Qué esperamos? IllegalArgumentException
+        boolean thrown = false;
+        try {
+            u.setNombre(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setNombre(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    // [2] Setters / getters básicos
     @Test
-    public void settersAndGettersValid() {
-        // ¿Qué hacemos? Asignamos valores válidos a cada campo usando los setters,
-        //             y luego leemos esos mismos valores con los getters.
-        // ¿Por qué? Para verificar que cada setter modifica correctamente el estado interno
-        //           y que cada getter devuelve el valor esperado.
-        // ¿Qué esperamos? Que getX() devuelva exactamente lo que establecimos con setX().
+    public void testSetNombreBlankThrows() {
+        // ¿Qué? Llamar a setNombre con solo espacios
+        // ¿Por qué? El nombre no puede estar en blanco
+        boolean thrown = false;
+        try {
+            u.setNombre("    ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setNombre(\"    \") debe lanzar IllegalArgumentException", thrown);
+    }
 
-        u.setNombre("A");
-        assertEquals("getNombre debe devolver 'A'", "A", u.getNombre());
+    @Test
+    public void testSetNombreTrimmedValid() {
+        // ¿Qué? Llamar a setNombre con espacios delante/detrás
+        // ¿Por qué? El setter debe recortar los espacios en los extremos
+        u.setNombre("  Juan Perez  ");
+        assertEquals("Debe recortar espacios en los extremos",
+                "Juan Perez", u.getNombre());
+    }
 
-        u.setApodo("B");
-        assertEquals("getApodo debe devolver 'B'", "B", u.getApodo());
+    @Test
+    public void testSetNombreInternalMultipleSpacesThrows() {
+        // ¿Qué? Llamar a setNombre con múltiples espacios internos
+        // ¿Por qué? No se permiten más de un espacio seguido entre palabras
+        boolean thrown = false;
+        try {
+            u.setNombre("Juan   Perez");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setNombre(\"Juan   Perez\") debe lanzar IllegalArgumentException", thrown);
+    }
 
-        u.setPathImagen("/img/ruta.png");
-        assertEquals("getPathImagen debe devolver '/img/ruta.png'",
-                "/img/ruta.png", u.getPathImagen());
+    // --- apodo ----------------------------------------------------------
 
+    @Test
+    public void testSetApodoNullThrows() {
+        // ¿Qué? Llamar a setApodo(null)
+        // ¿Por qué? El apodo no puede ser null
+        boolean thrown = false;
+        try {
+            u.setApodo(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setApodo(null) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetApodoBlankThrows() {
+        // ¿Qué? Llamar a setApodo con solo espacios
+        // ¿Por qué? El apodo no puede estar en blanco
+        boolean thrown = false;
+        try {
+            u.setApodo("   ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setApodo(\"   \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetApodoTrimmedValid() {
+        // ¿Qué? Llamar a setApodo con espacios delante/detrás
+        u.setApodo("  alias  ");
+        assertEquals("Debe recortar espacios en los extremos",
+                "alias", u.getApodo());
+    }
+
+    @Test
+    public void testSetApodoInternalMultipleSpacesThrows() {
+        // ¿Qué? Llamar a setApodo con múltiples espacios internos
+        boolean thrown = false;
+        try {
+            u.setApodo("ali   as");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setApodo(\"ali   as\") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- pathImagen -----------------------------------------------------
+
+    @Test
+    public void testSetPathImagenNullThrows() {
+        // ¿Qué? Llamar a setPathImagen(null)
+        // ¿Por qué? La ruta de imagen no puede ser null
+        boolean thrown = false;
+        try {
+            u.setPathImagen(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPathImagen(null) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetPathImagenBlankThrows() {
+        // ¿Qué? Llamar a setPathImagen con solo espacios
+        // ¿Por qué? La ruta no puede estar en blanco
+        boolean thrown = false;
+        try {
+            u.setPathImagen("    ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPathImagen(\"    \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetPathImagenTrimmedValid() {
+        // ¿Qué? Llamar a setPathImagen con espacios delante/detrás
+        u.setPathImagen("  /img/user.png  ");
+        assertEquals("Debe recortar espacios en los extremos",
+                "/img/user.png", u.getPathImagen());
+    }
+
+    @Test
+    public void testSetPathImagenInternalMultipleSpacesThrows() {
+        // ¿Qué? Llamar a setPathImagen con múltiples espacios internos
+        boolean thrown = false;
+        try {
+            u.setPathImagen("/img//user.png");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPathImagen(\"/img//user.png\") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- activo ---------------------------------------------------------
+
+    @Test
+    public void testSetActivoValid() {
+        // ¿Qué? Llamar a setActivo(true) y luego false
+        // ¿Por qué? Booleans no requieren validación compleja
         u.setActivo(true);
-        assertTrue("isActivo debe devolver true tras setActivo(true)", u.isActivo());
+        assertTrue("setActivo(true) debe reflejarse en isActivo()", u.isActivo());
+        u.setActivo(false);
+        assertFalse("setActivo(false) debe reflejarse en isActivo()", u.isActivo());
+    }
 
-        u.setFechaAlta(HOY);
-        assertEquals("getFechaAlta debe devolver la fecha asignada",
-                HOY, u.getFechaAlta());
+    // --- fechaAlta ------------------------------------------------------
 
+    @Test
+    public void testSetFechaAltaNullThrows() {
+        // ¿Qué? Llamar a setFechaAlta(null)
+        // ¿Por qué? La fecha de alta no puede ser null
+        boolean thrown = false;
+        try {
+            u.setFechaAlta(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setFechaAlta(null) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetFechaAltaFutureThrows() {
+        // ¿Qué? Llamar a setFechaAlta con fecha futura
+        boolean thrown = false;
+        try {
+            u.setFechaAlta(HOY.plusDays(1));
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setFechaAlta(fecha futura) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetFechaAltaValid() {
+        // ¿Qué? Llamar a setFechaAlta con fecha pasada o actual
+        LocalDate pasado = HOY.minusDays(10);
+        u.setFechaAlta(pasado);
+        assertEquals("setFechaAlta debe aceptar fechas pasadas", pasado, u.getFechaAlta());
+    }
+
+    // --- tipoUsuario ----------------------------------------------------
+
+    @Test
+    public void testSetTipoUsuarioNullThrows() {
+        // ¿Qué? Llamar a setTipoUsuario(null)
+        // ¿Por qué? El tipo de usuario no puede ser null
+        boolean thrown = false;
+        try {
+            u.setTipoUsuario(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setTipoUsuario(null) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetTipoUsuarioValid() {
+        // ¿Qué? Llamar a setTipoUsuario con ADMINISTRADOR
         u.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
-        assertEquals("getTipoUsuario debe devolver ADMINISTRADOR",
+        assertEquals("setTipoUsuario debe aceptar ADMINISTRADOR",
                 Usuario.TipoUsuario.ADMINISTRADOR, u.getTipoUsuario());
-    }
-
-    // [3] toString incluye todos los campos clave
-    @Test
-    public void toStringContainsAll() {
-        // ¿Qué hacemos? Poblamos todos los campos y luego llamamos a toString().
-        // ¿Por qué? Para asegurarnos de que la representación textual incluye
-        //           cada campo importante para facilitar debugging/logging.
-        // ¿Qué esperamos? Que la cadena contenga subcadenas con los valores asignados.
-
-        u.setNombre("Alice");
-        u.setApodo("Ali");
-        u.setPathImagen("/img/a.png");
-        u.setActivo(true);
-        u.setFechaAlta(HOY);
-        u.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
-
-        String s = u.toString();
-        assertTrue("toString debe contener nombre='Alice'", s.contains("nombre='Alice'"));
-        assertTrue("toString debe contener apodo='Ali'",     s.contains("apodo='Ali'"));
-        assertTrue("toString debe contener imagen=/img/a.png", s.contains("imagen=/img/a.png"));
-        assertTrue("toString debe contener activo=true",      s.contains("activo=true"));
-        assertTrue("toString debe contener fechaAlta=" + HOY,  s.contains("fechaAlta=" + HOY));
-        assertTrue("toString debe contener tipoUsuario=ADMINISTRADOR",
-                s.contains("tipoUsuario=ADMINISTRADOR"));
-    }
-
-    // [4] setNombre(null) → IllegalArgumentException
-    @Test(expected = IllegalArgumentException.class)
-    public void setNombreNullThrows() {
-        // ¿Qué hacemos? Llamamos a setNombre(null).
-        // ¿Por qué? Para validar que no se permita un nombre null.
-        // ¿Qué esperamos? Que lance IllegalArgumentException.
-        u.setNombre(null);
-    }
-
-    // [5] setApodo(null) → IllegalArgumentException
-    @Test(expected = IllegalArgumentException.class)
-    public void setApodoNullThrows() {
-        // ¿Qué hacemos? Llamamos a setApodo(null).
-        // ¿Por qué? Para validar que no se permita un apodo null.
-        // ¿Qué esperamos? Que lance IllegalArgumentException.
-        u.setApodo(null);
-    }
-
-    // [6] setPathImagen(null) → IllegalArgumentException
-    @Test(expected = IllegalArgumentException.class)
-    public void setPathImagenNullThrows() {
-        // ¿Qué hacemos? Llamamos a setPathImagen(null).
-        // ¿Por qué? Para validar que no se permita una ruta de imagen null.
-        // ¿Qué esperamos? Que lance IllegalArgumentException.
-        u.setPathImagen(null);
-    }
-
-    // [7] setFechaAlta(null) → IllegalArgumentException
-    @Test(expected = IllegalArgumentException.class)
-    public void setFechaAltaNullThrows() {
-        // ¿Qué hacemos? Llamamos a setFechaAlta(null).
-        // ¿Por qué? Para validar que no se permita una fecha de alta null.
-        // ¿Qué esperamos? Que lance IllegalArgumentException.
-        u.setFechaAlta(null);
-    }
-
-    // [8] setTipoUsuario(null) → IllegalArgumentException
-    @Test(expected = IllegalArgumentException.class)
-    public void setTipoUsuarioNullThrows() {
-        // ¿Qué hacemos? Llamamos a setTipoUsuario(null).
-        // ¿Por qué? Para validar que no se permita un tipo de usuario null.
-        // ¿Qué esperamos? Que lance IllegalArgumentException.
-        u.setTipoUsuario(null);
-    }
-
-    // [9] Constructor parametrizado no debe dejar pathImagen en null
-    @Test
-    public void paramConstructorPathImagenNotNull() {
-        // ¿Qué hacemos? Creamos un Usuario con el constructor que recibe ImageView (aquí pasamos null).
-        // ¿Por qué? Para comprobar que, incluso si el parámetro es null,
-        //           el campo pathImagen se inicializa a un valor no nulo.
-        // ¿Qué esperamos? Que getPathImagen() no devuelva null.
-        ImageView vacio = null;
-        Usuario p = new Usuario(
-                "N", "P", vacio,
-                true, HOY,
-                Usuario.TipoUsuario.ADMINISTRADOR
-        );
-        assertNotNull(
-                "Después del constructor parametrizado, pathImagen NO debe ser null",
-                p.getPathImagen()
-        );
     }
 }

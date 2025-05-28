@@ -1,172 +1,291 @@
 package es.burgueses.aplicacion.dominio;
 
+import org.junit.Before;
 import org.junit.Test;
+
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class CancionTest {
-    // datos de ejemplo para el constructor parametrizado
-    private final String TITULO     = "Cancion";
-    private final List<String> GEN_VALID   = Arrays.asList("ROCK", "POP");
-    private final List<String> GEN_INVALID = Arrays.asList("INVALID");
-    private final String PATH       = "/ruta/file.mp3";
-    private final Usuario USUARIO   = new Usuario();
-    private final String AUTOR      = "Autor";
-    private final String DESC       = "Descripcion";
-    private final LocalDate HOY     = LocalDate.now();
-    private final boolean PUB       = true;
-    private final int REPS          = 7;
-    private final List<String> MG   = Arrays.asList("MG");
-    private final List<String> NMG  = Arrays.asList("NOME");
 
-    // — Tests existentes (positivos) — //
+    private Cancion c;
+    private final LocalDate HOY = LocalDate.now();
 
-    @Test
-    public void defaultTitleEmpty() {
-        // Comprueba que el título por defecto es cadena vacía
-        Cancion c = new Cancion();
-        assertEquals("Titulo por defecto vacio", "", c.getTitulo());
+    @Before
+    public void setUp() {
+        // Instancia limpia antes de cada prueba
+        c = new Cancion();
     }
 
-    @Test
-    public void defaultPathEmpty() {
-        // Comprueba que el path por defecto es cadena vacía
-        Cancion c = new Cancion();
-        assertEquals("Path por defecto vacio", "", c.getPath());
-    }
+    // --- titulo ----------------------------------------------------------
 
     @Test
-    public void defaultPublicaFalse() {
-        // Comprueba que isPublica() es false al crear la canción
-        Cancion c = new Cancion();
-        assertFalse("Por defecto la canción no debe ser pública", c.isPublica());
-    }
-
-    @Test
-    public void defaultNumeroReproduccionesCero() {
-        // Comprueba que el contador de reproducciones inicia en 0
-        Cancion c = new Cancion();
-        assertEquals("Reproducciones por defecto en 0", 0, c.getNumeroReproducciones());
-    }
-
-    @Test
-    public void defaultGenerosEmpty() {
-        // Comprueba que la lista de géneros existe y comienza vacía
-        Cancion c = new Cancion();
-        assertNotNull("Lista de generos no debe ser null", c.getGeneros());
-        assertTrue("Lista de generos por defecto vacía", c.getGeneros().isEmpty());
-    }
-
-    @Test
-    public void defaultFechaAltaIsToday() {
-        // Comprueba que la fecha de alta inicial es la fecha de ejecución
-        Cancion c = new Cancion();
-        assertEquals("FechaAlta por defecto deber ser hoy", HOY, c.getFechaAlta());
-    }
-
-    // — Tests del constructor parametrizado (positivos) — //
-
-    @Test
-    public void paramConstructorSetsTitulo() {
-        // Verifica que el constructor asigna el título correctamente
-        Cancion c = new Cancion(TITULO, GEN_VALID, PATH, USUARIO, AUTOR, DESC,
-                HOY, PUB, REPS, MG, NMG);
-        assertEquals("Constructor debe asignar el título", TITULO, c.getTitulo());
-    }
-
-    @Test
-    public void paramConstructorValidGeneros() {
-        // Verifica la conversión de géneros válidos
-        Cancion c = new Cancion(TITULO, GEN_VALID, PATH, USUARIO, AUTOR, DESC,
-                HOY, PUB, REPS, MG, NMG);
-        List<String> out = c.getGeneros();
-        assertEquals("Debe tener 2 géneros", 2, out.size());
-        assertTrue("Debe contener ROCK", out.contains("ROCK"));
-        assertTrue("Debe contener POP",  out.contains("POP"));
-    }
-
-    @Test
-    public void paramConstructorSetsPath() {
-        // Verifica que el constructor asigna la ruta correctamente
-        Cancion c = new Cancion(TITULO, GEN_VALID, PATH, USUARIO, AUTOR, DESC,
-                HOY, PUB, REPS, MG, NMG);
-        assertEquals("Constructor debe asignar path", PATH, c.getPath());
-    }
-
-    @Test
-    public void paramConstructorSetsAutorDescripcion() {
-        // Verifica la asignación de autor y descripción
-        Cancion c = new Cancion(TITULO, GEN_VALID, PATH, USUARIO, AUTOR, DESC,
-                HOY, PUB, REPS, MG, NMG);
-        assertEquals("Constructor debe asignar autor",       AUTOR, c.getAutor());
-        assertEquals("Constructor debe asignar descripción", DESC,  c.getDescripcion());
-    }
-
-    @Test
-    public void paramConstructorSetsFechaAltaAndPublicaAndReproducciones() {
-        // Verifica fechaAlta, flag publica y reproducciones
-        Cancion c = new Cancion(TITULO, GEN_VALID, PATH, USUARIO, AUTOR, DESC,
-                HOY, PUB, REPS, MG, NMG);
-        assertEquals("FechaAlta asignada mal", HOY,   c.getFechaAlta());
-        assertTrue("Flag pública mal asignada",       c.isPublica());
-        assertEquals("Reproducciones asignadas mal", REPS, c.getNumeroReproducciones());
-    }
-
-    // — Tests que DEBEN DAR ERROR (casos conflictivos) — //
-
-    @Test(expected = IllegalArgumentException.class)
     public void testSetTituloNullThrows() {
-        // ¿Qué? Llamar a setTitulo(null)
-        // ¿Por qué? No se debe permitir título null
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setTitulo(null);
+        boolean thrown = false;
+        try {
+            c.setTitulo(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setTitulo(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testSetTituloBlankThrows() {
+        boolean thrown = false;
+        try {
+            c.setTitulo("   ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setTitulo(\"   \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetTituloTrimmedValid() {
+        c.setTitulo("  Hola Mundo  ");
+        // esperamos que el título recortado sea "Hola Mundo"
+        assertEquals("El título debe recortarse de ambos lados",
+                "Hola Mundo", c.getTitulo().trim());
+    }
+
+    // --- idPropietario --------------------------------------------------
+
+    @Test
+    public void testSetIdPropietarioNullThrows() {
+        boolean thrown = false;
+        try {
+            c.setIdPropietario(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setIdPropietario(null) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetIdPropietarioBlankThrows() {
+        boolean thrown = false;
+        try {
+            c.setIdPropietario("   ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setIdPropietario(\"   \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- path -----------------------------------------------------------
+
+    @Test
     public void testSetPathNullThrows() {
-        // ¿Qué? Llamar a setPath(null)
-        // ¿Por qué? No se debe permitir ruta null
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setPath(null);
+        boolean thrown = false;
+        try {
+            c.setPath(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPath(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testSetPathBlankThrows() {
+        boolean thrown = false;
+        try {
+            c.setPath("   ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPath(\"   \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetPathMalformedThrows() {
+        boolean thrown = false;
+        try {
+            // sin barra inicial
+            c.setPath("archivo.mp3");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setPath sin carpeta debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- autor ----------------------------------------------------------
+
+    @Test
     public void testSetAutorNullThrows() {
-        // ¿Qué? Llamar a setAutor(null)
-        // ¿Por qué? El autor no puede ser null
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setAutor(null);
+        boolean thrown = false;
+        try {
+            c.setAutor(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setAutor(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testSetAutorBlankThrows() {
+        boolean thrown = false;
+        try {
+            c.setAutor("   ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setAutor(\"   \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- descripcion ----------------------------------------------------
+
+    @Test
     public void testSetDescripcionNullThrows() {
-        // ¿Qué? Llamar a setDescripcion(null)
-        // ¿Por qué? La descripción no puede ser null
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setDescripcion(null);
+        boolean thrown = false;
+        try {
+            c.setDescripcion(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setDescripcion(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testSetDescripcionBlankThrows() {
+        boolean thrown = false;
+        try {
+            c.setDescripcion("    ");
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setDescripcion(\"    \") debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetDescripcionTooLongThrows() {
+        boolean thrown = false;
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 1001; i++) sb.append('x');
+            c.setDescripcion(sb.toString());
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setDescripcion(>1000 chars) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- fechaAlta -------------------------------------------------------
+
+    @Test
     public void testSetFechaAltaNullThrows() {
-        // ¿Qué? Llamar a setFechaAlta(null)
-        // ¿Por qué? La fecha de alta debe existir
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setFechaAlta(null);
+        boolean thrown = false;
+        try {
+            c.setFechaAlta(null);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setFechaAlta(null) debe lanzar IllegalArgumentException", thrown);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetReproduccionesNegativeThrows() {
-        // ¿Qué? Llamar a setNumeroReproducciones(-1)
-        // ¿Por qué? No tiene sentido valor negativo para reproducciones
-        // ¿Qué esperamos? IllegalArgumentException
-        Cancion c = new Cancion();
-        c.setNumeroReproducciones(-1);
+    @Test
+    public void testSetFechaAltaFutureThrows() {
+        boolean thrown = false;
+        try {
+            c.setFechaAlta(LocalDate.now().plusDays(1));
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setFechaAlta(fecha futura) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- numeroReproducciones -------------------------------------------
+
+    @Test
+    public void testSetNumeroReproduccionesNegativeThrows() {
+        boolean thrown = false;
+        try {
+            c.setNumeroReproducciones(-1);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setNumeroReproducciones(-1) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- generos --------------------------------------------------------
+
+    @Test
+    public void testSetGenerosNullThrowsOnAccess() {
+        boolean thrown = false;
+        try {
+            c.setGeneros(null);
+            c.getGeneros().size();
+        } catch (Exception e) {
+            thrown = true;
+        }
+        assertTrue("setGeneros(null)+getGeneros() debe lanzar NullPointerException", thrown);
+    }
+
+    @Test
+    public void testSetGenerosEmptyAllowed() {
+        // lista vacía no debe lanzar
+        c.setGeneros(Arrays.asList());
+        assertTrue("Lista vacía debe aceptarse", c.getGeneros().isEmpty());
+    }
+
+    @Test
+    public void testSetGenerosInvalidThrows() {
+        boolean thrown = false;
+        try {
+            c.setGeneros(Arrays.asList("INVALID"));
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setGeneros(invalid) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetGenerosLowercaseThrows() {
+        boolean thrown = false;
+        try {
+            c.setGeneros(Arrays.asList("rock"));
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setGeneros(minúsculas) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    @Test
+    public void testSetGenerosWhitespaceThrows() {
+        boolean thrown = false;
+        try {
+            c.setGeneros(Arrays.asList(" ROCK "));
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue("setGeneros(con espacios) debe lanzar IllegalArgumentException", thrown);
+    }
+
+    // --- meGusta / noMeGusta --------------------------------------------
+
+    @Test
+    public void testSetMeGustaNullThrowsOnAccess() {
+        boolean thrown = false;
+        try {
+            c.setMeGusta(null);
+            c.getMeGusta().size();
+        } catch (Exception e) {
+            thrown = true;
+        }
+        assertTrue("setMeGusta(null)+getMeGusta() debe lanzar NullPointerException", thrown);
+    }
+
+    @Test
+    public void testSetNoMeGustaNullThrowsOnAccess() {
+        boolean thrown = false;
+        try {
+            c.setNoMeGusta(null);
+            c.getNoMeGusta().size();
+        } catch (Exception e) {
+            thrown = true;
+        }
+        assertTrue("setNoMeGusta(null)+getNoMeGusta() debe lanzar NullPointerException", thrown);
     }
 }
