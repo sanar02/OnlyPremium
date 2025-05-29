@@ -9,4 +9,5 @@ public interface IUsuarioRepositorio {
     List<Usuario> findAll();
     Usuario get(String apodo);
     void update(Usuario usuario);
+
 }
