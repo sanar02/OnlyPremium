@@ -1,8 +1,7 @@
-package es.burgueses.dominio.infraestructura;
+package es.burgueses.infraestructura;
 
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;
-import es.burgueses.infraestructura.CancionRepositorioEnMemoria;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,13 +60,20 @@ public class ICancionesRepositorioTest {
 
         assertNull(ic.findByTitulo("invalido"));
     }
-
+    @Test
     public void testFindById() {
-    }
+        assertNotNull(ic.findById(1));
+        assertEquals("titulo",ic.findById(1).getTitulo());
 
+        assertNull(ic.findById(2));
+    }
+    @Test
     public void testFindAll() {
-    }
+        assertNotNull(ic.findAll());
+        assertEquals(1,ic.findAll().size());
 
+    }
+    @Test
     public void testUpdate() {
     }
 }

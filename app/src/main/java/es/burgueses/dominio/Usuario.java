@@ -90,7 +90,7 @@ public class Usuario {
     }
 
     public void setApodo(String apodo) {
-        if (apodo == null || apodo.isEmpty() || apodo.contains("")) {
+        if (apodo == null || apodo.isEmpty() || apodo.contains(" ")) {
             throw new IllegalArgumentException("El apodo no puede ser nulo o vacío, ni tener espacios en blanco");
         } else if (apodo.length() > 8) {
             throw new IllegalArgumentException("El apodo no puede tener más de 8 caracteres");
