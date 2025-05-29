@@ -47,6 +47,25 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
 
+//CSS
+    implementation("org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0")
+    implementation("fr.brouillard.oss:cssfx:11.5.1")
+    //formularios
+    implementation("com.dlsc.formsfx:formsfx-core:11.6.0")
+    implementation("com.dlsc.formsfx:formsfx:11.6.0")
+    //iconos
+    implementation("org.kordamp.ikonli:ikonli-javafx:12.3.1")
+    implementation("org.kordamp.ikonli:ikonli-core:12.3.1")
+    implementation("org.kordamp.ikonli:ikonli-antdesignicons-pack:12.3.1")
+
+    implementation("org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.1")
+
+
+    //controles extras
+    implementation("org.controlsfx:controlsfx:11.2.1")
+    implementation("io.github.palexdev:materialfx:11.17.0")
+
+
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
     implementation("org.mongodb:mongodb-driver-sync:5.5.0")
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core
