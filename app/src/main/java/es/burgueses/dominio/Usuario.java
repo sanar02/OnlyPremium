@@ -3,8 +3,6 @@ package es.burgueses.dominio;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.swing.text.html.ImageView;
-
 public class Usuario {
 
     public enum TipoUsuario {
