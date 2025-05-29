@@ -24,16 +24,9 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
         usuarios.put(usuario.getApodo(), usuario);
     }
 
+    @Override
     public Usuario get(String apodo) {
         return usuarios.get(apodo);
-    }
-
-    public void remove(String apodo) {
-        usuarios.remove(apodo);
-    }
-
-    public List<Usuario> getAll() {
-        return new ArrayList<>(usuarios.values());
     }
 
     @Override

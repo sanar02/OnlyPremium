@@ -25,7 +25,7 @@ public class CancionMongo implements ICancionesRepositorio {
     private final MongoDatabase database;
     private final MongoCollection<Cancion> collection;
 
-    public CancionMongo () {
+    public CancionMongo() {
         String usuario = "app";
         String contrasena = "1234568789Aa";
         String baseDatos = "OnlyPremiun";
@@ -37,8 +37,7 @@ public class CancionMongo implements ICancionesRepositorio {
 
         CodecRegistry pojoCodecRegistry = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
-                fromProviders(PojoCodecProvider.builder().automatic(true).build())
-        );
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
@@ -54,7 +53,8 @@ public class CancionMongo implements ICancionesRepositorio {
     public void add(Cancion cancion) {
         Cancion existingCancion = collection.find(Filters.eq("titulo", cancion.getTitulo())).first();
         if (existingCancion != null) {
-            collection.replaceOne(Filters.eq("titulo", cancion.getTitulo()), cancion, new ReplaceOptions().upsert(true));
+            collection.replaceOne(Filters.eq("titulo", cancion.getTitulo()), cancion,
+                    new ReplaceOptions().upsert(true));
         } else {
             collection.insertOne(cancion);
         }
@@ -83,17 +83,15 @@ public class CancionMongo implements ICancionesRepositorio {
     @Override
     public void addVotoMeGusta(String titulo, Voto voto) {
         collection.updateOne(
-            Filters.eq("titulo", titulo),
-            Updates.push("meGusta", voto)
-        );
+                Filters.eq("titulo", titulo),
+                Updates.push("meGusta", voto));
     }
 
     @Override
     public void addVotoNoMeGusta(String titulo, Voto voto) {
         collection.updateOne(
-            Filters.eq("titulo", titulo),
-            Updates.push("noMeGusta", voto)
-        );
+                Filters.eq("titulo", titulo),
+                Updates.push("noMeGusta", voto));
     }
 
     @Override
@@ -116,7 +114,6 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public Cancion findById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return collection.find(Filters.eq("id", id)).first();
     }
 }

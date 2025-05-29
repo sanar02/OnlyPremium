@@ -4,8 +4,7 @@ import java.util.List;
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
-import es.burgueses.dominio.Voto;
-import es.burgueses.dominio.Usuario;
+
 
 public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccionRepositorio {
 
