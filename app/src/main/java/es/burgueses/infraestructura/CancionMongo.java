@@ -116,7 +116,6 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public Cancion findById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return collection.find(Filters.eq("id", id)).first();
     }
 }
