@@ -2,6 +2,7 @@ package es.burgueses.aplicacion.cancion.listaReproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
+import es.burgueses.dominio.Usuario;
 
 public class ModListUserCase {
     private IListaReproduccionRepositorio listaReproduccionRepositorio;
@@ -10,7 +11,11 @@ public class ModListUserCase {
         this.listaReproduccionRepositorio = listaReproduccionRepositorio;
     }
 
-    public void modList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+    public void modList(Usuario usuarioActual, String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+        if(!usuarioActual.getApodo().equals(listaReproduccionRepositorio.findByTitulo(tituloLista).getPropietario().getApodo()) || usuarioActual.getTipoUsuario() != Usuario.TipoUsuario.ADMINISTRADOR) {
+            throw new IllegalArgumentException("No tienes permiso para modificar esta lista de reproducción");
+
+        }
         if (tituloLista == null || tituloLista.isEmpty()) {
             throw new IllegalArgumentException("El título de la lista de reproducción no puede ser nulo o vacío");
         }
