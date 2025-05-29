@@ -104,4 +104,9 @@ public class CancionMongo implements ICancionesRepositorio {
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public Cancion findById(int id) {
+        return collection.find(Filters.eq("id", id)).first();
+    }
 }
