@@ -2,8 +2,6 @@ package es.burgueses.dominio;
 
 import java.time.LocalDate;
 
-import net.bytebuddy.asm.Advice.Local;
-
 public class Voto {
     private String usuario;
     private LocalDate fecha;

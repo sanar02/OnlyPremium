@@ -15,18 +15,16 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.View.PaginaPrincipalController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.PaginaPrincipalController">
    <children>
       <Label layoutX="1.0" prefHeight="45.0" prefWidth="120.0" text="OnlyPremium">
          <font>
             <Font name="Freestyle Script" size="33.0" />
          </font>
       </Label>
-      <TextField fx:id="textFieldBuscar" layoutX="120.0" layoutY="76.0" onAction="#buscarTFOnAction" prefHeight="25.0" prefWidth="280.0" />
+      <TextField fx:id="textFieldBuscar" layoutX="120.0" layoutY="76.0"  prefHeight="25.0" prefWidth="280.0" />
       <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="374.0" layoutY="76.0">
-         <image>
-            <Image url="@../../../../../../../../../../../../Downloads/lupa.png" />
-         </image>
+
       </ImageView>
       <GridPane layoutX="65.0" layoutY="125.0" prefHeight="143.0" prefWidth="390.0">
         <columnConstraints>

@@ -1,4 +1,4 @@
-package org.example.dominio;
+package es.burgueses.dominio.dominio;
 
 import org.junit.Before;
 import org.junit.Test;

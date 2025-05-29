@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -33,14 +34,14 @@ public class Main extends Application {
             // Ruta al FXML de la PaginaPrincipal.
             // Aseg�rate de que la ruta sea correcta seg�n la ubicaci�n de tu FXML.
             // Si PaginaPrincipal.fxml est� en es.burgueses.presentacion.View:
-            URL fxmlLocation = getClass().getResource("/es/burgueses/presentacion/paginaPrincipal.fxml");
+           URL fxmlLocation = getClass().getResource("/fxml/paginaPrincipal.fxml");
 
-            if (fxmlLocation == null) {
+          /*  if (fxmlLocation == null) {
                 System.err.println("Error: No se pudo encontrar PaginaPrincipal.fxml. "
                         + "Verifica la ruta en getClass().getResource().");
                 return;
             }
-
+*/
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
 
             // Carga el nodo ra�z desde el FXML.
@@ -61,7 +62,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Llama al m�todo launch() de Application, que a su vez llama a start(Stage)
+        // Llama al metodo launch() de Application, que a su vez llama a start(Stage)
         launch(args);
     }
 
