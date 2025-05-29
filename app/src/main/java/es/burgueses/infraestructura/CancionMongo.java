@@ -25,19 +25,27 @@ public class CancionMongo implements ICancionesRepositorio {
     private final MongoDatabase database;
     private final MongoCollection<Cancion> collection;
 
-    public CancionMongo () {
-        ConnectionString connectionString = new ConnectionString("mongodb://10.2.1.191:27017");
+    public CancionMongo() {
+        String usuario = "app";
+        String contrasena = "1234568789Aa";
+        String baseDatos = "OnlyPremiun";
+        String host = "10.1.2.191";
+        int puerto = 27017;
 
-        CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
-        CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
+        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
+        ConnectionString connectionString = new ConnectionString(uri);
+
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
-                .codecRegistry(codecRegistry)
+                .codecRegistry(pojoCodecRegistry)
                 .build();
 
         this.mongoClient = MongoClients.create(settings);
-        this.database = mongoClient.getDatabase("burgueses");
+        this.database = mongoClient.getDatabase(baseDatos);
         this.collection = database.getCollection("canciones", Cancion.class);
     }
 
@@ -45,7 +53,8 @@ public class CancionMongo implements ICancionesRepositorio {
     public void add(Cancion cancion) {
         Cancion existingCancion = collection.find(Filters.eq("titulo", cancion.getTitulo())).first();
         if (existingCancion != null) {
-            collection.replaceOne(Filters.eq("titulo", cancion.getTitulo()), cancion, new ReplaceOptions().upsert(true));
+            collection.replaceOne(Filters.eq("titulo", cancion.getTitulo()), cancion,
+                    new ReplaceOptions().upsert(true));
         } else {
             collection.insertOne(cancion);
         }
@@ -74,17 +83,15 @@ public class CancionMongo implements ICancionesRepositorio {
     @Override
     public void addVotoMeGusta(String titulo, Voto voto) {
         collection.updateOne(
-            Filters.eq("titulo", titulo),
-            Updates.push("meGusta", voto)
-        );
+                Filters.eq("titulo", titulo),
+                Updates.push("meGusta", voto));
     }
 
     @Override
     public void addVotoNoMeGusta(String titulo, Voto voto) {
         collection.updateOne(
-            Filters.eq("titulo", titulo),
-            Updates.push("noMeGusta", voto)
-        );
+                Filters.eq("titulo", titulo),
+                Updates.push("noMeGusta", voto));
     }
 
     @Override

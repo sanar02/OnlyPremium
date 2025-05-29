@@ -1,7 +1,9 @@
-package es.burgueses.aplicacion.dominio;
+package org.example.dominio;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import es.burgueses.dominio.Cancion;
 
 import java.time.LocalDate;
 import java.util.Arrays;

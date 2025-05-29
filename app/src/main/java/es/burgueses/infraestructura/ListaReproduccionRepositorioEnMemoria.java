@@ -1,11 +1,10 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 import java.util.ArrayList;
 import java.util.List;
-import es.burgueses.aplicacion.dominio.Cancion;
-import es.burgueses.aplicacion.dominio.IListaReproduccionRepositorio;
-import es.burgueses.aplicacion.dominio.ListaReproduccion;
-import es.burgueses.aplicacion.dominio.Voto;
-import es.burgueses.aplicacion.dominio.Usuario;
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.IListaReproduccionRepositorio;
+import es.burgueses.dominio.ListaReproduccion;
+
 
 public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccionRepositorio {
 

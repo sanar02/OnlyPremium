@@ -1,12 +1,12 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import es.burgueses.aplicacion.dominio.Usuario;
-import es.burgueses.aplicacion.dominio.IUsuarioRepositorio;
+import es.burgueses.dominio.Usuario;
+import es.burgueses.dominio.IUsuarioRepositorio;
 
 public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
 
@@ -24,16 +24,9 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
         usuarios.put(usuario.getApodo(), usuario);
     }
 
+    @Override
     public Usuario get(String apodo) {
         return usuarios.get(apodo);
-    }
-
-    public void remove(String apodo) {
-        usuarios.remove(apodo);
-    }
-
-    public List<Usuario> getAll() {
-        return new ArrayList<>(usuarios.values());
     }
 
     @Override

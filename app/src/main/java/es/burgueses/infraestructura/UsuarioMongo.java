@@ -24,8 +24,8 @@ public class UsuarioMongo implements IUsuarioRepositorio {
 
     public UsuarioMongo() {
         // MongoDB credentials and connection info
-        String usuario = "admin";
-        String contrasena = "adminpassword";
+        String usuario = "app";
+        String contrasena = "123456789Aa";
         String baseDatos = "OnlyPremiun";
         String host = "10.1.2.191";
         int puerto = 27017;
