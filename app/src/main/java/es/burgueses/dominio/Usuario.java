@@ -3,14 +3,12 @@ package es.burgueses.dominio;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.swing.text.html.ImageView;
-
 public class Usuario {
 
     public enum TipoUsuario {
         ADMINISTRADOR, USUARIO
     }
-
+    private String contraseña;
     private String nombre;
     private String apodo;
     private String pathImagen;
@@ -23,6 +21,8 @@ public class Usuario {
 
     // Constructores
     public Usuario() {
+        // Constructor por defecto
+        contraseña = "";
         nombre = "";
         apodo = "";
         pathImagen = "";
@@ -32,14 +32,19 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apodo, ImageView imagen, boolean activo, LocalDate fechaAlta,
+    public Usuario(String contraseña, String nombre, String apodo, String pathImagen, boolean activo, LocalDate fechaAlta,
             TipoUsuario tipoUsuario) {
+        if(contraseña == null || contraseña.isEmpty() || contraseña.length() < 6) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
+        } else {
+            this.contraseña = contraseña;
+        }
         if(nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         } else {
             this.nombre = nombre;
         }
-        if(apodo == null || apodo.isEmpty() || apodo.contains("")) {
+        if(apodo == null || apodo.isEmpty() || apodo.contains(" ")) {
             throw new IllegalArgumentException("El apodo no puede ser nulo o vacío, ni tener espacios en blanco");
         } else if (apodo.length() > 8) {
             throw new IllegalArgumentException("El apodo no puede tener más de 8 caracteres");
@@ -72,6 +77,16 @@ public class Usuario {
     }
 
     // Getters y Setters
+    public String getContraseña() {
+        return contraseña;
+    }
+    public void setContraseña(String contraseña) {
+        if (contraseña == null || contraseña.isEmpty() || contraseña.length() < 6) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
+        } else {
+            this.contraseña = contraseña;
+        }
+    }
     public String getNombre() {
         return nombre;
     }

@@ -7,5 +7,7 @@ public interface IUsuarioRepositorio {
     void remove(Usuario usuario);
     Usuario findByApodo(String apodo);
     List<Usuario> findAll();
+    Usuario get(String apodo);
     void update(Usuario usuario);
+
 }

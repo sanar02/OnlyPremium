@@ -4,8 +4,8 @@ import java.util.List;
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
-import es.burgueses.dominio.Voto;
 import es.burgueses.dominio.Usuario;
+
 
 public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccionRepositorio {
 
@@ -27,6 +27,15 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
 
     @Override
     public void remove(ListaReproduccion lista) {
+        Usuario usuarioActual = lista.getPropietario(); // Obtenemos el propietario de la lista
+        if (usuarioActual == null) {
+            throw new IllegalStateException("No hay usuario autenticado");
+        }
+        // Si no es administrador, solo puede eliminar sus propias listas
+        if (!usuarioActual.getTipoUsuario().equals(Usuario.TipoUsuario.ADMINISTRADOR)
+                && !usuarioActual.getApodo().equals(lista.getPropietario().getApodo())) {
+            throw new IllegalStateException("No puedes eliminar una lista que no es tuya");
+        }
         listasReproduccion.remove(lista);
     }
 
@@ -59,5 +68,25 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
             return lista.getCanciones();
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public void addCancion(String tituloLista, Cancion cancion) {
+        ListaReproduccion lista = findByTitulo(tituloLista);
+        if (lista != null) {
+            lista.getCanciones().add(cancion);
+        } else {
+            throw new IllegalArgumentException("Lista de reproducción no encontrada: " + tituloLista);
+        }
+    }
+
+    @Override
+    public void removeCancion(String tituloLista, Cancion cancion) {
+        ListaReproduccion lista = findByTitulo(tituloLista);
+        if (lista != null) {
+            lista.getCanciones().remove(cancion);
+        } else {
+            throw new IllegalArgumentException("Lista de reproducción no encontrada: " + tituloLista);
+        }
     }
 }
