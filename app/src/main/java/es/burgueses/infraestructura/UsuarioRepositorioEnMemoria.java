@@ -49,4 +49,15 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
         usuarios.put(usuario.getApodo(), usuario);
     }
     
+    @Override
+    public void modificarUsuario(String apodo, String nuevoNombre, String nuevaContrasena) {
+        for (Usuario usuario : usuarios.values()) {
+            if (usuario.getApodo().equals(apodo)) {
+                usuario.setNombre(nuevoNombre);
+                usuario.setContraseña(nuevaContrasena);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No existe un usuario con ese apodo");
+    }
 }

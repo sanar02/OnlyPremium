@@ -12,7 +12,7 @@ public class AddUserUserCase {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    public void addUser(String nombre, String apodo, String pathImagen, Usuario.TipoUsuario tipoUsuario) {
+    public void addUser(String contraseña, String nombre, String apodo, String pathImagen, Usuario.TipoUsuario tipoUsuario) {
         // Validación básica
         if (nombre == null || nombre.isEmpty() || apodo == null || apodo.isEmpty()) {
             throw new IllegalArgumentException("Nombre y apodo no pueden ser nulos o vacíos");
@@ -22,14 +22,7 @@ public class AddUserUserCase {
             throw new IllegalArgumentException("El apodo ya está en uso");
         }
         // Crear y guardar el usuario
-        Usuario usuario = new Usuario(
-            nombre,
-            apodo,
-            pathImagen,
-            true, // activo
-            LocalDate.now(),
-            tipoUsuario
-        );
+        Usuario usuario = new Usuario(contraseña, nombre, apodo, pathImagen, true, LocalDate.now(), tipoUsuario);
         usuarioRepositorio.add(usuario);
     }
 }

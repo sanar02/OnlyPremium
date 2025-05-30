@@ -3,18 +3,23 @@ package es.burgueses.dominio.infraestructura;
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;
 import es.burgueses.infraestructura.CancionRepositorioEnMemoria;
-import org.junit.Before;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
 
 public class ICancionesRepositorioTest {
     private ICancionesRepositorio ic;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         ic=new CancionRepositorioEnMemoria();
         Cancion c=new Cancion();
