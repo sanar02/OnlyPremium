@@ -1,13 +1,10 @@
-package es.burgueses.dominio.dominio;
+package es.burgueses.dominio;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import es.burgueses.dominio.ListaReproduccion;
-
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
