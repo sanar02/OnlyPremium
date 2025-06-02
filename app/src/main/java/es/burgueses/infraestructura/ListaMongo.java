@@ -107,4 +107,10 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public void modifyList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modifyList'");
+    }
 }

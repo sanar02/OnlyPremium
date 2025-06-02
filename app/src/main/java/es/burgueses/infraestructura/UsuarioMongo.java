@@ -93,4 +93,10 @@ public class UsuarioMongo implements IUsuarioRepositorio {
             new ReplaceOptions().upsert(false)
         );
     }
+
+    @Override
+    public Usuario get(String apodo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
+    }
 }

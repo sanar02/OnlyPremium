@@ -2,6 +2,8 @@ package es.burgueses.infraestructura;
 
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.infraestructura.CancionRepositorioEnMemoria;
+
 import org.junit.Before;
 import org.junit.Test;
 
