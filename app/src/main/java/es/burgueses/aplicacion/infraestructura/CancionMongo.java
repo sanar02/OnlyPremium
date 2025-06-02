@@ -1,4 +1,4 @@
-package es.burgueses.infraestructura;
+package es.burgueses.aplicacion.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

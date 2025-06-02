@@ -1,4 +1,4 @@
-package es.burgueses.infraestructura;
+package es.burgueses.aplicacion.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -92,5 +92,11 @@ public class UsuarioMongo implements IUsuarioRepositorio {
             usuario,
             new ReplaceOptions().upsert(false)
         );
+    }
+
+    @Override
+    public Usuario get(String apodo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
 }

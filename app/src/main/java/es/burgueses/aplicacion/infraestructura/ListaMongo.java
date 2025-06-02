@@ -1,4 +1,4 @@
-package es.burgueses.infraestructura;
+package es.burgueses.aplicacion.infraestructura;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -106,5 +106,11 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
             return lista.getCanciones();
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public void modifyList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modifyList'");
     }
 }

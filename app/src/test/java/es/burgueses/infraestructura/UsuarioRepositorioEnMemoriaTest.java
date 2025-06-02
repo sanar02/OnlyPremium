@@ -1,5 +1,6 @@
 package es.burgueses.infraestructura;
 
+import es.burgueses.aplicacion.infraestructura.UsuarioRepositorioEnMemoria;
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.Usuario;
 import junit.framework.TestCase;

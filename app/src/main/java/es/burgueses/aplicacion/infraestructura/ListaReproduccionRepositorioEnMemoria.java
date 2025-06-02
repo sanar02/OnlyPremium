@@ -1,4 +1,4 @@
-package es.burgueses.infraestructura;
+package es.burgueses.aplicacion.infraestructura;
 import java.util.ArrayList;
 import java.util.List;
 import es.burgueses.dominio.Cancion;
@@ -88,5 +88,11 @@ public class ListaReproduccionRepositorioEnMemoria implements IListaReproduccion
         } else {
             throw new IllegalArgumentException("Lista de reproducción no encontrada: " + tituloLista);
         }
+    }
+
+    @Override
+    public void modifyList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modifyList'");
     }
 }

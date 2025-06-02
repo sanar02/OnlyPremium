@@ -1,4 +1,4 @@
-package es.burgueses.infraestructura;
+package es.burgueses.aplicacion.infraestructura;
 
 import java.util.Map;
 import java.util.HashMap;
