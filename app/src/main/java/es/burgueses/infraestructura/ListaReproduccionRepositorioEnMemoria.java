@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 import java.util.ArrayList;
 import java.util.List;
 import es.burgueses.dominio.Cancion;

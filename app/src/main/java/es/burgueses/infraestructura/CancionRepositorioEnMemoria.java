@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.infraestructura;
+package es.burgueses.infraestructura;
 
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;

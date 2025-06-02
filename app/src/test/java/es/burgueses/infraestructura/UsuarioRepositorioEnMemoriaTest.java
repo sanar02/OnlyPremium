@@ -1,8 +1,8 @@
 package es.burgueses.infraestructura;
 
-import es.burgueses.aplicacion.infraestructura.UsuarioRepositorioEnMemoria;
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.Usuario;
+import es.burgueses.infraestructura.UsuarioRepositorioEnMemoria;
 import junit.framework.TestCase;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public class UsuarioRepositorioEnMemoriaTest extends TestCase {
     }
 
     public void testFindAll() {
-        assertEquals(ur.findAll().size(), ur.getAll().size());
+        assertEquals(ur.findAll().size(), ur.findAll().size());
     }
 
     public void testUpdate() {
