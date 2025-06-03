@@ -11,7 +11,7 @@ public class DeleteUserUserCase {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    public void execute(Usuario usuario) {
+    public void delete(Usuario usuario) {
         if (usuario == null || usuario.getApodo() == null) {
             throw new IllegalArgumentException("Usuario o ID no pueden ser nulos");
         }
