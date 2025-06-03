@@ -40,12 +40,7 @@
     </VBox>
    <VBox layoutX="251.1999969482422" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-          <StackPane fx:id="contentPane" VBox.vgrow="ALWAYS" maxHeight="Infinity"  />
-        <!-- <TextFlow fx:id="log" prefHeight="50.0" prefWidth="200.0">
-            <padding>
-               <Insets left="20.0" />
-            </padding>
-         </TextFlow>-->
+          
       </children>
    </VBox>
 </AnchorPane>
