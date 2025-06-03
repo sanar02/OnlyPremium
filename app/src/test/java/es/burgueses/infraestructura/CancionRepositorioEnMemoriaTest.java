@@ -2,18 +2,16 @@ package es.burgueses.infraestructura;
 
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;
-import es.burgueses.infraestructura.CancionRepositorioEnMemoria;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
 
-public class ICancionesRepositorioTest {
+public class CancionRepositorioEnMemoriaTest {
     private ICancionesRepositorio ic;
 
     @Before

@@ -14,4 +14,15 @@ public interface IListaReproduccionRepositorio {
     void modifyList(UUID idLista, String nuevoTitulo, String nuevaDescripcion, String descripcion);
 
     List<UUID> getCanciones(UUID idLista);
+
+    ListaReproduccion findByTitulo(String tituloLista);
+
+    // Métodos extra para compatibilidad con la interfaz (por título)
+    List<Cancion> getCanciones(String tituloLista);
+
+    void addCancion(String tituloLista, Cancion cancion);
+
+    void removeCancion(String tituloLista, Cancion cancion);
+
+    void modifyList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion);
 }
