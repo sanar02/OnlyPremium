@@ -14,6 +14,7 @@ import es.burgueses.dominio.ListaReproduccion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -25,14 +26,9 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     private final MongoCollection<ListaReproduccion> coleccion;
 
     public ListaMongo() {
-        String usuario = "app";
-        String contrasena = "1234568789Aa";
-        String baseDatos = "OnlyPremiun";
-        String host = "10.1.2.191";
-        int puerto = 27017;
-
-        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
-        ConnectionString connectionString = new ConnectionString(uri);
+        // Conexión directa usando la URI proporcionada
+        String url = "mongodb://app:123456789Aa@10.2.1.191:27017/OnlyPremium";
+        ConnectionString connectionString = new ConnectionString(url);
 
         CodecRegistry pojoCodecRegistry = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
@@ -45,9 +41,33 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
                 .build();
 
         cliente = MongoClients.create(settings);
-        database = cliente.getDatabase(baseDatos);
-        coleccion = database.getCollection("listas", ListaReproduccion.class);
-    }
+        database = cliente.getDatabase("OnlyPremium");
+        coleccion = database.getCollection("Lista", ListaReproduccion.class);
+        }
+
+//        String usuario = "app";
+//        String contrasena = "1234568789Aa";
+//        String baseDatos = "OnlyPremiun";
+//        String host = "10.1.2.191";
+//        int puerto = 27017;
+//
+//        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
+//        ConnectionString connectionString = new ConnectionString(uri);
+//
+//        CodecRegistry pojoCodecRegistry = fromRegistries(
+//                MongoClientSettings.getDefaultCodecRegistry(),
+//                fromProviders(PojoCodecProvider.builder().automatic(true).build())
+//        );
+
+//        MongoClientSettings settings = MongoClientSettings.builder()
+//                .applyConnectionString(connectionString)
+//                .codecRegistry(pojoCodecRegistry)
+//                .build();
+//
+//        cliente = MongoClients.create(settings);
+//        database = cliente.getDatabase(baseDatos);
+//        coleccion = database.getCollection("listas", ListaReproduccion.class);
+   // }
 
     @Override
     public void add(ListaReproduccion listaReproduccion) {
@@ -63,8 +83,8 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     }
 
     @Override
-    public ListaReproduccion findByTitulo(String titulo) {
-        return coleccion.find(Filters.eq("titulo", titulo)).first();
+    public ListaReproduccion findById(UUID idLista) {
+        return null;
     }
 
     @Override
@@ -81,17 +101,17 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
         );
     }
 
-
-    public void addCancion(String tituloLista, Cancion cancion) {
-        ListaReproduccion lista = findByTitulo(tituloLista);
+    @Override
+    public void addCancion(UUID idLista, UUID idCancion) {
+        ListaReproduccion lista = findById(idLista);
         if (lista != null) {
             lista.getCanciones().add(cancion);
             update(lista);
         }
     }
 
-
-    public void removeCancion(String tituloLista, Cancion cancion) {
+    @Override
+    public void removeCancion(UUID idLista, UUID idCancion) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
             lista.getCanciones().removeIf(c -> c.getTitulo().equals(cancion.getTitulo()));
@@ -100,11 +120,18 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     }
 
     @Override
-    public List<Cancion> getCanciones(String tituloLista) {
+    public void modifyList(UUID idLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
             return lista.getCanciones();
         }
         return new ArrayList<>();
+
     }
+
+    @Override
+    public List<UUID> getCanciones(UUID idLista) {
+        return List.of();
+    }
+
 }

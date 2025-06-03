@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.cancion.listaReproduccion;
+package es.burgueses.aplicacion.listaReproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;

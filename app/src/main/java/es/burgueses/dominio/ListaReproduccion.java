@@ -3,6 +3,7 @@ package es.burgueses.dominio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ListaReproduccion {
     private String nombre;
@@ -12,6 +13,7 @@ public class ListaReproduccion {
     private LocalDate fechaCreacion;
     private List<Voto> meGusta;
     private List<Voto> noMeGusta;
+    private UUID _id;
 
     // Constructores
     public ListaReproduccion() {
