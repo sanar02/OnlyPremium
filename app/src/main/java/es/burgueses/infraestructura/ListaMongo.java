@@ -14,7 +14,6 @@ import es.burgueses.dominio.ListaReproduccion;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -26,9 +25,14 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     private final MongoCollection<ListaReproduccion> coleccion;
 
     public ListaMongo() {
-        // Conexión directa usando la URI proporcionada
-        String url = "mongodb://app:123456789Aa@10.2.1.191:27017/OnlyPremium";
-        ConnectionString connectionString = new ConnectionString(url);
+        String usuario = "app";
+        String contrasena = "1234568789Aa";
+        String baseDatos = "OnlyPremiun";
+        String host = "10.1.2.191";
+        int puerto = 27017;
+
+        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
+        ConnectionString connectionString = new ConnectionString(uri);
 
         CodecRegistry pojoCodecRegistry = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
@@ -41,33 +45,9 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
                 .build();
 
         cliente = MongoClients.create(settings);
-        database = cliente.getDatabase("OnlyPremium");
-        coleccion = database.getCollection("Lista", ListaReproduccion.class);
-        }
-
-//        String usuario = "app";
-//        String contrasena = "1234568789Aa";
-//        String baseDatos = "OnlyPremiun";
-//        String host = "10.1.2.191";
-//        int puerto = 27017;
-//
-//        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
-//        ConnectionString connectionString = new ConnectionString(uri);
-//
-//        CodecRegistry pojoCodecRegistry = fromRegistries(
-//                MongoClientSettings.getDefaultCodecRegistry(),
-//                fromProviders(PojoCodecProvider.builder().automatic(true).build())
-//        );
-
-//        MongoClientSettings settings = MongoClientSettings.builder()
-//                .applyConnectionString(connectionString)
-//                .codecRegistry(pojoCodecRegistry)
-//                .build();
-//
-//        cliente = MongoClients.create(settings);
-//        database = cliente.getDatabase(baseDatos);
-//        coleccion = database.getCollection("listas", ListaReproduccion.class);
-   // }
+        database = cliente.getDatabase(baseDatos);
+        coleccion = database.getCollection("listas", ListaReproduccion.class);
+    }
 
     @Override
     public void add(ListaReproduccion listaReproduccion) {
@@ -83,8 +63,8 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     }
 
     @Override
-    public ListaReproduccion findById(UUID idLista) {
-        return null;
+    public ListaReproduccion findByTitulo(String titulo) {
+        return coleccion.find(Filters.eq("titulo", titulo)).first();
     }
 
     @Override
@@ -101,17 +81,17 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
         );
     }
 
-    @Override
-    public void addCancion(UUID idLista, UUID idCancion) {
-        ListaReproduccion lista = findById(idLista);
+
+    public void addCancion(String tituloLista, Cancion cancion) {
+        ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
             lista.getCanciones().add(cancion);
             update(lista);
         }
     }
 
-    @Override
-    public void removeCancion(UUID idLista, UUID idCancion) {
+
+    public void removeCancion(String tituloLista, Cancion cancion) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
             lista.getCanciones().removeIf(c -> c.getTitulo().equals(cancion.getTitulo()));
@@ -120,18 +100,17 @@ public class ListaMongo implements IListaReproduccionRepositorio  {
     }
 
     @Override
-    public void modifyList(UUID idLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+    public List<Cancion> getCanciones(String tituloLista) {
         ListaReproduccion lista = findByTitulo(tituloLista);
         if (lista != null) {
             return lista.getCanciones();
         }
         return new ArrayList<>();
-
     }
 
     @Override
-    public List<UUID> getCanciones(UUID idLista) {
-        return List.of();
+    public void modifyList(String tituloLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modifyList'");
     }
-
 }

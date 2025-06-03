@@ -51,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "tina",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/Desktop",
     "node.js.detected.package.eslint": "true",
@@ -125,6 +125,7 @@
       <updated>1748206879963</updated>
       <workItem from="1748206882087" duration="9611000" />
       <workItem from="1748282686885" duration="2386000" />
+      <workItem from="1748625556822" duration="9000" />
     </task>
     <servers />
   </component>
