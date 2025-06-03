@@ -3,8 +3,6 @@ package es.burgueses.dominio;
 import org.junit.Before;
 import org.junit.Test;
 
-import es.burgueses.dominio.Usuario;
-
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;

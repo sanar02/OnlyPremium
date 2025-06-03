@@ -80,13 +80,13 @@ public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
     }
 
     @Override
-    public Cancion findById(int id) {
-        for (Cancion cancion : canciones.values()) {
-            if (cancion.getIdCancion() == id) {
-                return cancion;
+    public Cancion findById(String id) {
+        for (Cancion c : canciones.values()) {
+            if (c.getIdCancion().equals(id)) {
+                return c;
             }
         }
-        throw new NoSuchElementException("Canción con ID " + id + " no encontrada");
+        return null;
     }
 
 }

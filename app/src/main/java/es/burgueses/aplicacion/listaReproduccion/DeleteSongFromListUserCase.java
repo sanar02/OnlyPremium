@@ -1,8 +1,10 @@
-package es.burgueses.aplicacion.cancion.listaReproduccion;
+package es.burgueses.aplicacion.listaReproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
 import es.burgueses.dominio.Cancion;
+
+import java.util.UUID;
 
 public class DeleteSongFromListUserCase {
     private IListaReproduccionRepositorio listaReproduccionRepositorio;
@@ -35,6 +37,8 @@ public class DeleteSongFromListUserCase {
             throw new IllegalArgumentException("La canción no existe en la lista de reproducción");
         }
 
-        listaReproduccionRepositorio.removeCancion(tituloLista, cancion);
+        UUID idLista = UUID.fromString(lista.getIdLista());
+        UUID idCancion = UUID.fromString(cancion.getIdCancion());
+        listaReproduccionRepositorio.removeCancion(idLista, idCancion);
     }
 }
