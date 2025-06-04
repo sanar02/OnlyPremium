@@ -1,0 +1,109 @@
+package es.burgueses.infraestructura;
+
+import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ListaReproduccion;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.*;
+
+public class ListaMongoTest {
+
+    private ListaMongo listaMongo;
+    private ListaReproduccion lista;
+    private Cancion cancion;
+
+    @Before
+    public void setUp() {
+        listaMongo = new ListaMongo();
+        lista = new ListaReproduccion();
+        lista.setIdLista(UUID.randomUUID().toString());
+        lista.setTitulo("ListaTest");
+        lista.setNombre("ListaTest");
+        lista.setDescripcion("Descripción de prueba");
+        lista.setCanciones(new java.util.ArrayList<>());
+
+        cancion = new Cancion();
+        cancion.setIdCancion(UUID.randomUUID().toString());
+        cancion.setTitulo("CancionTest");
+        cancion.setDescripcion("Canción de prueba");
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            listaMongo.remove(lista);
+        } catch (Exception ignored) {}
+    }
+
+    @Test
+    public void testAddAndFindById() {
+        listaMongo.add(lista);
+        ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
+        assertNotNull(encontrada);
+        assertEquals(lista.getNombre(), encontrada.getNombre());
+    }
+
+    @Test
+    public void testFindByTitulo() {
+        listaMongo.add(lista);
+        ListaReproduccion encontrada = listaMongo.findByTitulo("ListaTest");
+        assertNotNull(encontrada);
+        assertEquals("ListaTest", encontrada.getNombre());
+    }
+
+    @Test
+    public void testRemove() {
+        listaMongo.add(lista);
+        listaMongo.remove(lista);
+        ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
+        assertNull(encontrada);
+    }
+
+    @Test
+    public void testUpdate() {
+        listaMongo.add(lista);
+        lista.setDescripcion("Nueva descripción");
+        listaMongo.update(lista);
+        ListaReproduccion actualizada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
+        assertEquals("Nueva descripción", actualizada.getDescripcion());
+    }
+
+    @Test
+    public void testFindAll() {
+        listaMongo.add(lista);
+        List<ListaReproduccion> todas = listaMongo.findAll();
+        assertFalse(todas.isEmpty());
+    }
+
+    @Test
+    public void testAddCancion() {
+        listaMongo.add(lista);
+        listaMongo.addCancion(lista.getNombre(), cancion);
+        ListaReproduccion encontrada = listaMongo.findByTitulo(lista.getNombre());
+        assertTrue(encontrada.getCanciones().stream()
+                .anyMatch(c -> c.getTitulo().equals("CancionTest")));
+    }
+
+    @Test
+    public void testRemoveCancion() {
+        listaMongo.add(lista);
+        listaMongo.addCancion(lista.getNombre(), cancion);
+        listaMongo.removeCancion(lista.getNombre(), cancion);
+        ListaReproduccion encontrada = listaMongo.findByTitulo(lista.getNombre());
+        assertTrue(encontrada.getCanciones().isEmpty());
+    }
+
+    @Test
+    public void testModifyList() {
+        listaMongo.add(lista);
+        listaMongo.modifyList(lista.getNombre(), "NuevoNombre", "NuevaDesc", "");
+        ListaReproduccion modificada = listaMongo.findByTitulo("NuevoNombre");
+        assertNotNull(modificada);
+        assertEquals("NuevaDesc", modificada.getDescripcion());
+    }
+}

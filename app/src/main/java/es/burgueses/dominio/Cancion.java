@@ -1,8 +1,11 @@
 package es.burgueses.dominio;
 
+import org.bson.codecs.pojo.annotations.BsonId;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Cancion {
     private String titulo;
@@ -15,7 +18,8 @@ public class Cancion {
     private List<Genero> generos;
     private String path;
     private String idPropietario;
-    private int idCancion;
+    @BsonId
+    private String idCancion; 
     private String autor;
     private String descripcion;
     private LocalDate fechaAlta;
@@ -29,7 +33,7 @@ public class Cancion {
         titulo = "";
         path = "";
         idPropietario = ""; // Asignar un usuario por defecto
-        idCancion = -1;
+        this.idCancion = UUID.randomUUID().toString();
         autor = "";
         descripcion = "";
         publica = false;
@@ -41,21 +45,18 @@ public class Cancion {
         fechaAlta = LocalDate.now();
     }
 
-    public Cancion(String titulo, List<String> generos, String path, Usuario propietario, int idCancion, String autor,
+    public Cancion(String titulo, List<String> generos, String path, Usuario propietario, String idCancion, String autor,
             String descripcion, LocalDate fechaAlta, boolean publica, int numeroReproducciones, List<Voto> meGusta,
             List<Voto> noMeGusta) {
         if (titulo == null || titulo.isEmpty() || titulo.trim().equals(" ")) {
             throw new IllegalArgumentException("El título no puede ser nulo o vacío");
-        }
-        if(idCancion < 0) {
-            throw new IllegalArgumentException("El ID de la canción no puede ser negativo");
         }
         this.generos = generos != null && !generos.isEmpty()
                 ? generos.stream().map(Genero::valueOf).toList()
                 : List.of(Genero.POP);
         this.path = path;
         this.idPropietario = propietario != null ? propietario.getApodo() : "";
-        this.idCancion = idCancion;
+        this.idCancion = (idCancion != null) ? idCancion : UUID.randomUUID().toString();
         this.autor = autor;
         this.descripcion = descripcion;
         this.fechaAlta = fechaAlta != null ? fechaAlta : LocalDate.now();
@@ -66,14 +67,11 @@ public class Cancion {
     }
 
     // Getters y Setters
-    public int getIdCancion() {
+    public String getIdCancion() {
         return idCancion;
     }
 
-    public void setIdCancion(int idCancion) {
-        if (idCancion < 0) {
-            throw new IllegalArgumentException("El ID de la canción no puede ser negativo");
-        }
+    public void setIdCancion(String idCancion) {
         this.idCancion = idCancion;
     }
 
@@ -188,14 +186,16 @@ public class Cancion {
     }
 
     public void setFechaAlta(LocalDate fechaAlta) {
+        // Permite nulos (para deserialización)
         if (fechaAlta == null) {
-            throw new IllegalArgumentException("La fecha de alta no puede ser nula");
-        } else if (fechaAlta != (LocalDate.now())) {
-            throw new IllegalArgumentException("La fecha de alta no puede ser futura");
-        } else {
-            this.fechaAlta = fechaAlta;
+            this.fechaAlta = null;
+            return;
         }
-
+        // Solo valida si no es deserialización (opcional: puedes usar un flag si quieres)
+        if (fechaAlta.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de alta no puede ser futura");
+        }
+        this.fechaAlta = fechaAlta;
     }
 
     public boolean isPublica() {

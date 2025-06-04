@@ -26,13 +26,7 @@ public class CancionMongo implements ICancionesRepositorio {
     private final MongoCollection<Cancion> collection;
 
     public CancionMongo() {
-        String usuario = "app";
-        String contrasena = "1234568789Aa";
-        String baseDatos = "OnlyPremiun";
-        String host = "10.1.2.191";
-        int puerto = 27017;
-
-        String uri = String.format("mongodb://%s:%s@%s:%d/", usuario, contrasena, host, puerto);
+        String uri = "mongodb://app:123456789Aa@10.2.1.191:27017/OnlyPremium";
         ConnectionString connectionString = new ConnectionString(uri);
 
         CodecRegistry pojoCodecRegistry = fromRegistries(
@@ -45,8 +39,8 @@ public class CancionMongo implements ICancionesRepositorio {
                 .build();
 
         this.mongoClient = MongoClients.create(settings);
-        this.database = mongoClient.getDatabase(baseDatos);
-        this.collection = database.getCollection("canciones", Cancion.class);
+        this.database = mongoClient.getDatabase("OnlyPremium");
+        this.collection = database.getCollection("Cancion", Cancion.class);
     }
 
     @Override
@@ -62,7 +56,7 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public void remove(Cancion cancion) {
-        collection.deleteOne(Filters.eq("titulo", cancion.getTitulo()));
+        collection.deleteOne(Filters.eq("_id", cancion.getIdCancion()));
     }
 
     @Override
@@ -77,26 +71,26 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public void update(Cancion cancion) {
-        collection.replaceOne(Filters.eq("titulo", cancion.getTitulo()), cancion, new ReplaceOptions().upsert(false));
+        collection.replaceOne(Filters.eq("_id", cancion.getIdCancion()), cancion, new ReplaceOptions().upsert(false));
     }
 
     @Override
-    public void addVotoMeGusta(String titulo, Voto voto) {
+    public void addVotoMeGusta(String id, Voto voto) {
         collection.updateOne(
-                Filters.eq("titulo", titulo),
+                Filters.eq("_id", id),
                 Updates.push("meGusta", voto));
     }
 
     @Override
-    public void addVotoNoMeGusta(String titulo, Voto voto) {
+    public void addVotoNoMeGusta(String id, Voto voto) {
         collection.updateOne(
-                Filters.eq("titulo", titulo),
+                Filters.eq("_id", id),
                 Updates.push("noMeGusta", voto));
     }
 
     @Override
-    public List<Voto> getVotosMeGusta(String titulo) {
-        Cancion cancion = findByTitulo(titulo);
+    public List<Voto> getVotosMeGusta(String id) {
+        Cancion cancion = findById(id);
         if (cancion != null && cancion.getMeGusta() != null) {
             return cancion.getMeGusta();
         }
@@ -104,8 +98,8 @@ public class CancionMongo implements ICancionesRepositorio {
     }
 
     @Override
-    public List<Voto> getVotosNoMeGusta(String titulo) {
-        Cancion cancion = findByTitulo(titulo);
+    public List<Voto> getVotosNoMeGusta(String id) {
+        Cancion cancion = findById(id);
         if (cancion != null && cancion.getNoMeGusta() != null) {
             return cancion.getNoMeGusta();
         }
@@ -113,7 +107,7 @@ public class CancionMongo implements ICancionesRepositorio {
     }
 
     @Override
-    public Cancion findById(int id) {
-        return collection.find(Filters.eq("id", id)).first();
+    public Cancion findById(String id) {
+        return collection.find(Filters.eq("_id", id)).first();
     }
 }
