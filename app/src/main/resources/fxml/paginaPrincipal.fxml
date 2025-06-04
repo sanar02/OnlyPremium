@@ -13,8 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
 fx:controller="es.burgueses.presentacion.controladores.MainController">
+=======
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.controladores.MainController">
+>>>>>>> mec
    <children>
       <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="716.0" prefWidth="1172.0">
          <left>

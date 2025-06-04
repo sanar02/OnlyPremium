@@ -1,145 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.PaginaPrincipalController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.controladores.MainController">
    <children>
-      <Label layoutX="1.0" prefHeight="45.0" prefWidth="120.0" text="OnlyPremium">
-         <font>
-            <Font name="Freestyle Script" size="33.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldBuscar" layoutX="120.0" layoutY="76.0"  prefHeight="25.0" prefWidth="280.0" />
-      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="374.0" layoutY="76.0">
-
-      </ImageView>
-      <GridPane layoutX="65.0" layoutY="125.0" prefHeight="143.0" prefWidth="390.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="68.7999755859375" minHeight="10.0" prefHeight="63.99998779296875" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="68.00001831054688" minHeight="0.0" prefHeight="66.40001220703125" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.columnIndex="2">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" prefHeight="58.0" prefWidth="77.0" GridPane.columnIndex="3">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.columnIndex="1">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-               </GridPane.margin>
-            </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#botonesCanciones" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D height="55.0" minX="20.0" minY="20.0" width="60.0" />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-      </GridPane>
-      <Label layoutX="61.0" layoutY="326.0" prefHeight="17.0" prefWidth="120.0" text="TOP 5 CANCIONES" />
-      <Label layoutX="341.0" layoutY="326.0" text="RECIENTES..." />
-      <Line endX="259.5" endY="312.0928955078125" layoutX="-1.0" layoutY="-5.0" startX="259.5" startY="657.9000244140625" />
-      <ListView fx:id="listViewTop5" layoutX="21.0" layoutY="380.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="listViewRecientes" layoutX="287.0" layoutY="380.0" prefHeight="200.0" prefWidth="200.0" />
+      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="716.0" prefWidth="1172.0">
+         <left>
+            <VBox prefHeight="706.0" prefWidth="232.0" style="-fx-background-color: #2C2E3E;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="94.0" prefWidth="232.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #2C2E3E;" text="Home" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #2C2E3E;" text="Canciones" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" style="-fx-background-color: #2C2E3E;" text="Biblioteca" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="63.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #2C2E3E;" text="Ajustes" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="232.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #2C2E3E;" text="Salir" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane prefHeight="706.0" prefWidth="938.0" style="-fx-background-color: #1E1F29;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" layoutX="-2.0" prefHeight="56.0" prefWidth="945.0" spacing="2.0" AnchorPane.bottomAnchor="660.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField />
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="🔍" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="25.0" layoutY="95.0" prefHeight="55.0" prefWidth="909.0">
+                     <children>
+                        <Label text="Artistas populares" textFill="WHITE">
+                           <font>
+                              <Font name="Liberation Serif Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="358.0" prefHeight="57.0" prefWidth="920.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="231.0" text="Canciones populares" textFill="WHITE">
+                           <font>
+                              <Font name="Liberation Serif Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="158.0" prefHeight="186.0" prefWidth="941.0">
+                     <children>
+                        <VBox prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="147.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="196.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="382.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="568.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="432.0" prefHeight="273.0" prefWidth="997.0">
+                     <children>
+                        <ImageView fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="28.0" prefWidth="303.0" text="nombre de la cancion" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="5.0" top="18.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ListView prefHeight="273.0" prefWidth="475.0" style="-fx-background-color: #1E1F29;" />
+                        <ListView prefHeight="273.0" prefWidth="521.0" style="-fx-background-color: #1E1F29;" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </Pane>

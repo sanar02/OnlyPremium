@@ -71,7 +71,8 @@ dependencies {
     implementation("org.mongodb:mongodb-driver-sync:5.5.0")
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core
     implementation("org.mongodb:mongodb-driver-core:5.5.0")
-
+    implementation("org.openjfx:javafx-controls:21")
+    implementation("org.openjfx:javafx-fxml:21")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
