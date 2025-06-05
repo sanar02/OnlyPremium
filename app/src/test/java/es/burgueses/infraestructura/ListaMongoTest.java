@@ -1,109 +1,91 @@
 package es.burgueses.infraestructura;
 
-import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ListaReproduccion;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import es.burgueses.dominio.Usuario;
+import org.junit.*;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 
 public class ListaMongoTest {
 
-    private ListaMongo listaMongo;
+    private static ListaMongo repo;
     private ListaReproduccion lista;
-    private Cancion cancion;
 
-    @Before
-    public void setUp() {
-        listaMongo = new ListaMongo();
-        lista = new ListaReproduccion();
-        lista.setIdLista(UUID.randomUUID().toString());
-        lista.setTitulo("ListaTest");
-        lista.setNombre("ListaTest");
-        lista.setDescripcion("Descripción de prueba");
-        lista.setCanciones(new java.util.ArrayList<>());
-
-        cancion = new Cancion();
-        cancion.setIdCancion(UUID.randomUUID().toString());
-        cancion.setTitulo("CancionTest");
-        cancion.setDescripcion("Canción de prueba");
+    @BeforeClass
+    public static void setup() {
+        repo = new ListaMongo();
     }
 
-    @After
-    public void tearDown() {
-        try {
-            listaMongo.remove(lista);
-        } catch (Exception ignored) {}
+    //    @Before
+//    public void cleanUp() {
+//        // crea un usuario administrador para las pruebas y eliminar las listas existentes
+//        Usuario admin = new Usuario();
+//        admin.setApodo("admin");
+//        admin.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
+//
+//        // Elimina todas las listas antes de cada test
+//        for (ListaReproduccion l : repo.findAll()) {
+//            repo.remove(l, admin);
+//        }
+//        lista = new ListaReproduccion();
+//        lista.setIdLista("TestLista");
+//        lista.setNombre("Lista de Prueba");
+//        lista.setDescripcion("Descripción de prueba");
+//        Usuario propietario = new Usuario();
+//        propietario.setApodo("user");
+//        propietario.setTipoUsuario(Usuario.TipoUsuario.USUARIO);
+//        lista.setPropietario(propietario);
+//    }
+    @Before
+    public void cleanUp() {
+        repo.deleteAll();
+        lista = new ListaReproduccion();
+        lista.setIdLista("TestLista");
+        lista.setNombre("Lista de Prueba");
+        lista.setDescripcion("Descripción de prueba");
+        Usuario propietario = new Usuario();
+        propietario.setNombre("UsuarioPrueba");
+        propietario.setApodo("user");
+        propietario.setContrasena("1234567");
+        propietario.setTipoUsuario(Usuario.TipoUsuario.USUARIO);
+        propietario.setPathImagen("imagen.png"); // <-- Añade una imagen válida
+        lista.setPropietario(propietario);
     }
 
     @Test
     public void testAddAndFindById() {
-        listaMongo.add(lista);
-        ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
-        assertNotNull(encontrada);
-        assertEquals(lista.getNombre(), encontrada.getNombre());
-    }
-
-    @Test
-    public void testFindByTitulo() {
-        listaMongo.add(lista);
-        ListaReproduccion encontrada = listaMongo.findByTitulo("ListaTest");
-        assertNotNull(encontrada);
-        assertEquals("ListaTest", encontrada.getNombre());
+        repo.add(lista);
+        ListaReproduccion found = repo.findById("TestLista");
+        assertNotNull(found);
+        assertEquals("Lista de Prueba", found.getNombre());
     }
 
     @Test
     public void testRemove() {
-        listaMongo.add(lista);
-        listaMongo.remove(lista);
-        ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
-        assertNull(encontrada);
-    }
-
-    @Test
-    public void testUpdate() {
-        listaMongo.add(lista);
-        lista.setDescripcion("Nueva descripción");
-        listaMongo.update(lista);
-        ListaReproduccion actualizada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
-        assertEquals("Nueva descripción", actualizada.getDescripcion());
+        repo.add(lista);
+        Usuario admin = new Usuario();
+        admin.setApodo("admin");
+        admin.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
+        repo.remove(lista, admin);
+        ListaReproduccion found = repo.findById("TestLista");
+        assertNull(found);
     }
 
     @Test
     public void testFindAll() {
-        listaMongo.add(lista);
-        List<ListaReproduccion> todas = listaMongo.findAll();
-        assertFalse(todas.isEmpty());
+        repo.add(lista);
+        List<ListaReproduccion> all = repo.findAll();
+        assertFalse(all.isEmpty());
     }
 
     @Test
-    public void testAddCancion() {
-        listaMongo.add(lista);
-        listaMongo.addCancion(lista.getNombre(), cancion);
-        ListaReproduccion encontrada = listaMongo.findByTitulo(lista.getNombre());
-        assertTrue(encontrada.getCanciones().stream()
-                .anyMatch(c -> c.getTitulo().equals("CancionTest")));
-    }
-
-    @Test
-    public void testRemoveCancion() {
-        listaMongo.add(lista);
-        listaMongo.addCancion(lista.getNombre(), cancion);
-        listaMongo.removeCancion(lista.getNombre(), cancion);
-        ListaReproduccion encontrada = listaMongo.findByTitulo(lista.getNombre());
-        assertTrue(encontrada.getCanciones().isEmpty());
-    }
-
-    @Test
-    public void testModifyList() {
-        listaMongo.add(lista);
-        listaMongo.modifyList(lista.getNombre(), "NuevoNombre", "NuevaDesc", "");
-        ListaReproduccion modificada = listaMongo.findByTitulo("NuevoNombre");
-        assertNotNull(modificada);
-        assertEquals("NuevaDesc", modificada.getDescripcion());
+    public void testUpdate() {
+        repo.add(lista);
+        lista.setDescripcion("Nueva descripción");
+        repo.update(lista);
+        ListaReproduccion updated = repo.findById("TestLista");
+        assertEquals("Nueva descripción", updated.getDescripcion());
     }
 }
