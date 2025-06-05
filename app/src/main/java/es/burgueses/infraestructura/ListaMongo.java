@@ -6,17 +6,12 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.Updates;
-import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.*;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import es.burgueses.dominio.Cancion;
-import es.burgueses.dominio.IListaReproduccionRepositorio;
-import es.burgueses.dominio.ListaReproduccion;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -43,7 +38,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
 
         this.mongoClient = MongoClients.create(settings);
         this.database = mongoClient.getDatabase("OnlyPremium");
-        this.collection = database.getCollection("listas", ListaReproduccion.class);
+        this.collection = database.getCollection("Lista", ListaReproduccion.class);
     }
 
     @Override
@@ -56,13 +51,20 @@ public class ListaMongo implements IListaReproduccionRepositorio {
     }
 
     @Override
-    public void remove(ListaReproduccion listaReproduccion) {
-        collection.deleteOne(Filters.eq("_id", listaReproduccion.getIdLista()));
+    public void remove(ListaReproduccion lista, Usuario usuarioActual) {
+        if (usuarioActual == null) {
+            throw new IllegalArgumentException("No hay usuario autenticado");
+        }
+        if (!usuarioActual.getTipoUsuario().equals(Usuario.TipoUsuario.ADMINISTRADOR)
+                && (lista.getPropietario() == null || !usuarioActual.getApodo().equals(lista.getPropietario().getApodo()))) {
+            throw new IllegalStateException("No puedes eliminar una lista que no es tuya");
+        }
+        collection.deleteOne(Filters.eq("_id", lista.getIdLista()));
     }
 
     @Override
-    public ListaReproduccion findById(UUID idLista) {
-        return collection.find(Filters.eq("_id", idLista.toString())).first();
+    public ListaReproduccion findById(String idLista) {
+        return collection.find(Filters.eq("_id", idLista)).first();
     }
 
     @Override
@@ -85,7 +87,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
     }
 
   @Override
-  public void addCancion(UUID idLista, UUID idCancion) {
+  public void addCancion(String idLista, String idCancion) {
       // Buscar la lista de reproducción por su ID
       ListaReproduccion lista = findById(idLista);
       if (lista == null) {
@@ -101,34 +103,11 @@ public class ListaMongo implements IListaReproduccionRepositorio {
   }
 
     @Override
-    public void removeCancion(UUID idLista, UUID idCancion) {
+    public void removeCancion(String idLista, String idCancion) {
         collection.updateOne(
                 Filters.eq("_id", idLista.toString()),
                 Updates.pull("canciones", Filters.eq("idCancion", idCancion.toString()))
         );
-    }
-
-    @Override
-    public void modifyList(UUID idLista, String nuevoTitulo, String nuevaDescripcion, String descripcion) {
-        collection.updateOne(
-                Filters.eq("_id", idLista.toString()),
-                Updates.combine(
-                        Updates.set("nombre", nuevoTitulo),
-                        Updates.set("descripcion", nuevaDescripcion)
-                )
-        );
-    }
-
-    @Override
-    public List<UUID> getCanciones(UUID idLista) {
-        ListaReproduccion lista = findById(idLista);
-        List<UUID> ids = new ArrayList<>();
-        if (lista != null && lista.getCanciones() != null) {
-            for (Cancion c : lista.getCanciones()) {
-                ids.add(UUID.fromString(c.getIdCancion()));
-            }
-        }
-        return ids;
     }
 
     // Métodos extra para compatibilidad con la interfaz (por título)
@@ -166,5 +145,10 @@ public class ListaMongo implements IListaReproduccionRepositorio {
                         Updates.set("descripcion", nuevaDescripcion)
                 )
         );
+    }
+
+    @Override
+    public void deleteAll() {
+        collection.deleteMany(new org.bson.Document());
     }
 }

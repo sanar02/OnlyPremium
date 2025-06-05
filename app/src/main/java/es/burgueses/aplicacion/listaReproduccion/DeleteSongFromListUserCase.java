@@ -37,8 +37,8 @@ public class DeleteSongFromListUserCase {
             throw new IllegalArgumentException("La canción no existe en la lista de reproducción");
         }
 
-        UUID idLista = UUID.fromString(lista.getIdLista());
-        UUID idCancion = UUID.fromString(cancion.getIdCancion());
+        String idLista = lista.getIdLista();
+        String idCancion = cancion.getIdCancion();
         listaReproduccionRepositorio.removeCancion(idLista, idCancion);
     }
 }

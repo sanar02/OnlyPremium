@@ -2,6 +2,7 @@ package es.burgueses.aplicacion.listaReproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
+import es.burgueses.dominio.Usuario;
 
 public class DeleteListUserCase {
     private IListaReproduccionRepositorio listaReproduccionRepositorio;
@@ -10,16 +11,18 @@ public class DeleteListUserCase {
         this.listaReproduccionRepositorio = listaReproduccionRepositorio;
     }
 
-    public void deleteList(String tituloLista) {
+    public void deleteList(String tituloLista, Usuario usuario) {
         if (tituloLista == null || tituloLista.isEmpty()) {
             throw new IllegalArgumentException("El título de la lista de reproducción no puede ser nulo o vacío");
         }
-
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
+        }
         ListaReproduccion lista = listaReproduccionRepositorio.findByTitulo(tituloLista);
         if (lista == null) {
             throw new IllegalArgumentException("La lista de reproducción no existe");
         }
 
-        listaReproduccionRepositorio.remove(lista);
+        listaReproduccionRepositorio.remove(lista, usuario);
     }
 }

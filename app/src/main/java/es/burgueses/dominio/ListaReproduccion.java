@@ -143,9 +143,6 @@ public class ListaReproduccion {
     }
 
     public void setFechaCreacion(LocalDate fechaCreacion) {
-        if(fechaCreacion == null || fechaCreacion!=LocalDate.now()) {
-            throw new IllegalArgumentException("La fecha incorrecta.");
-        }
         this.fechaCreacion = fechaCreacion;
     }
 
