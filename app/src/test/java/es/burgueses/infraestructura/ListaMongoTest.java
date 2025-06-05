@@ -27,21 +27,43 @@ public class ListaMongoTest {
         lista.setDescripcion("Descripción de prueba");
         lista.setCanciones(new java.util.ArrayList<>());
 
+        // Inicializa un propietario válido
+        es.burgueses.dominio.Usuario propietario = new es.burgueses.dominio.Usuario();
+        propietario.setId(UUID.randomUUID().toString());
+        propietario.setNombre("PropietarioTest");
+        propietario.setApodo("propTest");
+        propietario.setContrasena("123456");
+        propietario.setFechaAlta(java.time.LocalDate.now());
+        propietario.setPathImagen("/img/user.png"); // <-- Añade esta línea
+        lista.setPropietario(propietario);
+
         cancion = new Cancion();
         cancion.setIdCancion(UUID.randomUUID().toString());
         cancion.setTitulo("CancionTest");
         cancion.setDescripcion("Canción de prueba");
+        cancion.setAutor("AutorTest");
+        cancion.setPath("/test.mp3"); // <-- Añade esta línea
     }
 
     @After
     public void tearDown() {
         try {
             listaMongo.remove(lista);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            // Ignored because the list may not exist in the database after test execution
+        }
     }
 
     @Test
-    public void testAddAndFindById() {
+    public void testAdd() {
+        listaMongo.add(lista);
+        // Si no lanza excepción, la inserción fue exitosa
+        ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
+        assertNotNull(encontrada);
+    }
+
+    @Test
+    public void testFindById() {
         listaMongo.add(lista);
         ListaReproduccion encontrada = listaMongo.findById(UUID.fromString(lista.getIdLista()));
         assertNotNull(encontrada);
