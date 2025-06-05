@@ -53,6 +53,7 @@ import javafx.stage.Stage;
 import javafx.application.Platform;
 
 public class MainController implements Initializable {
+
     private final Stage stage;
 
     // Add repository fields
@@ -115,11 +116,10 @@ public class MainController implements Initializable {
         this.iniciarViewModels();
 
         // inicializar los controles que todavía no están creados
-        // this.initListadoMecanicos();
-        // this.initFormularioMecanico();
-        // this.initListadoVehiculos();
-        // this.initFormularioVehiculo();
-
+        this.initListadoUsuarios();
+        this.initRegistroUsuarios();
+        this.initListadoCanciones();
+        this.initFormularioVehiculo();
         // opcion de salir
         ToggleButton toggle = createToggle("antf-account-book", "Salir");
         // se cambia el elemento
@@ -185,121 +185,52 @@ public class MainController implements Initializable {
     }
 
     // Tengo primero que crear los viewmodels
-    private void iniciarViewModels(){
-        this.cancionViewmodel= new CancionViewmodel(this.addSongUserCase,
+    private void iniciarViewModels() {
+        this.cancionViewmodel = new CancionViewmodel(this.addSongUserCase,
                 this.deleteSongUserCase,
                 this.getSongUserCase,
                 this.modSongUserCase);
-      //se cargan los datos
+        //se cargan los datos
         this.cancionViewmodel.load();
         this.usuarioViewmodel = new UsuarioViewmodel(this.addUserUserCase,
-                                                    this.deleteUserUserCase,
-                                                    this.getUserUserCase,
-                                                    this.modUserUserCase);
+                this.deleteUserUserCase,
+                this.getUserUserCase,
+                this.modUserUserCase);
         this.usuarioViewmodel.load();
     }
 
-// Tengo que crear los viewmodels
-/*
- * private void initFormularioMecanico(){
- * //cargar el fxml
- * FXMLLoader loader = new
- * FXMLLoader(getClass().getResource("/fxml/mecanicos/formulario.fxml"));
- * //anaydiar al enrutador para poder navegar
- * this.router.add("mecanico", loader);
- * try {
- * loader.load();
- * } catch (IOException e) {
- * e.printStackTrace();
- * 
- * }
- * MecanicoControlador cc= loader.getController();
- * cc.setRouter(this.router);
- * cc.setMecanicosViewModel(this.mecanicosViewModel);
- * cc.setParent(contentPane);
- * 
- * }
- */
-}
+    private void initRegistroUsuarios() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Usuarios/registro.fxml"));
+        this.router.add("usuario", loader);
+        try {
+            loader.load();
+        } catch (IOException e) {
 
-/*
- * private void initListadoMecanicos(){
- * //cargar el fxml
- * FXMLLoader loader = new
- * FXMLLoader(getClass().getResource("/fxml/mecanicos/listado.fxml"));
- * //añadir al enrutador para poder navegar
- * this.router.add("mecanicos", loader);
- * try {
- * loader.load();
- * } catch (IOException e) {
- * e.printStackTrace();
- * }
- * MecanicosControlador cc= loader.getController();
- * cc.setRouter(this.router);
- * cc.setViewModel(this.mecanicosViewModel);
- * //configurar el menuitem
- * ToggleButton toggle = createToggle("antf-account-book", "Mecanicos");
- * //se cambia el elemento
- * toggle.setOnAction(event -> {
- * router.push("mecanicos");
- * toggle.setSelected(true);
- * 
- * });
- * //añadir
- * navBar.getChildren().add(toggle);
- * }
- */
+            e.printStackTrace();
+        }
+        UsuarioControlador usuarioController = loader.getController();
+        usuarioController.setViewModel(this.usuarioViewmodel);
+        usuarioController.setParent(contentPane);
+    }
 
-/*
- * private void initFormularioVehiculo(){
- * //cargar el fxml
- * FXMLLoader loader = new
- * FXMLLoader(getClass().getResource("/fxml/vehiculos/formulario.fxml"));
- * //anaydiar al enrutador para poder navegar
- * this.router.add("vehiculo", loader);
- * try {
- * loader.load();
- * } catch (IOException e) {
- * e.printStackTrace();
- * 
- * }
- * VehiculoControlador cc= loader.getController();
- * // cc.setMecanicosViewModel(this.mecanicosViewModel);
- * cc.setMecanicosViewModel(this.mecanicosViewModel);
- * cc.setViewModel(this.vehiculosViewModel);
- * cc.setRouter(this.router);
- * cc.setParent(contentPane);
- * 
- * }
- */
+    
 
-/*
- * private void initListadoVehiculos(){
- * //cargar el fxml
- * FXMLLoader loader = new
- * FXMLLoader(getClass().getResource("/fxml/vehiculos/listado.fxml"));
- * //anaydiar al enrutador para poder navegar
- * this.router.add("vehiculos", loader);
- * try {
- * loader.load();
- * } catch (IOException e) {
- * e.printStackTrace();
- * }
- * VehiculosControlador cc= loader.getController();
- * cc.setMecanicosViewModel(this.mecanicosViewModel);
- * cc.setViewModel(this.vehiculosViewModel);
- * 
- * cc.setRouter(this.router);
- * //configurar el menuitem
- * ToggleButton toggle = createToggle("antf-account-book", "Vehiculos");
- * //se cambia el elemento
- * toggle.setOnAction(event -> {
- * router.push("vehiculos");
- * toggle.setSelected(true);
- * 
- * });
- * //añadir
- * navBar.getChildren().add(toggle);
- * }
- * }
- */
+    private void initListadoUsuarios() {
+        LLoader loader = new FXMLLoader(getClass().getResource("fxml/Usuarios/listado.fxml"));
+        this.router.add("usuario", loader);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UsuarioControlador usuarioController = loader.getController();
+        usuarioController.setViewModel(this.usuarioViewmodel);
+        ToggleButton toggle = createToggle("antf-account-book", "Usuarios");
+        toggle.setOnAction(event -> {
+            push("usuario");
+            toggle.setSelected(true);
+
+        });
+        navBar.getChildren().add(toggle);
+    }
+    private 

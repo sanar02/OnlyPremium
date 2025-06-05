@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.usuario.UsuarioControlador">
+    <StackPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <VBox alignment="CENTER" fillWidth="true" maxWidth="400">
+        <children>
+            <Text fx:id="titulo" strokeType="OUTSIDE" strokeWidth="0.0" text="Formulario Mecánico">
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin></Text>
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Nombre:" />
+                <TextField fx:id="nombreField" promptText="Nombre" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Email:" />
+            <TextField fx:id="emailField" promptText="Email" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Activo:" />
+            <CheckBox fx:id="activoCheck" text="Activo" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Descripción:" />
+            <TextArea fx:id="descripcionArea" prefRowCount="3" promptText="Descripción" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+                <children>
+                    <Button fx:id="guardarBtn" text="Guardar" />
+                    <Button fx:id="cancelarBtn" text="Cancelar" />
+                </children>
+                <opaqueInsets>
+                    <Insets right="40.0" />
+                </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </HBox>
+        </children>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+    </VBox>
+    </StackPane>
+</AnchorPane>

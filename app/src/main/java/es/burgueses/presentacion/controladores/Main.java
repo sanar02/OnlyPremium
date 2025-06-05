@@ -17,9 +17,10 @@ import java.util.Objects;
 
 public class Main extends Application{
     private void init(Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/paginaPrincipal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/paginaPrincipalpal.fxml"));
+
         loader.setControllerFactory(c -> new MainController(primaryStage));
-        Parent root;
+        Parent root ;
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -29,7 +30,7 @@ public class Main extends Application{
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.initStyle(StageStyle.DECORATED);
+        primaryStage.initStyle(StageStyle.DECORATED);//.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.setTitle("OnlyPremium");
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/logo.png"))));
