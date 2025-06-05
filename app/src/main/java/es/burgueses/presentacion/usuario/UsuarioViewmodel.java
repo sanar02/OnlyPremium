@@ -104,7 +104,7 @@ public class UsuarioViewmodel {
         } else {
             // para indicar que se ha actualizado
             if (this.modUserUserCase != null) {
-                this.modUserUserCase.modificarUsuario(null, null, null, null, null);
+                this.modUserUserCase.modificarUsuario(null, null, null, null);
                 // se tiene que llamar a refresh de la lista
                 // para que las modificaciones se vean en los liststados
                 // la modificación de un objeto, no provoca la actualización de la lista

@@ -90,5 +90,4 @@ public class UsuarioMongoTest {
         assertNotNull(found);
         assertEquals("TestNick", found.getApodo());
     }
-
 }
