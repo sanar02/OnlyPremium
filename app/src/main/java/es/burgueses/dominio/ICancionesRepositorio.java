@@ -6,7 +6,7 @@ public interface ICancionesRepositorio {
     public void add(Cancion cancion);
     public void remove(Cancion cancion);
     public Cancion findByTitulo(String titulo);
-    public Cancion findById(int id);
+    public Cancion findById(String id);
     public List<Cancion> findAll();
     public void update(Cancion cancion);
     

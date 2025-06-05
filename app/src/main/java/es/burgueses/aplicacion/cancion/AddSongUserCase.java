@@ -7,7 +7,7 @@ public class AddSongUserCase {
     public AddSongUserCase(ICancionesRepositorio cancionesRepositorio) {
         this.cancionesRepositorio = cancionesRepositorio;
     }
-    public void execute(Cancion cancion) {
+    public void add(Cancion cancion) {
         if (cancion == null || cancion.getTitulo() == null || cancion.getTitulo().isEmpty()) {
             cancionesRepositorio.add(cancion);
         } else {

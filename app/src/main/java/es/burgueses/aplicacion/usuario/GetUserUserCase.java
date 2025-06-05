@@ -20,4 +20,12 @@ public class GetUserUserCase {
         }
         return usuario;
     }
+
+    public java.util.List<Usuario> getAllUsers(){
+        java.util.List<Usuario> usuarios = usuarioRepositorio.findAll();
+        if (usuarios == null || usuarios.isEmpty()) {
+            throw new IllegalArgumentException("No existen usuarios");
+        }
+        return usuarios;
+    }
 }

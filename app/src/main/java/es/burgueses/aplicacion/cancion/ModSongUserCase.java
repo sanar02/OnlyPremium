@@ -9,7 +9,7 @@ public class ModSongUserCase {
         this.cancionesRepositorio = cancionesRepositorio;
     }
 
-    public void modify(int idCancion, String nuevoTitulo, String nuevoAutor, String nuevaDescripcion, String nuevoPath) {
+    public void modify(String idCancion, String nuevoTitulo, String nuevoAutor, String nuevaDescripcion, String nuevoPath) {
         Cancion cancion = cancionesRepositorio.findById(idCancion);
         if (cancion == null) {
             throw new IllegalArgumentException("No se encontró la canción con el ID proporcionado");
