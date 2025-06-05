@@ -43,7 +43,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
 
         this.mongoClient = MongoClients.create(settings);
         this.database = mongoClient.getDatabase("OnlyPremium");
-        this.collection = database.getCollection("listas", ListaReproduccion.class);
+        this.collection = database.getCollection("Lista", ListaReproduccion.class);
     }
 
     @Override

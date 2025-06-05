@@ -45,14 +45,6 @@ public class ListaMongoTest {
         cancion.setPath("/test.mp3"); // <-- Añade esta línea
     }
 
-    @After
-    public void tearDown() {
-        try {
-            listaMongo.remove(lista);
-        } catch (Exception ignored) {
-            // Ignored because the list may not exist in the database after test execution
-        }
-    }
 
     @Test
     public void testAdd() {
