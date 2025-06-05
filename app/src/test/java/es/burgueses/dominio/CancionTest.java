@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class CancionTest {
 
     private Cancion c;
-    private final LocalDate HOY = LocalDate.now();
+    private final LocalDate hoyLocalDate = LocalDate.now();
 
     @Before
     public void setUp() {

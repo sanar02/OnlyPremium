@@ -1,14 +1,20 @@
 package es.burgueses.dominio;
 
+import org.bson.codecs.pojo.annotations.BsonId;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class Usuario {
 
     public enum TipoUsuario {
         ADMINISTRADOR, USUARIO
     }
-    private String contraseña;
+
+    @BsonId
+    private String id;
+
+    private String contrasena;
     private String nombre;
     private String apodo;
     private String pathImagen;
@@ -21,72 +27,86 @@ public class Usuario {
 
     // Constructores
     public Usuario() {
-        // Constructor por defecto
-        contraseña = "";
+        id = UUID.randomUUID().toString();
         nombre = "";
+        contrasena = "";
         apodo = "";
-        pathImagen = "";
+        fechaAlta = LocalDate.now();
+        tipoUsuario = TipoUsuario.USUARIO;
         activo = false;
-        fechaAlta = null;
-        tipoUsuario = TipoUsuario.USUARIO; // Por defecto, un usuario es de tipo USUARIO
-
+        pathImagen = "";
     }
 
-    public Usuario(String contraseña, String nombre, String apodo, String pathImagen, boolean activo, LocalDate fechaAlta,
-            TipoUsuario tipoUsuario) {
-        if(contraseña == null || contraseña.isEmpty() || contraseña.length() < 6) {
-            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
-        } else {
-            this.contraseña = contraseña;
+    public Usuario(String id, String nombre, String contrasena, String apodo, LocalDate fechaAlta) {
+        this.id = validarId(id);
+        this.nombre = validarNombre(nombre);
+        this.contrasena = validarContrasena(contrasena);
+        this.apodo = validarApodo(apodo);
+        this.fechaAlta = validarFechaAlta(fechaAlta);
+        this.activo = false;
+        this.tipoUsuario = TipoUsuario.USUARIO;
+    }
+
+    private String validarId(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("El ID no puede ser nulo");
         }
-        if(nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
+        return id;
+    }
+
+    private String validarNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
-        } else {
-            this.nombre = nombre;
         }
-        if(apodo == null || apodo.isEmpty() || apodo.contains(" ")) {
+        return nombre;
+    }
+
+    private String validarContrasena(String contrasena) {
+        if (contrasena == null || contrasena.isEmpty() || contrasena.length() < 6) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
+        }
+        return contrasena;
+    }
+
+    private String validarApodo(String apodo) {
+        if (apodo == null || apodo.isEmpty() || apodo.contains(" ")) {
             throw new IllegalArgumentException("El apodo no puede ser nulo o vacío, ni tener espacios en blanco");
         } else if (apodo.length() > 8) {
             throw new IllegalArgumentException("El apodo no puede tener más de 8 caracteres");
-        } else {
-            this.apodo = apodo;
         }
-        if (pathImagen == null || pathImagen.isEmpty()) {
-            throw new IllegalArgumentException("La imagen no puede ser nula o vacía");
-        } else {
-            String[] extensionesValidas = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg" };
-            boolean extensionValida = false;
-            for (String ext : extensionesValidas) {
-                if (pathImagen.toLowerCase().endsWith(ext)) {
-                    extensionValida = true;
-                    break;
-                }
-            }
-            if (!extensionValida) {
-                throw new IllegalArgumentException("La ruta de la imagen no es válida");
-            }
-            this.pathImagen = pathImagen;
-        }
-        this.activo = activo;
-        if(fechaAlta == null || !fechaAlta.equals(LocalDate.now())) {
+        return apodo;
+    }
+
+    private LocalDate validarFechaAlta(LocalDate fechaAlta) {
+        if (fechaAlta == null || !fechaAlta.equals(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha de alta debe ser la fecha actual");
-        } else {
-            this.fechaAlta = fechaAlta;
         }
-        this.tipoUsuario = tipoUsuario;
+        return fechaAlta;
     }
 
     // Getters y Setters
-    public String getContraseña() {
-        return contraseña;
+    public String getId() {
+        return id;
     }
-    public void setContraseña(String contraseña) {
-        if (contraseña == null || contraseña.isEmpty() || contraseña.length() < 6) {
-            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
-        } else {
-            this.contraseña = contraseña;
+
+    public void setId(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("El ID no puede ser nulo");
         }
+        this.id = id;
     }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        if (contrasena == null || contrasena.isEmpty() || contrasena.length() < 6) {
+            throw new IllegalArgumentException("La contraseña no puede ser nula, vacía o menor de 6 caracteres");
+        }
+        this.contrasena = contrasena;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -94,10 +114,8 @@ public class Usuario {
     public void setNombre(String nombre) {
         if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
-        } else {
-            this.nombre = nombre;
         }
-
+        this.nombre = nombre;
     }
 
     public String getApodo() {
@@ -109,18 +127,14 @@ public class Usuario {
             throw new IllegalArgumentException("El apodo no puede ser nulo o vacío, ni tener espacios en blanco");
         } else if (apodo.length() > 8) {
             throw new IllegalArgumentException("El apodo no puede tener más de 8 caracteres");
-        } else {
-            this.apodo = apodo;
         }
         this.apodo = apodo;
     }
 
-    public String getPathImagen() {
-        return pathImagen;
-    }
-
     public void setPathImagen(String pathImagen) {
-        // Extensiones válidas de audio
+        if (pathImagen == null || pathImagen.isEmpty()) {
+            throw new IllegalArgumentException("La imagen no puede ser nula o estar vacía");
+        }
         String[] extensionesValidas = { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg" };
         boolean extensionValida = false;
         for (String ext : extensionesValidas) {
@@ -129,11 +143,47 @@ public class Usuario {
                 break;
             }
         }
-        if (pathImagen == null || pathImagen.isEmpty() || pathImagen.contains(" ") || !extensionValida) {
-            throw new IllegalArgumentException("La ruta no es válida");
-        } else {
-            this.pathImagen = pathImagen;
+        if (!extensionValida) {
+            throw new IllegalArgumentException("La ruta de la imagen no es válida");
         }
+        this.pathImagen = pathImagen;
+    }
+
+    public String getPathImagen() {
+        return pathImagen;
+    }
+
+    public List<ListaReproduccion> getListasPropias() {
+        return listasPropias;
+    }
+
+    public void setListasPropias(List<ListaReproduccion> listasPropias) {
+        if (listasPropias == null) {
+            throw new IllegalArgumentException("Las listas propias no pueden ser nulas");
+        }
+        this.listasPropias = listasPropias;
+    }
+
+    public List<ListaReproduccion> getListasFavoritas() {
+        return listasFavoritas;
+    }
+
+    public void setListasFavoritas(List<ListaReproduccion> listasFavoritas) {
+        if (listasFavoritas == null) {
+            throw new IllegalArgumentException("Las listas favoritas no pueden ser nulas");
+        }
+        this.listasFavoritas = listasFavoritas;
+    }
+
+    public List<Cancion> getUltimasCanciones() {
+        return ultimasCanciones;
+    }
+
+    public void setUltimasCanciones(List<Cancion> ultimasCanciones) {
+        if (ultimasCanciones == null) {
+            throw new IllegalArgumentException("Las últimas canciones no pueden ser nulas");
+        }
+        this.ultimasCanciones = ultimasCanciones;
     }
 
     public boolean isActivo() {
@@ -149,8 +199,11 @@ public class Usuario {
     }
 
     public void setFechaAlta(LocalDate fechaAlta) {
-        if (fechaAlta == null || fechaAlta != (LocalDate.now())) {
-            throw new IllegalArgumentException("La fecha no es correcta");
+        if (fechaAlta == null) {
+            throw new IllegalArgumentException("La fecha de alta no puede ser null");
+        }
+        if (fechaAlta.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de alta no puede ser futura");
         }
         this.fechaAlta = fechaAlta;
     }
@@ -170,7 +223,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "nombre='" + nombre + '\'' +
-                ", apodo='" + apodo + '\'' +
+                ", id='" + id + '\'' +
                 ", imagen=" + pathImagen +
                 ", activo=" + activo +
                 ", fechaAlta=" + fechaAlta +
