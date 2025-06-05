@@ -11,10 +11,14 @@ public class DeleteUserUserCase {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    public void delete(Usuario usuario) {
-        if (usuario == null || usuario.getApodo() == null) {
+    public void execute(Usuario usuario) {
+        if (usuario == null || usuario.getId() == null) {
             throw new IllegalArgumentException("Usuario o ID no pueden ser nulos");
         }
-        usuarioRepositorio.remove(usuario);
+        Usuario existeUsuario = usuarioRepositorio.findById(usuario.getId());
+        if (existeUsuario == null) {
+            throw new IllegalArgumentException("No existe un usuario con el ID proporcionado");
+        }
+        usuarioRepositorio.remove(existeUsuario);
     }
 }

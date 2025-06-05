@@ -10,7 +10,7 @@ public class ModUserUserCase {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    public void modificarUsuario(String apodoActual, String nuevoApodo, String nuevoNombre, String contraseñaActual, String nuevaContrasena) {
+    public void modificarUsuario(String apodoActual, String nuevoApodo, String nuevoNombre, String nuevaContrasena) {
         if (nuevoApodo == null || nuevoNombre == null || nuevaContrasena == null) {
             throw new IllegalArgumentException("Los parámetros no pueden ser nulos");
         }
@@ -29,16 +29,18 @@ public class ModUserUserCase {
         }
 
         // Validar que la nueva contraseña no coincida con la actual
-        if (usuario.getContraseña().equals(nuevaContrasena)) {
+        if (usuario.getContrasena().equals(nuevaContrasena)) {
             throw new IllegalArgumentException("La nueva contraseña no puede ser la misma que la actual");
         }
 
         // Actualizar los campos del usuario
         usuario.setApodo(nuevoApodo);
         usuario.setNombre(nuevoNombre);
-        usuario.setContraseña(nuevaContrasena);
+        usuario.setContrasena(nuevaContrasena);
 
         // Guardar los cambios en el repositorio
         usuarioRepositorio.update(usuario);
+        
+        System.out.println("Usuario modificado correctamente: " + usuario.getId());
     }
 }
