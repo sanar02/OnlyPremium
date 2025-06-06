@@ -43,7 +43,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
 
         this.mongoClient = MongoClients.create(settings);
         this.database = mongoClient.getDatabase("OnlyPremium");
-        this.collection = database.getCollection("listas", ListaReproduccion.class);
+        this.collection = database.getCollection("Lista", ListaReproduccion.class);
     }
 
     @Override
@@ -152,8 +152,8 @@ public class ListaMongo implements IListaReproduccionRepositorio {
     @Override
     public void removeCancion(String tituloLista, Cancion cancion) {
         collection.updateOne(
-                Filters.eq("nombre", tituloLista),
-                Updates.pull("canciones", Filters.eq("idCancion", cancion.getIdCancion()))
+            Filters.eq("nombre", tituloLista),
+            Updates.pull("canciones", new org.bson.Document("titulo", cancion.getTitulo()))
         );
     }
 

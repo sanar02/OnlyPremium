@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.util.Objects;
 
+// Import MainController if it exists in the same package or adjust the import path as needed
+// import es.burgueses.presentacion.controladores.MainController;
+
 public class Main extends Application{
     private void init(Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/paginaPrincipal.fxml"));

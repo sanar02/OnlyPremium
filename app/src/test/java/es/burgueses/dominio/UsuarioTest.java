@@ -3,6 +3,9 @@ package es.burgueses.dominio;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.burgueses.dominio.Usuario;
+import es.burgueses.dominio.Usuario.TipoUsuario;
+
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -10,7 +13,7 @@ import static org.junit.Assert.*;
 public class UsuarioTest {
 
     private Usuario u;
-    private final LocalDate HOY = LocalDate.now();
+    private final LocalDate hoyDate = LocalDate.now();
 
     @Before
     public void setUp() {
@@ -197,7 +200,7 @@ public class UsuarioTest {
         // ¿Qué? Llamar a setFechaAlta con fecha futura
         boolean thrown = false;
         try {
-            u.setFechaAlta(HOY.plusDays(1));
+            u.setFechaAlta(hoyDate.plusDays(1));
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -207,7 +210,7 @@ public class UsuarioTest {
     @Test
     public void testSetFechaAltaValid() {
         // ¿Qué? Llamar a setFechaAlta con fecha pasada o actual
-        LocalDate pasado = HOY.minusDays(10);
+        LocalDate pasado = hoyDate.minusDays(10);
         u.setFechaAlta(pasado);
         assertEquals("setFechaAlta debe aceptar fechas pasadas", pasado, u.getFechaAlta());
     }

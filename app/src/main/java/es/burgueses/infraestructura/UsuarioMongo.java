@@ -5,6 +5,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
+import org.bson.UuidRepresentation;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import es.burgueses.dominio.IUsuarioRepositorio;
@@ -12,6 +13,7 @@ import es.burgueses.dominio.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -22,6 +24,28 @@ public class UsuarioMongo implements IUsuarioRepositorio {
     private final MongoDatabase database;
     private final MongoCollection<Usuario> coleccion;
 
+    public UsuarioMongo() {
+        // Conexión directa usando la URL proporcionada
+        String url = "mongodb://app:123456789Aa@10.2.1.191:27017/OnlyPremium";
+        ConnectionString connectionString = new ConnectionString(url);
+
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build())
+        );
+
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .codecRegistry(pojoCodecRegistry)
+                .uuidRepresentation(UuidRepresentation.STANDARD)
+                .build();
+
+        cliente = MongoClients.create(settings);
+        database = cliente.getDatabase("OnlyPremium");
+        coleccion = database.getCollection("Usuario", Usuario.class);
+    }
+
+    /*
     public UsuarioMongo() {
         // MongoDB credentials and connection info
         String usuario = "app";
@@ -51,52 +75,74 @@ public class UsuarioMongo implements IUsuarioRepositorio {
         database = cliente.getDatabase(baseDatos);
         coleccion = database.getCollection("usuario", Usuario.class);
     }
+    */
 
     @Override
     public void add(Usuario usuario) {
-        // Add a new user if the nickname does not exist
-        if (coleccion.find(Filters.eq("apodo", usuario.getApodo())).first() != null) {
-            throw new IllegalArgumentException("El usuario ya existe");
-        } else {
-            coleccion.insertOne(usuario);
+        if (usuario == null) throw new IllegalArgumentException("El usuario no puede ser nulo");
+        if (coleccion.find(Filters.eq("_id", usuario.getId())).first() != null) {
+            throw new IllegalArgumentException("Ya existe un usuario con ese ID");
         }
+        coleccion.insertOne(usuario);
     }
 
     @Override
     public void remove(Usuario usuario) {
-        // Remove a user if the nickname exists
-        if (coleccion.find(Filters.eq("apodo", usuario.getApodo())).first() == null) {
-            throw new IllegalArgumentException("El usuario no existe");
-        } else {
-            coleccion.deleteOne(Filters.eq("apodo", usuario.getApodo()));
+        if (coleccion.find(Filters.eq("_id", usuario.getId())).first() == null) {
+            throw new IllegalArgumentException("No existe un usuario con ese ID");
         }
+        coleccion.deleteOne(Filters.eq("_id", usuario.getId()));
     }
-
-    @Override
-    public Usuario findByApodo(String apodo) {
-        // Find a user by nickname
-        return coleccion.find(Filters.eq("apodo", apodo)).first();
-    }
-
+    
     @Override
     public List<Usuario> findAll() {
+
         // Get all users from the collection
         return coleccion.find().into(new ArrayList<>());
     }
 
     @Override
-    public void update(Usuario usuario) {
-        // Update a user by nickname (replace the document)
-        coleccion.replaceOne(
-            Filters.eq("apodo", usuario.getApodo()),
-            usuario,
-            new ReplaceOptions().upsert(false)
-        );
+public void update(Usuario usuario) {
+    if (usuario == null || usuario.getId() == null) {
+        throw new IllegalArgumentException("El usuario o el ID no pueden ser nulos");
+    }
+    if (coleccion.find(Filters.eq("_id", usuario.getId())).first() == null) {
+        throw new IllegalArgumentException("No existe un usuario con ese ID");
+    }
+    ReplaceOptions options = new ReplaceOptions().upsert(true);
+    coleccion.replaceOne(Filters.eq("_id", usuario.getId()), usuario, options);
+}
+
+    @Override
+    public Usuario findById(String id) {
+        Usuario usuario = coleccion.find(Filters.eq("_id", id)).first();
+        if (usuario == null) {
+            throw new IllegalArgumentException("No existe un usuario con ese ID");
+        }
+        return usuario;
     }
 
     @Override
-    public Usuario get(String apodo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+    public Usuario findByApodo(String apodo) {
+        // Validate the apodo input
+        if (apodo == null || apodo.isEmpty()) {
+            throw new IllegalArgumentException("El apodo no puede ser nulo o vacío");
+        }
+
+        // Check if the user exists by apodo
+        Usuario usuario = coleccion.find(Filters.eq("apodo", apodo)).first();
+        if (usuario == null) {
+            throw new IllegalArgumentException("No existe un usuario con ese apodo");
+        }
+
+        // Return the user if found
+        return usuario;
     }
+    
+    @Override
+    public void deleteAll() {
+        coleccion.deleteMany(new org.bson.Document());
+    }
+
 }
+

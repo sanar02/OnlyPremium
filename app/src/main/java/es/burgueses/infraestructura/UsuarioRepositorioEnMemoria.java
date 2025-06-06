@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import es.burgueses.dominio.Usuario;
 import es.burgueses.dominio.IUsuarioRepositorio;
@@ -25,11 +26,6 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
     }
 
     @Override
-    public Usuario get(String apodo) {
-        return usuarios.get(apodo);
-    }
-
-    @Override
     public void remove(Usuario usuario) {
         usuarios.remove(usuario.getApodo());
     }
@@ -48,5 +44,21 @@ public class UsuarioRepositorioEnMemoria implements IUsuarioRepositorio {
     public void update(Usuario usuario) {
         usuarios.put(usuario.getApodo(), usuario);
     }
-    
+
+    @Override
+    public Usuario findById(String _id) { // Cambiado a String
+        if (_id == null) return null;
+        for (Usuario u : usuarios.values()) {
+            if (_id.equals(u.getId())) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteAll() {
+        usuarios.clear();
+    }
+
 }

@@ -5,9 +5,10 @@ import java.util.List;
 public interface IUsuarioRepositorio {
     void add(Usuario usuario);
     void remove(Usuario usuario);
-    Usuario findByApodo(String apodo);
+    Usuario findById(String _id); // Cambiado a String
     List<Usuario> findAll();
-    Usuario get(String apodo);
     void update(Usuario usuario);
-
+    Usuario findByApodo(String apodo);
+    void deleteAll();
 }
+

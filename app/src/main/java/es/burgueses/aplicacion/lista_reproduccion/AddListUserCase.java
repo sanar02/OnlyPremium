@@ -1,4 +1,4 @@
-package es.burgueses.aplicacion.listaReproduccion;
+package es.burgueses.aplicacion.lista_reproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;

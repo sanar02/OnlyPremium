@@ -1,24 +1,29 @@
-package es.burgueses.aplicacion.listaReproduccion;
+package es.burgueses.aplicacion.lista_reproduccion;
 
 import es.burgueses.dominio.IListaReproduccionRepositorio;
 import es.burgueses.dominio.ListaReproduccion;
+import es.burgueses.dominio.Usuario;
 import es.burgueses.dominio.Cancion;
+import es.burgueses.dominio.ICancionesRepositorio;
 
-import java.util.UUID;
-
-public class DeleteSongFromListUserCase {
+public class AddSongToListUserCase {
     private IListaReproduccionRepositorio listaReproduccionRepositorio;
+    private ICancionesRepositorio cancionRepositorio;
 
-    public DeleteSongFromListUserCase(IListaReproduccionRepositorio listaReproduccionRepositorio) {
+    public AddSongToListUserCase(IListaReproduccionRepositorio listaReproduccionRepositorio, ICancionesRepositorio cancionRepositorio) {
         this.listaReproduccionRepositorio = listaReproduccionRepositorio;
+        this.cancionRepositorio = cancionRepositorio;
     }
 
-    public void deleteSongFromList(String tituloLista, String tituloCancion) {
+    public void addSongToList(String tituloLista, String tituloCancion, Usuario usuario) {
         if (tituloLista == null || tituloLista.isEmpty()) {
             throw new IllegalArgumentException("El título de la lista de reproducción no puede ser nulo o vacío");
         }
         if (tituloCancion == null || tituloCancion.isEmpty()) {
             throw new IllegalArgumentException("El título de la canción no puede ser nulo o vacío");
+        }
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario no puede ser nulo");
         }
 
         ListaReproduccion lista = listaReproduccionRepositorio.findByTitulo(tituloLista);
@@ -26,19 +31,14 @@ public class DeleteSongFromListUserCase {
             throw new IllegalArgumentException("La lista de reproducción no existe");
         }
 
-        Cancion cancion = null;
-        for (Cancion c : lista.getCanciones()) {
-            if (c.getTitulo().equals(tituloCancion)) {
-                cancion = c;
-                break;
-            }
-        }
+        Cancion cancion = cancionRepositorio.findByTitulo(tituloCancion);
         if (cancion == null) {
-            throw new IllegalArgumentException("La canción no existe en la lista de reproducción");
+            throw new IllegalArgumentException("La canción no existe");
         }
 
-        UUID idLista = UUID.fromString(lista.getIdLista());
-        UUID idCancion = UUID.fromString(cancion.getIdCancion());
-        listaReproduccionRepositorio.removeCancion(idLista, idCancion);
+        lista.getCanciones().add(cancion);
+
+        // Actualizar la lista en el repositorio
+        listaReproduccionRepositorio.update(lista);
     }
 }
