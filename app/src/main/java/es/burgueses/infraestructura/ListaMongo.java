@@ -131,8 +131,8 @@ public class ListaMongo implements IListaReproduccionRepositorio {
     @Override
     public void removeCancion(String tituloLista, Cancion cancion) {
         collection.updateOne(
-                Filters.eq("nombre", tituloLista),
-                Updates.pull("canciones", Filters.eq("idCancion", cancion.getIdCancion()))
+            Filters.eq("nombre", tituloLista),
+            Updates.pull("canciones", new org.bson.Document("titulo", cancion.getTitulo()))
         );
     }
 

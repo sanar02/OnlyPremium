@@ -13,6 +13,10 @@ public class GetAllListUserCase {
     }
 
     public List<ListaReproduccion> getAllLists() {
-        return listaReproduccionRepositorio.findAll();
+        try {
+            return listaReproduccionRepositorio.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
