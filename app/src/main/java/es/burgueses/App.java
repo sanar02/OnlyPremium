@@ -10,4 +10,8 @@ public class App {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
+
+    public void someMethod() {
+        getClass().getResource("/paginaPrincipal.fxml");
+    }
 }
