@@ -10,7 +10,8 @@ public class ModSongUserCase {
     }
 
     public void modify(String idCancion, String nuevoTitulo, String nuevoAutor, String nuevaDescripcion, String nuevoPath) {
-        Cancion cancion = cancionesRepositorio.findById(idCancion);
+        java.util.UUID uuid = java.util.UUID.fromString(idCancion);
+        Cancion cancion = cancionesRepositorio.findById(uuid);
         if (cancion == null) {
             throw new IllegalArgumentException("No se encontró la canción con el ID proporcionado");
         }

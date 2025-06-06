@@ -15,11 +15,10 @@ public class Cancion {
     }
 
     // Lista de géneros como objetos Genero
-    private List<Genero> generos;
+    private List<String> generos;
     private String path;
     private String idPropietario;
     @BsonId
-    private String idCancion; 
     private String autor;
     private String descripcion;
     private LocalDate fechaAlta;
@@ -27,19 +26,20 @@ public class Cancion {
     private int numeroReproducciones;
     private List<Voto> meGusta;
     private List<Voto> noMeGusta;
+    private UUID id;
 
     // Constructores
     public Cancion() {
         titulo = "";
         path = "";
         idPropietario = ""; // Asignar un usuario por defecto
-        this.idCancion = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         autor = "";
         descripcion = "";
         publica = false;
         numeroReproducciones = 0;
         generos = new ArrayList<>();
-        generos.add(Genero.POP); // Asignar un género por defecto
+        generos.add("POP"); // Asignar un género por defecto
         meGusta = new ArrayList<>();
         noMeGusta = new ArrayList<>();
         fechaAlta = LocalDate.now();
@@ -51,12 +51,10 @@ public class Cancion {
         if (titulo == null || titulo.isEmpty() || titulo.trim().equals(" ")) {
             throw new IllegalArgumentException("El título no puede ser nulo o vacío");
         }
-        this.generos = generos != null && !generos.isEmpty()
-                ? generos.stream().map(Genero::valueOf).toList()
-                : List.of(Genero.POP);
+        this.generos = getGeneros();
         this.path = path;
         this.idPropietario = propietario != null ? propietario.getApodo() : "";
-        this.idCancion = (idCancion != null) ? idCancion : UUID.randomUUID().toString();
+        this.id = (idCancion != null) ? id : UUID.randomUUID();
         this.autor = autor;
         this.descripcion = descripcion;
         this.fechaAlta = fechaAlta != null ? fechaAlta : LocalDate.now();
@@ -67,13 +65,6 @@ public class Cancion {
     }
 
     // Getters y Setters
-    public String getIdCancion() {
-        return idCancion;
-    }
-
-    public void setIdCancion(String idCancion) {
-        this.idCancion = idCancion;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -87,9 +78,7 @@ public class Cancion {
     }
 
     public List<String> getGeneros() {
-        return generos.stream()
-                .map(Genero::name)
-                .toList();
+        return generos;
     }
 
     public void setGeneros(List<String> generos) {
@@ -106,13 +95,10 @@ public class Cancion {
         }
         // El género no puede estar escrito en minúsculas
         if (generos.stream().anyMatch(g -> g.chars().anyMatch(Character::isLowerCase))) {
-            throw new IllegalArgumentException("Los géneros deben estar en mayúsculas");
+                throw new IllegalArgumentException("Los géneros deben estar en mayúsculas");
+            }
+            this.generos = generos;
         }
-
-        this.generos = generos.stream()
-                .map(Genero::valueOf)
-                .toList();
-    }
 
     public String getPath() {
         return path;
@@ -267,4 +253,33 @@ public class Cancion {
                 '}';
     }
 
-}
+
+    public void setDescription(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
+    }
+
+    public void setPathImage(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPathImage'");
+    }
+
+    public void setPublic(boolean selected) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPublic'");
+    }
+
+    public void setAuthor(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setAuthor'");
+    }
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    }
+

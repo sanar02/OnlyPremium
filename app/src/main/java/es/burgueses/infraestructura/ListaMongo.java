@@ -92,7 +92,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
           throw new IllegalArgumentException("Lista de reproducción no encontrada: " + idLista);
       }
       // Buscar la canción por su ID (debes tener acceso a un repositorio de canciones)
-      Cancion cancion = cancionRepositorio.findById(idCancion.toString());
+      Cancion cancion = cancionRepositorio.findById(idCancion);
        if (cancion == null) {
            throw new IllegalArgumentException("Canción no encontrada: " + idCancion);
        }
@@ -125,7 +125,7 @@ public class ListaMongo implements IListaReproduccionRepositorio {
         List<UUID> ids = new ArrayList<>();
         if (lista != null && lista.getCanciones() != null) {
             for (Cancion c : lista.getCanciones()) {
-                ids.add(UUID.fromString(c.getIdCancion()));
+                ids.add(c.getId());
             }
         }
         return ids;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<VBox spacing="20" xmlns:fx="http://javafx.com/fxml">
+    <JFXButton text="Home" />
+    <JFXButton text="Playlists" />
+    <JFXButton text="Settings"/>
+</VBox>

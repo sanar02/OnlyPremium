@@ -73,6 +73,7 @@ dependencies {
     implementation("org.mongodb:mongodb-driver-core:5.5.0")
     implementation("org.openjfx:javafx-controls:21")
     implementation("org.openjfx:javafx-fxml:21")
+    implementation("com.jfoenix:jfoenix:9.0.10")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -87,7 +88,7 @@ javafx {
 }
 application {
     // Define the main class for the application.
-    mainClass.set("es.burgueses.presentacion.Main")
+    mainClass.set("es.burgueses.App")
 }
 
 tasks.named<Test>("test") {

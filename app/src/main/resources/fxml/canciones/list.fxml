@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.GridView?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane stylesheets="@../../css/TextFields.css, @../../css/Buttons.css, @../../css/Main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.sequeros.dam.spotydam.songs.SongsController">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+      <children>
+         <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" >
+            <children>
+                  <ToolBar maxHeight="-Infinity" prefHeight="40.0">
+                      <items>
+                          <Region HBox.hgrow="ALWAYS" />
+                          <MFXButton fx:id="add" text="">
+                        <graphic>
+                           <FontIcon iconColor="#18268c" iconLiteral="anto-file-add:24"/> <!--:#FFC72C" />-->
+                        </graphic>
+                          </MFXButton>
+                          <MFXButton fx:id="up" text="">
+      
+                                    <graphic>
+                                  <FontIcon iconLiteral="fa-chevron-left:24" />
+                              </graphic>
+      
+                                </MFXButton>
+      
+            
+                                <MFXTextField fx:id="searchField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="300" text="Filtrar" />
+      
+                            </items>
+                  </ToolBar>
+            </children>
+         </VBox>
+           <Label fx:id="titulo" alignment="CENTER" maxHeight="40.0" maxWidth="1.7976931348623157E308" styleClass="header-label" text="Listado canciones" textAlignment="CENTER" />
+         <!--<ScrollPane fitToHeight="true" fitToWidth="true">
+             <padding>
+                 <Insets left="10.0" />
+             </padding>
+            <content>-->
+            <GridView fx:id="grid" cellHeight="240" cellWidth="180" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"  styleClass="grid-pane" VBox.vgrow="ALWAYS">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding>
+               </GridView>
+      </children>
+   </VBox>
+    <!--  </content>
+   </ScrollPane>-->
+</AnchorPane>

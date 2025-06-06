@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.burgueses.presentacion.controladores.principal.PaginaPrincipalController">
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <JFXDrawer fx:id="drawer" sidePane="" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></JFXDrawer>
+
+        <VBox alignment="CENTER" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <children>
+                <StackPane fx:id="contentPane" maxHeight="Infinity" VBox.vgrow="ALWAYS" />
+
+            </children>
+        </VBox>
+
+    </HBox>
+
+
+</AnchorPane>

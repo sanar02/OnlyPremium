@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<AnchorPane maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.sequeros.dam.spotydam.songs.SongController">
+    <StackPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <VBox alignment="CENTER" maxWidth="550">
+        <children>
+            <Text fx:id="titulo" strokeType="OUTSIDE" strokeWidth="0.0" text="Song">
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin></Text>
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Name:" />
+                <TextField fx:id="nameField" promptText="Name" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Author:" />
+                <TextField fx:id="autorField" promptText="Author" HBox.hgrow="ALWAYS" />
+                <padding>
+                    <Insets bottom="20.0" />
+                </padding>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Description:" />
+                <TextField fx:id="description" promptText="Description" HBox.hgrow="ALWAYS" />
+                <padding>
+                    <Insets bottom="20.0" />
+                </padding>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label minWidth="100" text="Image:" />
+                <TextField fx:id="pathImagenField" editable="false" HBox.hgrow="ALWAYS" />
+                <Button fx:id="imagenBtn" text="Seleccionar" />
+               <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                <padding>
+                    <Insets bottom="20.0" />
+                </padding>
+            </HBox>
+
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label minWidth="100" text="Song:" />
+                <TextField fx:id="pathSongField" editable="false" HBox.hgrow="ALWAYS" />
+                <Button fx:id="songBtn" text="Seleccionar" />
+               <Button fx:id="playBtn" mnemonicParsing="false" >
+                   <graphic>
+                       <FontIcon iconColor="#18268c" iconLiteral="fa-play:24"/> <!--:#FFC72C" />-->
+                   </graphic>
+               </Button>
+
+                <padding>
+                    <Insets bottom="20.0" />
+                </padding>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                <Label minWidth="100" text="Public:" />
+            <CheckBox fx:id="isPublic" HBox.hgrow="ALWAYS" />
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="20.0">
+                <children>
+                    <Button fx:id="guardarBtn" text="Guardar" />
+                    <Button fx:id="cancelarBtn" text="Cancelar" />
+                </children>
+                <opaqueInsets>
+                    <Insets right="40.0" />
+                </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </HBox>
+        </children>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+    </VBox>
+    </StackPane>
+</AnchorPane>

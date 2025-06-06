@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="234.0" prefWidth="253.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="es.burgueses.presentacion.controladores.login.loginController">
+    <TextField fx:id="usernameField" promptText="Username" text="admin">
+      <padding>
+         <Insets left="10.0" right="10.0" />
+      </padding>
+      <VBox.margin>
+         <Insets left="10.0" right="10.0" />
+      </VBox.margin></TextField>
+    <PasswordField fx:id="passwordField" promptText="Password" text="1234">
+      <VBox.margin>
+         <Insets left="10.0" right="10.0" />
+      </VBox.margin>1
+      <padding>
+         <Insets left="10.0" right="10.0" />
+      </padding></PasswordField>
+    <Button onAction="#handleLogin" text="Login" />
+    <Label fx:id="errorLabel" textFill="red" />
+</VBox>

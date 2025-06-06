@@ -1,22 +1,25 @@
 package es.burgueses.aplicacion.cancion;
 
+import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ICancionesRepositorio;
+import es.burgueses.dominio.IFilesRepositorio;
 
 public class DeleteSongUserCase {
-    ICancionesRepositorio cancionesRepositorio;
+    private ICancionesRepositorio repository;
+    private IFilesRepositorio imagesRepository;
+    private IFilesRepositorio songsRepository;
 
-    public DeleteSongUserCase(ICancionesRepositorio cancionesRepositorio) {
-        this.cancionesRepositorio = cancionesRepositorio;
+    public DeleteSongUserCase(ICancionesRepositorio repository,
+                              IFilesRepositorio imagesRepository,
+                              IFilesRepositorio songsRepository) {
+        this.repository = repository;
+        this.imagesRepository = imagesRepository;
+        this.songsRepository = songsRepository;
     }
-    public void delete(String cancionId) {
-        try {
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El ID de la canción debe ser un número entero", e);
-        }
-        var cancion = cancionesRepositorio.findById(cancionId);
-        if (cancion == null) {
-            throw new IllegalArgumentException("No se encontró la canción con el ID proporcionado");
-        }
-        cancionesRepositorio.remove(cancion);
+
+    public void execute(Cancion item) {
+        imagesRepository.delete(item.getPath());
+        songsRepository.delete(item.getPath());
+        repository.remove(item);
     }
 }

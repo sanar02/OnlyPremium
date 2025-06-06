@@ -11,15 +11,15 @@ public class GetSongUserCase {
 
     public Cancion getSong(String cancionId) {
         try {
-           
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El ID de la canción debe ser un número entero", e);
+            java.util.UUID uuid = java.util.UUID.fromString(cancionId);
+            var cancion = cancionesRepositorio.findById(uuid);
+            if (cancion == null) {
+                throw new IllegalArgumentException("No se encontró la canción con el ID proporcionado");
+            }
+            return cancion;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("El ID de la canción debe ser un UUID válido", e);
         }
-        var cancion = cancionesRepositorio.findById(cancionId);
-        if (cancion == null) {
-            throw new IllegalArgumentException("No se encontró la canción con el ID proporcionado");
-        }
-        return cancion;
     }
     
 }

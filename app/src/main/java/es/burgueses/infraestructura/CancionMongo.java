@@ -15,6 +15,7 @@ import es.burgueses.dominio.Voto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -56,7 +57,7 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public void remove(Cancion cancion) {
-        collection.deleteOne(Filters.eq("_id", cancion.getIdCancion()));
+        collection.deleteOne(Filters.eq("_id", cancion.getId()));
     }
 
     @Override
@@ -71,7 +72,7 @@ public class CancionMongo implements ICancionesRepositorio {
 
     @Override
     public void update(Cancion cancion) {
-        collection.replaceOne(Filters.eq("_id", cancion.getIdCancion()), cancion, new ReplaceOptions().upsert(false));
+        collection.replaceOne(Filters.eq("_id", cancion.getId()), cancion, new ReplaceOptions().upsert(false));
     }
 
     @Override
@@ -106,8 +107,19 @@ public class CancionMongo implements ICancionesRepositorio {
         return new ArrayList<>();
     }
 
-    @Override
     public Cancion findById(String id) {
         return collection.find(Filters.eq("_id", id)).first();
+    }
+
+    @Override
+    public Cancion findById(UUID id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    @Override
+    public String replace(String string, UUID id, String path) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'replace'");
     }
 }

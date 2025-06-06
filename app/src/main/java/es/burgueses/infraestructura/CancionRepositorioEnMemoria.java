@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
 
@@ -80,13 +81,19 @@ public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
     }
 
     @Override
-    public Cancion findById(String id) {
+    public Cancion findById(UUID id) {
         for (Cancion c : canciones.values()) {
-            if (c.getIdCancion().equals(id)) {
+            if (c.getId().equals(id)) {
                 return c;
             }
         }
         return null;
+    }
+
+    @Override
+    public String replace(String string, UUID id, String path) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'replace'");
     }
 
 }
