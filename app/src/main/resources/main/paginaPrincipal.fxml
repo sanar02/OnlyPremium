@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="716.0" prefWidth="1172.0">
+         <left>
+            <VBox prefHeight="706.0" prefWidth="232.0" style="-fx-background-color: #2C2E3E;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="94.0" prefWidth="232.0">
+                     <children>
+                        <ImageView fitHeight="124.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #2C2E3E;" text="Home" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #2C2E3E;" text="Canciones" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" style="-fx-background-color: #2C2E3E;" text="Biblioteca" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="63.0" prefWidth="232.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #2C2E3E;" text="Ajustes" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="232.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #2C2E3E;" text="Salir" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane prefHeight="706.0" prefWidth="938.0" style="-fx-background-color: #1E1F29;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" layoutX="-2.0" prefHeight="56.0" prefWidth="945.0" spacing="2.0" AnchorPane.bottomAnchor="660.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField />
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="🔍" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="25.0" layoutY="95.0" prefHeight="55.0" prefWidth="909.0">
+                     <children>
+                        <Label text="Artistas populares" textFill="WHITE">
+                           <font>
+                              <Font name="Liberation Serif Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="358.0" prefHeight="57.0" prefWidth="920.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="231.0" text="Canciones populares" textFill="WHITE">
+                           <font>
+                              <Font name="Liberation Serif Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="158.0" prefHeight="186.0" prefWidth="941.0">
+                     <children>
+                        <VBox prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="147.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="196.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="382.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="568.0" layoutY="10.0" prefHeight="186.0" prefWidth="186.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="432.0" prefHeight="273.0" prefWidth="997.0">
+                     <children>
+                        <ImageView fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="28.0" prefWidth="303.0" text="nombre de la cancion" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="5.0" top="18.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ListView prefHeight="273.0" prefWidth="475.0" style="-fx-background-color: #1E1F29;" />
+                        <ListView prefHeight="273.0" prefWidth="521.0" style="-fx-background-color: #1E1F29;" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</Pane>
