@@ -3,6 +3,7 @@ package es.burgueses.presentacion.controladores.principal;
 import java.io.IOException;
 import java.util.Objects;
 
+import es.burgueses.presentacion.utils.AppViewmodel;
 import fr.brouillard.oss.cssfx.CSSFX;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
@@ -28,6 +29,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class PaginaPrincipalController extends Application{
+    private AppViewmodel appViewModel;
+
+    public void setAppViewModel(AppViewmodel appViewModel) {
+        this.appViewModel = appViewModel;
+    }
+
     @FXML
     public void initialize() {
         // Initialization code here if needed
