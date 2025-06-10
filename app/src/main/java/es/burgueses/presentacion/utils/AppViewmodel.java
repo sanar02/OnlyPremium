@@ -2,6 +2,8 @@ package es.burgueses.presentacion.utils;
 
 import java.util.UUID;
 
+import es.burgueses.dominio.IUsuarioRepositorio;
+import es.burgueses.dominio.Usuario;
 import es.burgueses.infraestructura.UsuarioMongo;
 import es.burgueses.dominio.Usuario;
 import es.burgueses.presentacion.controladores.configuracion.configuracionController;
@@ -11,8 +13,10 @@ public class AppViewmodel {
     // Add the user field (assuming JavaFX property, adjust type if needed)
     private javafx.beans.property.ObjectProperty<Usuario> user = new javafx.beans.property.SimpleObjectProperty<>();
 
-    public AppViewmodel(){
+    private IUsuarioRepositorio usuarioRepositorio; // Debes tener esto inicializado
 
+    public AppViewmodel(){
+        this.usuarioRepositorio = new UsuarioMongo(); // Asegúrate de que UsuarioMongo conecta a tu base de datos
     }
    public boolean isRoot(){
         return true; //user!=null && user.get()!=null && user.get().getId().equals(new UUID(0L, 0L));
