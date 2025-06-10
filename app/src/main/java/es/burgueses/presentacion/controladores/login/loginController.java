@@ -46,7 +46,6 @@ public class LoginController {
                 Parent root = loader.load();
                 Stage stage = new Stage();
        
-
                 stage.setScene(new Scene(root));
                 stage.show();
                 ((Stage) usernameField.getScene().getWindow()).close();

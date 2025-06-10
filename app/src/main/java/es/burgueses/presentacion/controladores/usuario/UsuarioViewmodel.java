@@ -18,115 +18,118 @@ public class UsuarioViewmodel {
     // listado observable
     private ListProperty<Usuario> usuarios;
     // casos de uso
-    private AddUserUserCase addUserUserCase;
-    private DeleteUserUserCase deleteUserUserCase;
-    private GetUserUserCase getUserUserCase;
-    private ModUserUserCase modUserUserCase;
+    private AddUserUserCase casoUsoAgregarUsuario;
+    private DeleteUserUserCase casoUsoEliminarUsuario;
+    private GetUserUserCase casoUsoObtenerUsuarios;
+    private ModUserUserCase casoUsoModificarUsuario;
     // usuario actual, para los borrados, altas y modificaciones
-    private SimpleObjectProperty<Usuario> current;
+    private SimpleObjectProperty<Usuario> actual;
 
-    public UsuarioViewmodel(AddUserUserCase addUserUserCase,
-                            DeleteUserUserCase deleteUserUserCase, GetUserUserCase getUserUserCase,
-                            ModUserUserCase modUserUserCase) {
-        this.addUserUserCase = addUserUserCase;
-        this.deleteUserUserCase = deleteUserUserCase;
-        this.getUserUserCase = getUserUserCase;
-        this.modUserUserCase = modUserUserCase;
+    public UsuarioViewmodel(AddUserUserCase casoUsoAgregarUsuario,
+                            DeleteUserUserCase casoUsoEliminarUsuario, GetUserUserCase casoUsoObtenerUsuarios,
+                            ModUserUserCase casoUsoModificarUsuario) {
+        this.casoUsoAgregarUsuario = casoUsoAgregarUsuario;
+        this.casoUsoEliminarUsuario = casoUsoEliminarUsuario;
+        this.casoUsoObtenerUsuarios = casoUsoObtenerUsuarios;
+        this.casoUsoModificarUsuario = casoUsoModificarUsuario;
 
         this.usuarios = new SimpleListProperty<>(FXCollections.observableArrayList());
-        this.current = new SimpleObjectProperty<>(new Usuario());
-        this.load();
+        this.actual = new SimpleObjectProperty<>(new Usuario());
+        this.cargar();
 
     }
 
-    public void load() {
-        if (this.getUserUserCase!= null) {
+    public void cargar() {
+        if (this.casoUsoObtenerUsuarios != null) {
             this.usuarios.clear();
-            this.usuarios.addAll(this.getUserUserCase.getAllUsers());
+            this.usuarios.addAll(this.casoUsoObtenerUsuarios.getAllUsers());
         } else
-            throw new NullPointerException("No se ha definido el caso de uso");
+            throw new NullPointerException("No se ha definido el caso de uso para obtener usuarios");
     }
 
-    public void reset() {
+    public void reiniciar() {
         this.usuarios.clear();
-        this.load();
+        this.cargar();
     }
 
-    public void addMecanico(Usuario item) throws NoSuchFieldException, IOException {
-        if (this.addUserUserCase != null) {
-            this.addUserUserCase.addUser(null, null, null, null, null);
-            this.usuarios.add(item);
+    public void addUsuario(Usuario usuario) throws NoSuchFieldException, IOException {
+        if (this.casoUsoAgregarUsuario != null) {
+            this.casoUsoAgregarUsuario.addUser(
+                usuario.getContrasena(),
+                usuario.getNombre(),
+                usuario.getApodo(),
+                usuario.getPathImagen(),
+                usuario.isActivo(),
+                usuario.getFechaAlta(),
+                usuario.getTipoUsuario()
+            );
+            this.usuarios.add(usuario);
         } else
-            throw new NullPointerException("Caso de uso para añadir nulo");
-
+            throw new NullPointerException("Caso de uso para añadir usuario nulo");
     }
 
-    public void removeMecanico(Usuario item) throws NoSuchFieldException, IOException {
-        if (this.deleteUserUserCase != null) {
-            this.deleteUserUserCase.delete(item);
-            this.usuarios.remove(item);
+    public void eliminarUsuario(Usuario usuario) throws NoSuchFieldException, IOException {
+        if (this.casoUsoEliminarUsuario != null) {
+            this.casoUsoEliminarUsuario.delete(usuario);
+            this.usuarios.remove(usuario);
         } else
-            throw new NullPointerException("Caso de uso para añadir nulo");
-
+            throw new NullPointerException("Caso de uso para eliminar usuario nulo");
     }
 
-    public ListProperty<Usuario> getMecanicosProperty() {
+    public ListProperty<Usuario> usuariosProperty() {
         return this.usuarios;
     }
 
-    public Usuario getCurrent() {
-        return this.current.get();
+    public Usuario getActual() {
+        return this.actual.get();
     }
 
-    public ObjectProperty<Usuario> currentProperty() {
-        return this.current;
+    public ObjectProperty<Usuario> actualProperty() {
+        return this.actual;
     }
 
-    public void setCurrent(Usuario item) {
-        this.current.set(item);
+    public void setActual(Usuario usuario) {
+        this.actual.set(usuario);
     }
 
-    public void clearCurrent() {
-        this.current.set(new Usuario());
+    public void limpiarActual() {
+        this.actual.set(new Usuario());
     }
 
     /**
-     * si el id es 0 significa que es nuevo
-     * 
-     * @throws NoSuchFieldException
-     * @throws IOException
+     * Guarda el usuario actual si es nuevo, o lo modifica si ya existe.
      */
-    public void saveCurrent() throws NoSuchFieldException, IOException {
-        if (this.current.get() != null && (this.current.get().getApodo() == null || this.current.get().getApodo().isEmpty())) {
-            // se actualiza en el reposotio, pero no en le viewmodel por tema de hilos
-            this.addMecanico(this.current.get());
-
+    public void guardarActual() throws NoSuchFieldException, IOException {
+        if (this.actual.get() != null && this.actual.get().getApodo() != null && !this.actual.get().getApodo().isEmpty()) {
+            // Añadir usuario nuevo
+            this.addUsuario(this.actual.get());
         } else {
             // para indicar que se ha actualizado
-            if (this.modUserUserCase != null) {
-                this.modUserUserCase.modificarUsuario(null, null, null, null);
+            if (this.casoUsoModificarUsuario != null) {
+                this.casoUsoModificarUsuario.modificarUsuario(null, null, null, null);
                 // se tiene que llamar a refresh de la lista
-                // para que las modificaciones se vean en los liststados
-                // la modificación de un objeto, no provoca la actualización de la lista
-                this.refesh();
+                // para que las modificaciones se vean en los listados
             } else
-                throw new NullPointerException("Caso de uso para modificar nulo");
+                throw new NullPointerException("Caso de uso para modificar usuario nulo");
         }
     }
 
-    public void setEmptyCurrent() {
-        this.current.set(new Usuario());
+    public void setActualVacio() {
+        this.actual.set(new Usuario());
     }
 
     /**
      * cuando se modifica un item de forma interna
      * se refresca la lista.
      */
-    public void refesh() {
-        this.current.set(new Usuario());
-        ObservableList<Usuario> oldList = FXCollections.observableArrayList(this.usuarios);
+    public void refrescar() {
+        this.actual.set(new Usuario());
+        ObservableList<Usuario> listaAntigua = FXCollections.observableArrayList(this.usuarios);
         this.usuarios.clear();
-        this.usuarios.addAll(oldList);
+        this.usuarios.addAll(listaAntigua);
     }
 
+    public AddUserUserCase getCasoUsoAgregarUsuario() {
+        return this.casoUsoAgregarUsuario;
+    }
 }

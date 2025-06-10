@@ -7,8 +7,14 @@ import es.burgueses.aplicacion.cancion.AddSongUseCase;
 import es.burgueses.aplicacion.cancion.DeleteSongUserCase;
 import es.burgueses.aplicacion.cancion.GetAllSongsUserCase;
 import es.burgueses.aplicacion.cancion.UpdateSongUserCase;
+import es.burgueses.aplicacion.usuario.AddUserUserCase;
+import es.burgueses.aplicacion.usuario.DeleteUserUserCase;
+import es.burgueses.aplicacion.usuario.GetUserUserCase;
+import es.burgueses.aplicacion.usuario.ModUserUserCase;
 import es.burgueses.dominio.ICancionesRepositorio;
 import es.burgueses.dominio.IFilesRepositorio;
+import es.burgueses.dominio.IUsuarioRepositorio;
+import es.burgueses.infraestructura.UsuarioMongo;
 import es.burgueses.infraestructura.files.LocalFilesRepository;
 import es.burgueses.infraestructura.files.SongRepositoryInFile;
 import es.burgueses.presentacion.controladores.cancion.CancionController;
@@ -16,6 +22,7 @@ import es.burgueses.presentacion.controladores.cancion.CancionViewmodel;
 import es.burgueses.presentacion.controladores.login.LoginController;
 import es.burgueses.presentacion.controladores.navegacion.AWindows;
 import es.burgueses.presentacion.controladores.navegacion.Router;
+import es.burgueses.presentacion.controladores.usuario.UsuarioViewmodel;
 import es.burgueses.presentacion.utils.AppViewmodel;
 import es.burgueses.presentacion.utils.Configuracion;
 import es.burgueses.presentacion.utils.ReproductorViewmodel;
@@ -61,6 +68,7 @@ public class PaginaPrincipalController {
     private CancionViewmodel cancionViewmodel;
     private AppViewmodel appViewModel;
     private ReproductorViewmodel reproductorViewModel;
+    private UsuarioViewmodel usuarioViewmodel;
     // varios
     private VBox listaOpciones;
     private Router router;
@@ -99,7 +107,7 @@ public class PaginaPrincipalController {
          * this.songsFilesRepository = new LocalFilesRepository(c.getSongsPath());
          */
         this.filesRepository = new LocalFilesRepository("imagenes");
-        this.songsRepository = new SongRepositoryInFile("canciones.json");
+        this.songsRepository = new es.burgueses.infraestructura.CancionMongo();
         this.songsFilesRepository = new LocalFilesRepository("canciones");
     }
 
@@ -124,9 +132,19 @@ public class PaginaPrincipalController {
         this.reproductorViewModel = new ReproductorViewmodel();
     }
 
+    private void initUserViewModel() {
+        IUsuarioRepositorio usuarioRepo = new UsuarioMongo(); // Ajusta si tu constructor necesita parámetros
+        AddUserUserCase addUser = new AddUserUserCase(usuarioRepo);
+        DeleteUserUserCase delUser = new DeleteUserUserCase(usuarioRepo);
+        GetUserUserCase getUser = new GetUserUserCase(usuarioRepo);
+        ModUserUserCase modUser = new ModUserUserCase(usuarioRepo);
+
+        this.usuarioViewmodel = new UsuarioViewmodel(addUser, delUser, getUser, modUser);
+    }
+
     private void initHome() {
         JFXButton homeButton = new JFXButton("Home");
-        FontIcon icon = new FontIcon("fa-home"); // Usando Ikonli: https://kordamp.org/ikonli/
+        FontIcon icon = new FontIcon("fa-home");
         icon.setIconSize(18);
 
         homeButton.setGraphic(icon);
@@ -135,7 +153,7 @@ public class PaginaPrincipalController {
         homeButton.setAlignment(Pos.CENTER_LEFT);
         VBox.setMargin(homeButton, new Insets(10, 10, 10, 10));
         homeButton.setOnMouseClicked(mouseEvent -> {
-            this.router.clear();
+            this.router.push("home"); // <--- CAMBIA clear() por push("home")
         });
         this.listaOpciones.getChildren().add(homeButton);
 
@@ -253,6 +271,60 @@ public class PaginaPrincipalController {
         });
     }
 
+    private void initUsuariosForm() {
+        JFXButton button = new JFXButton("Usuarios");
+        FontIcon icon = new FontIcon("fa-user-plus");
+        icon.setIconSize(18);
+
+        button.setGraphic(icon);
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setAlignment(Pos.CENTER_LEFT);
+        VBox.setMargin(button, new Insets(10, 10, 10, 10));
+
+        this.listaOpciones.getChildren().add(button);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Usuarios/Usuario.fxml"));
+        this.router.add("usuarios", loader);
+        try {
+            loader.load();
+            es.burgueses.presentacion.controladores.usuario.UsuarioController uc = loader.getController();
+            uc.setViewModel(this.usuarioViewmodel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        button.setOnMouseClicked(mouseEvent -> {
+            FXMLLoader usuariosLoader = this.router.get("usuarios");
+            if (usuariosLoader != null) {
+                try {
+                    // Si no está cargado, lo cargas y le pasas el viewmodel
+                    if (usuariosLoader.getController() == null) {
+                        usuariosLoader.load();
+                    }
+                    es.burgueses.presentacion.controladores.usuario.UsuarioController uc = usuariosLoader.getController();
+                    uc.setViewModel(this.usuarioViewmodel); 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            this.router.push("usuarios");
+        });
+    }
+
+    private void initHomeForm() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/principal/Home.fxml"));
+        this.router.add("home", loader);
+        try {
+            Parent root = loader.load();
+            // Inyecta el caso de uso en el controlador
+            MainController mainController = loader.getController();
+            mainController.setGetAllSongsUserCase(this.listAllSongsUseCase);
+            // Si tienes más dependencias, inyecta aquí
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void configRouter() {
         this.router = new Router();
         this.router.setMain(this.contentPane);
@@ -264,14 +336,13 @@ public class PaginaPrincipalController {
 
     public void setAppViewModel(AppViewmodel appViewModel) {
         this.appViewModel = appViewModel;
-        // this.initRepositories();
-        // this.initUseCases();
-
-        // this.initViewModels();
+        this.initRepositories();
+        this.initUseCases();
+        this.initHomeForm();
         this.initHome();
+        this.initUsuariosForm(); 
         // this.initSongsList();
         // this.initSongForm();
-
         // this.initConfig();
         this.initExit();
 

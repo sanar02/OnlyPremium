@@ -89,7 +89,6 @@ public class Cancion {
         if (generos == null || generos.isEmpty()) {
             throw new IllegalArgumentException("La lista de géneros no puede estar vacía");
         }
-
         for (String g : generos) {
             try {
                 Genero.valueOf(g);
@@ -97,10 +96,6 @@ public class Cancion {
                 throw new IllegalArgumentException("El género '" + g + "' no es válido");
             }
         }
-        // El género no puede estar escrito en minúsculas
-        if (generos.stream().anyMatch(g -> g.chars().anyMatch(Character::isLowerCase))) {
-                throw new IllegalArgumentException("Los géneros deben estar en mayúsculas");
-            }
             this.generos = generos;
         }
 
