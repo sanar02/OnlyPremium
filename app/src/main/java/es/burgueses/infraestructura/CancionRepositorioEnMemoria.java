@@ -96,4 +96,10 @@ public class CancionRepositorioEnMemoria implements ICancionesRepositorio {
         throw new UnsupportedOperationException("Unimplemented method 'replace'");
     }
 
+    @Override
+    public void close() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'close'");
+    }
+
 }

@@ -31,10 +31,10 @@ public class CancionRepositorioEnMemoriaTest {
         Cancion c = new Cancion();
         c.setTitulo(titulo);
         c.setDescripcion("descripcion2");
-        c.setIdCancion(UUID.randomUUID().toString());
+        c.setId(UUID.randomUUID());
         ic.add(c);
 
-        Cancion c2 = ic.findById(c.getIdCancion());
+        Cancion c2 = ic.findById(c.getId());
         assertNotNull(c2);
         assertEquals(titulo, c2.getTitulo());
     }
@@ -60,10 +60,10 @@ public class CancionRepositorioEnMemoriaTest {
     @Test
     public void testFindById() {
         Cancion c = ic.findAll().get(0);
-        assertNotNull(ic.findById(c.getIdCancion()));
-        assertEquals("titulo", ic.findById(c.getIdCancion()).getTitulo());
+        assertNotNull(ic.findById(c.getId()));
+        assertEquals("titulo", ic.findById(c.getId()).getTitulo());
 
-        assertNull(ic.findById(UUID.randomUUID().toString()));
+        assertNull(ic.findById(UUID.randomUUID()));
     }
 
     @Test

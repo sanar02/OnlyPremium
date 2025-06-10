@@ -10,11 +10,10 @@ public interface ICancionesRepositorio {
     public Cancion findById(UUID id);
     public List<Cancion> findAll();
     public void update(Cancion cancion);
-    
-    // Métodos adicionales para manejar votos
     public void addVotoMeGusta(String titulo, Voto voto);
     public void addVotoNoMeGusta(String titulo, Voto voto);
     public List<Voto> getVotosMeGusta(String titulo);
     public List<Voto> getVotosNoMeGusta(String titulo);
     public String replace(String string, UUID id, String path);
+    public void close();
 }

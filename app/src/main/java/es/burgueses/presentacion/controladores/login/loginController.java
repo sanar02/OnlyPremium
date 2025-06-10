@@ -9,13 +9,19 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-public class loginController {
+public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
+
     private AppViewmodel appViewModel;
+
+    public void setAppViewmodel(AppViewmodel appViewModel) {
+        this.appViewModel = appViewModel;
+    }
+
     @FXML
-    public void handleLogin() {
+    private void handleLogin() {
         String user = usernameField.getText();
         String pass = passwordField.getText();
         if(appViewModel!=null) {
@@ -26,7 +32,8 @@ public class loginController {
                     Parent root = loader.load();
                     PaginaPrincipalController pc=loader.getController();
                     //se le pasa el viewmodel
-                   // pc.setAppViewModel(appViewModel);
+                    
+                    pc.setAppViewModel(appViewModel);
                     Stage stage = new Stage();
                     stage.setTitle("SpotyDAM");
                     // stage.setMaximized(true);
@@ -43,12 +50,4 @@ public class loginController {
             }
         }
     }
-
- /*  public AppViewModel getAppViewModel() {
-        return appViewModel;
-    }
-
-    public void setAppViewModel(AppViewModel appViewModel) {
-        this.appViewModel = appViewModel;
-    }*/
 }

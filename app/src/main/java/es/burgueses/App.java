@@ -3,6 +3,7 @@
  */
 package es.burgueses;
 
+import es.burgueses.presentacion.utils.AppViewmodel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +19,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        primaryStage.setTitle("Mi aplicación JavaFX");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/principal/paginaPrincipal.fxml"));
+       //   Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+    
+       
+        primaryStage.setTitle("OnlyPremium");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
