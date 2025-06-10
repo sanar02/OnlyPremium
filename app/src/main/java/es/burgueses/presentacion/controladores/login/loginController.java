@@ -11,11 +11,20 @@ import javafx.scene.Parent;
 import es.burgueses.presentacion.controladores.principal.PaginaPrincipalController;
 import es.burgueses.presentacion.utils.AppViewmodel;
 
-public class loginController {
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label errorLabel;
+public class LoginController {
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label errorLabel;
+
     private AppViewmodel appViewModel;
+
+    public void setAppViewmodel(AppViewmodel appViewModel) {
+        this.appViewModel = appViewModel;
+    }
+
     @FXML
     public void handleLogin() {
         System.out.println("Intentando login");
@@ -36,7 +45,8 @@ public class loginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/principal/paginaPrincipal.fxml"));
                 Parent root = loader.load();
                 Stage stage = new Stage();
-                stage.setTitle("SpotyDAM");
+       
+
                 stage.setScene(new Scene(root));
                 stage.show();
                 ((Stage) usernameField.getScene().getWindow()).close();

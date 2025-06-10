@@ -122,4 +122,11 @@ public class CancionMongo implements ICancionesRepositorio {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'replace'");
     }
+
+    @Override
+    public void close() {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+    }
 }

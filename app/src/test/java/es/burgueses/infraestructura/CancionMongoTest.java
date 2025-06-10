@@ -44,9 +44,9 @@ public class CancionMongoTest {
         repo.add(cancion);
         Cancion foundByTitulo = repo.findByTitulo("TestSong");
         assertNotNull(foundByTitulo);
-        Cancion foundById = repo.findById(foundByTitulo.getIdCancion());
+        Cancion foundById = repo.findById(foundByTitulo.getId());
         assertNotNull(foundById);
-        assertEquals(foundByTitulo.getIdCancion(), foundById.getIdCancion());
+        assertEquals(foundByTitulo.getId(), foundById.getId());
     }
 
     @Test

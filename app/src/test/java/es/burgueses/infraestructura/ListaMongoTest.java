@@ -2,7 +2,6 @@ package es.burgueses.infraestructura;
 
 import es.burgueses.dominio.Cancion;
 import es.burgueses.dominio.ListaReproduccion;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +37,7 @@ public class ListaMongoTest {
         lista.setPropietario(propietario);
 
         cancion = new Cancion();
-        cancion.setIdCancion(UUID.randomUUID().toString());
+        cancion.setId(UUID.randomUUID());
         cancion.setTitulo("CancionTest");
         cancion.setDescripcion("Canción de prueba");
         cancion.setAutor("AutorTest");

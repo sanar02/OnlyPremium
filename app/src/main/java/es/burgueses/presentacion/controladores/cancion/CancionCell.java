@@ -42,10 +42,10 @@ public class CancionCell extends GridCell<Cancion>{
         vbox.setSpacing(10);
         setAlignment(Pos.TOP_CENTER);
         setPrefWidth(200);
-        setStyle("-fx-background-color: #ffffff;");
-        vbox.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY,
+        setStyle("-fx-background-color:rgb(95, 16, 86);");
+        vbox.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, new CornerRadii(10), new BorderWidths(1))));
-        vbox.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), Insets.EMPTY)));
+        vbox.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(10), Insets.EMPTY)));
 
         // Imagen
         imageView = new ImageView(new Image(getClass().getResourceAsStream("/images/No_image.png"), 1120, 120, true, true));
@@ -163,7 +163,7 @@ public class CancionCell extends GridCell<Cancion>{
         } else {
 
 
-            this.vbox.setStyle("-fx-border-color: #eeeeee;-fx-border-radius: 5;-fx-border-insets: 5;-fx-border-width: 3;-fx-padding: 10 10 10 10;");//"-fx-border-style: dashed;");
+            this.vbox.setStyle("-fx-border-color:rgb(95, 16, 86);-fx-border-radius: 5;-fx-border-insets: 5;-fx-border-width: 3;-fx-padding: 10 10 10 10;");//"-fx-border-style: dashed;");
             vbox.setAlignment(Pos.CENTER);
             this.descLabel.setText(item.getAutor());
             this.titleLabel.setFont(Font.font("Segoe UI Emoji", 16));

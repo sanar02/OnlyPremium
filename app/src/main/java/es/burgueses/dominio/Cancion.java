@@ -27,6 +27,10 @@ public class Cancion {
     private List<Voto> meGusta;
     private List<Voto> noMeGusta;
     private UUID id;
+    private String pathImage;
+    private boolean isPublic;
+    private String author;
+    private String description;
 
     // Constructores
     public Cancion() {
@@ -236,6 +240,11 @@ public class Cancion {
 
     }
 
+    public void setPathImage(String pathImage) { this.pathImage = pathImage; }
+    public void setDescription(String description) { this.description = description; }
+    public void setPublic(boolean isPublic) { this.isPublic = isPublic; }
+    public void setAuthor(String author) { this.author = author; }
+
     @Override
     public String toString() {
         return "Cancion{" +
@@ -254,25 +263,7 @@ public class Cancion {
     }
 
 
-    public void setDescription(String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
-    }
 
-    public void setPathImage(String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPathImage'");
-    }
-
-    public void setPublic(boolean selected) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPublic'");
-    }
-
-    public void setAuthor(String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setAuthor'");
-    }
     public UUID getId() {
         return id;
     }
@@ -280,6 +271,7 @@ public class Cancion {
     public void setId(UUID id) {
         this.id = id;
     }
+
 
     }
 

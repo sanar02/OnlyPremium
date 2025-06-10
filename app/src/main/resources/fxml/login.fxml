@@ -8,25 +8,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="es.burgueses.presentacion.controladores.login.loginController">
-   <VBox alignment="CENTER" prefHeight="234.0" prefWidth="253.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-      <TextField fx:id="usernameField" promptText="Username">
-         <padding>
-            <Insets left="10.0" right="10.0"/>
-         </padding>
-         <VBox.margin>
-            <Insets left="10.0" right="10.0"/>
-         </VBox.margin>
-      </TextField>
-      <PasswordField fx:id="passwordField" promptText="Password">
-         <VBox.margin>
-            <Insets left="10.0" right="10.0"/>
-         </VBox.margin>
-         <padding>
-            <Insets left="10.0" right="10.0"/>
-         </padding>
-      </PasswordField>
-      <Button text="Login" onAction="#handleLogin"/>
-      <Label fx:id="errorLabel" textFill="red"/>
-   </VBox>
-</AnchorPane>
+<VBox alignment="CENTER" prefHeight="234.0" prefWidth="253.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="es.burgueses.presentacion.controladores.login.LoginController">
+    <TextField fx:id="usernameField" promptText="Username" text="admin">
+      <padding>
+         <Insets left="10.0" right="10.0" />
+      </padding>
+      <VBox.margin>
+         <Insets left="10.0" right="10.0" />
+      </VBox.margin></TextField>
+    <PasswordField fx:id="passwordField" promptText="Password" text="1234">
+      <VBox.margin>
+         <Insets left="10.0" right="10.0" />
+      </VBox.margin>1
+      <padding>
+         <Insets left="10.0" right="10.0" />
+      </padding></PasswordField>
+    <Button onAction="#handleLogin" text="Login" />
+    <Label fx:id="errorLabel" textFill="red" />
+</VBox>
