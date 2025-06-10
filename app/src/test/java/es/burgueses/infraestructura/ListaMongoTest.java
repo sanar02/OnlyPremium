@@ -18,26 +18,6 @@ public class ListaMongoTest {
         repo = new ListaMongo();
     }
 
-    //    @Before
-//    public void cleanUp() {
-//        // crea un usuario administrador para las pruebas y eliminar las listas existentes
-//        Usuario admin = new Usuario();
-//        admin.setApodo("admin");
-//        admin.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
-//
-//        // Elimina todas las listas antes de cada test
-//        for (ListaReproduccion l : repo.findAll()) {
-//            repo.remove(l, admin);
-//        }
-//        lista = new ListaReproduccion();
-//        lista.setIdLista("TestLista");
-//        lista.setNombre("Lista de Prueba");
-//        lista.setDescripcion("Descripción de prueba");
-//        Usuario propietario = new Usuario();
-//        propietario.setApodo("user");
-//        propietario.setTipoUsuario(Usuario.TipoUsuario.USUARIO);
-//        lista.setPropietario(propietario);
-//    }
     @Before
     public void cleanUp() {
         repo.deleteAll();
